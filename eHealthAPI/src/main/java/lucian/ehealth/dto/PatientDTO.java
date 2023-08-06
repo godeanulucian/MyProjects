@@ -1,14 +1,17 @@
 package lucian.ehealth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.ElementCollection;
 import lucian.ehealth.entities.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PatientDTO {
-    public Integer patientID;
+    private Long patientID;
     public String fullName;
     public LocalDate dateOfBirth;
     public String gender;
@@ -23,6 +26,10 @@ public class PatientDTO {
     public Double weight;
     public String language;
     public String primaryCarePhysician;
+    @ElementCollection
+    public List<String> allergies; // List of allergies the patient may have
+    @ElementCollection
+    public List<String> medications; // List of current medications taken by the patient
     public NextOfKin nextOfKin; // name, birth, gender, blood type, relation status, contact info, language
     public LabTest labTest; // id, name, patient name, type, date, result, technician, location, comments
     public Prescription prescription; // id, name, date, patient name, doctor name, medication, refills, pharmacy, instructions
@@ -48,6 +55,8 @@ public class PatientDTO {
                 ", weight=" + weight +
                 ", language='" + language + '\'' +
                 ", primaryCarePhysician='" + primaryCarePhysician + '\'' +
+                ", allergies=" + allergies +
+                ", medications=" + medications +
                 ", nextOfKin=" + nextOfKin +
                 ", labTest=" + labTest +
                 ", prescription=" + prescription +
@@ -59,12 +68,12 @@ public class PatientDTO {
 
     public PatientDTO() {}
 
-    public PatientDTO(Integer patientID, String fullName, LocalDate dateOfBirth, String gender) {
+    /*public PatientDTO(Long patientID, String fullName, LocalDate dateOfBirth, String gender) {
         this.patientID = patientID;
         this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
-    }
+    }*/
 
     public PatientDTO(Patient patient) {
         patientID = patient.getPatientID();
@@ -82,19 +91,21 @@ public class PatientDTO {
         weight = patient.getWeight();
         language = patient.getLanguage();
         primaryCarePhysician = patient.getPrimaryCarePhysician();
-        nextOfKin = patient.getNextOfKin();
+        allergies = patient.getAllergies();
+        medications = patient.getMedications();
+        /*nextOfKin = patient.getNextOfKin();
         labTest = patient.getLabTest();
         prescription = patient.getPrescription();
         appointment = patient.getAppointment();
-        payment = patient.getPayment();
+        payment = patient.getPayment();*/
         this.returnCode = getReturnCode();
     }
 
-    public Integer getPatientID() {
+    public Long getPatientID() {
         return patientID;
     }
 
-    public void setPatientID(Integer patientID) {
+    public void setPatientID(Long patientID) {
         this.patientID = patientID;
     }
 
@@ -208,6 +219,22 @@ public class PatientDTO {
 
     public void setPrimaryCarePhysician(String primaryCarePhysician) {
         this.primaryCarePhysician = primaryCarePhysician;
+    }
+
+    public List<String> getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(List<String> allergies) {
+        this.allergies = allergies;
+    }
+
+    public List<String> getMedications() {
+        return medications;
+    }
+
+    public void setMedications(List<String> medications) {
+        this.medications = medications;
     }
 
     public NextOfKin getNextOfKin() {

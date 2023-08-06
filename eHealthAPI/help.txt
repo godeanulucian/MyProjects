@@ -4,5 +4,5 @@ w10:
 
 vm1:
     dev, dev
-    db: dev, dev
+    db: app, password
     ip: 192.168.56.104
