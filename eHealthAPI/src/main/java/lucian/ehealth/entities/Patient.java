@@ -3,13 +3,13 @@ package lucian.ehealth.entities;
 import jakarta.persistence.*;
 import lucian.ehealth.dto.PatientDTO;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "PATIENTS")
 public class Patient {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    // @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long patientID;
     @Column(unique=true)
     public String fullName;
@@ -21,22 +21,25 @@ public class Patient {
     public String address;
     @OneToOne // relationship type between classes, useful for another table to be created
     // @Embedded // indicate that your custom class should be embedded in the entity and stored as part of its table.
-    public InsuranceInformation insuranceInformation; // Insurance Company: XYZ Insurance Company, Policy Number: 123456789, Policy Holder: John Doe (patient's name)
+    public InsuranceInformation insuranceInformation;
     public String emergencyContact;
     public String bloodType;
     public Double height;
     public Double weight;
     public String language;
     public String primaryCarePhysician;
-    @ElementCollection
-    public List<String> allergies; // List of allergies the patient may have
-    @ElementCollection
-    public List<String> medications; // List of current medications taken by the patient
-    /*public NextOfKin nextOfKin; // name, birth, gender, blood type, relation status, contact info, language
+    public String allergies; // List of allergies the patient may have
+    public String medications; // List of current medications taken by the patient
+    @OneToOne
+    public NextOfKin nextOfKin; // id, name, birth, gender, blood type, relation status, contact info, language
+    @OneToOne
     public LabTest labTest; // id, name, patient name, type, date, result, technician, location, comments
+    @OneToOne
     public Prescription prescription; // id, name, date, patient name, doctor name, medication, refills, pharmacy, instructions
+    @OneToOne
     public Appointment appointment; // id, date, time, patient name, doctor name, type, status, reason, lcoation, notes
-    private Payment payment;*/ // (transactions) id, timestamp, patient name, amount, status, description
+    @OneToOne
+    private Payment payment; // (transactions) id, timestamp, patient name, amount, status, description
 
     @Override
     public String toString() {
@@ -58,11 +61,11 @@ public class Patient {
                 ", primaryCarePhysician='" + primaryCarePhysician + '\'' +
                 ", allergies=" + allergies +
                 ", medications=" + medications +
-                /*", nextOfKin=" + nextOfKin +
+                ", nextOfKin=" + nextOfKin +
                 ", labTest=" + labTest +
                 ", prescription=" + prescription +
                 ", appointment=" + appointment +
-                ", payment=" + payment*/ +
+                ", payment=" + payment +
                 '}';
     }
 
@@ -86,11 +89,11 @@ public class Patient {
         primaryCarePhysician = patientDTO.getPrimaryCarePhysician();
         allergies = patientDTO.getAllergies();
         medications = patientDTO.getMedications();
-        /*nextOfKin = patientDTO.getNextOfKin();
+        nextOfKin = patientDTO.getNextOfKin();
         labTest = patientDTO.getLabTest();
         prescription = patientDTO.getPrescription();
         appointment = patientDTO.getAppointment();
-        payment = patientDTO.getPayment();*/
+        payment = patientDTO.getPayment();
     }
 
     public Long getPatientID() {
@@ -213,23 +216,23 @@ public class Patient {
         this.primaryCarePhysician = primaryCarePhysician;
     }
 
-    public List<String> getAllergies() {
+    public String getAllergies() {
         return allergies;
     }
 
-    public void setAllergies(List<String> allergies) {
+    public void setAllergies(String allergies) {
         this.allergies = allergies;
     }
 
-    public List<String> getMedications() {
+    public String getMedications() {
         return medications;
     }
 
-    public void setMedications(List<String> medications) {
+    public void setMedications(String medications) {
         this.medications = medications;
     }
 
-   /* public NextOfKin getNextOfKin() {
+    public NextOfKin getNextOfKin() {
         return nextOfKin;
     }
 
@@ -267,7 +270,7 @@ public class Patient {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
-    }*/
+    }
 }
 
 

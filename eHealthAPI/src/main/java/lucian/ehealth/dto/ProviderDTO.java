@@ -1,15 +1,16 @@
-package lucian.ehealth.entities;
+package lucian.ehealth.dto;
 
-import jakarta.persistence.*;
-import lucian.ehealth.dto.ProviderDTO;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lucian.ehealth.entities.Appointment;
+import lucian.ehealth.entities.Payment;
+import lucian.ehealth.entities.PharmacyInventory;
+import lucian.ehealth.entities.Provider;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
-@Entity
-@Table(name = "PROVIDERS")
-public class Provider {
+@Component
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ProviderDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long providerID; // Unique identifier for the health provider
     public String fullName; // Name of the health provider
     public String specialization; // The area of medical specialization (e.g., General Practitioner, Cardiologist)
@@ -21,36 +22,36 @@ public class Provider {
     public double averageRating; // Average rating based on patient feedback
     public boolean acceptsInsurance; // Indicates if the health provider accepts insurance
     public String acceptedInsurancePlans; // List of accepted insurance plans
-    @OneToOne
     private PharmacyInventory pharmacyInventory;
     public boolean isAvailable;
-    @OneToOne
     public Appointment appointment;
-    @OneToOne
     private Payment payment;
+    private String returnCode;
 
-    public Provider() {}
-    public Provider(ProviderDTO providerDTO) {
-        providerID = providerDTO.getproviderID();
-        fullName = providerDTO.getFullName();
-        specialization = providerDTO.getSpecialization();
-        address = providerDTO.getAddress();
-        contactInformation = providerDTO.getContactInformation();
-        services = providerDTO.getServices();
-        licenseNumber = providerDTO.getLicenseNumber();
-        language = providerDTO.getLanguage();
-        averageRating = providerDTO.getAverageRating();
-        acceptsInsurance = providerDTO.isAcceptsInsurance();
-        acceptedInsurancePlans = providerDTO.getAcceptedInsurancePlans();
-        pharmacyInventory = providerDTO.getPharmacyInventory();
-        isAvailable = providerDTO.isAvailable;
-        appointment = providerDTO.getAppointment();
-        payment = providerDTO.getPayment();
+    public ProviderDTO() {}
+
+    public ProviderDTO(Provider provider) {
+        providerID = provider.getproviderID();
+        fullName = provider.getFullName();
+        specialization = provider.getSpecialization();
+        address = provider.getAddress();
+        contactInformation = provider.getContactInformation();
+        services = provider.getServices();
+        licenseNumber = provider.getLicenseNumber();
+        language = provider.getLanguage();
+        averageRating = provider.getAverageRating();
+        acceptsInsurance = provider.isAcceptsInsurance();
+        acceptedInsurancePlans = provider.getAcceptedInsurancePlans();
+        pharmacyInventory = provider.getPharmacyInventory();
+        isAvailable = provider.isAvailable;
+        appointment = provider.getAppointment();
+        payment = provider.getPayment();
+        this.returnCode = getReturnCode();
     }
 
     @Override
     public String toString() {
-        return "Provider{" +
+        return "ProviderDTO{" +
                 "providerID=" + providerID +
                 ", fullName='" + fullName + '\'' +
                 ", specialization='" + specialization + '\'' +
@@ -66,6 +67,7 @@ public class Provider {
                 ", isAvailable=" + isAvailable +
                 ", appointment=" + appointment +
                 ", payment=" + payment +
+                ", returnCode='" + returnCode + '\'' +
                 '}';
     }
 
@@ -187,5 +189,13 @@ public class Provider {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public String getReturnCode() {
+        return returnCode;
+    }
+
+    public void setReturnCode(String returnCode) {
+        this.returnCode = returnCode;
     }
 }

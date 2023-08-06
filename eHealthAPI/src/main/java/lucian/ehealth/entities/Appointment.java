@@ -11,7 +11,7 @@ import java.time.LocalTime;
 public class Appointment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long appointmentID;
     public LocalDate date; // yyyy-mm-dd
     public LocalTime time; // hh:mm:ss

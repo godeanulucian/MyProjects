@@ -1,14 +1,13 @@
-package lucian.ehealth.entities;
+package lucian.ehealth.dto;
 
-import jakarta.persistence.*;
-import lucian.ehealth.dto.UserDTO;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lucian.ehealth.entities.User;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-@Entity
-@Table(name = "USERS")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Component
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class UserDTO {
     private Long userID;
     public String username;
     private String password;
@@ -19,25 +18,28 @@ public class User {
     public String gender;
     public String address;
     public boolean isDoctor;
+    private String returnCode;
 
-    public User() {}
-    public User(UserDTO userDTO) {
-        userID = userDTO.getUserID();
-        username = userDTO.getUsername();
-        password = userDTO.getPassword();
-        email = userDTO.getPassword();
-        contactInformation = userDTO.getContactInformation();
-        fullName = userDTO.getFullName();
-        dateOfBirth = userDTO.getDateOfBirth();
-        gender = userDTO.getGender();
-        address = userDTO.getAddress();
-        isDoctor = userDTO.isDoctor();
+    public UserDTO() {}
+
+    public UserDTO(User user) {
+        userID = user.getUserID();
+        username = user.getUsername();
+        password = user.getPassword();
+        email = user.getPassword();
+        contactInformation = user.getContactInformation();
+        fullName = user.getFullName();
+        dateOfBirth = user.getDateOfBirth();
+        gender = user.getGender();
+        address = user.getAddress();
+        isDoctor = user.isDoctor();
+        this.returnCode = getReturnCode();
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + userID +
+        return "UserDTO{" +
+                "userID=" + userID +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
@@ -47,6 +49,7 @@ public class User {
                 ", gender='" + gender + '\'' +
                 ", address='" + address + '\'' +
                 ", isDoctor=" + isDoctor +
+                ", returnCode='" + returnCode + '\'' +
                 '}';
     }
 
@@ -128,5 +131,13 @@ public class User {
 
     public void setDoctor(boolean doctor) {
         isDoctor = doctor;
+    }
+
+    public String getReturnCode() {
+        return returnCode;
+    }
+
+    public void setReturnCode(String returnCode) {
+        this.returnCode = returnCode;
     }
 }

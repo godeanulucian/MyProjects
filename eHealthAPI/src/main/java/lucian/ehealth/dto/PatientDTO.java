@@ -1,12 +1,10 @@
 package lucian.ehealth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.ElementCollection;
 import lucian.ehealth.entities.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -26,10 +24,8 @@ public class PatientDTO {
     public Double weight;
     public String language;
     public String primaryCarePhysician;
-    @ElementCollection
-    public List<String> allergies; // List of allergies the patient may have
-    @ElementCollection
-    public List<String> medications; // List of current medications taken by the patient
+    public String allergies; // List of allergies the patient may have
+    public String medications; // List of current medications taken by the patient
     public NextOfKin nextOfKin; // name, birth, gender, blood type, relation status, contact info, language
     public LabTest labTest; // id, name, patient name, type, date, result, technician, location, comments
     public Prescription prescription; // id, name, date, patient name, doctor name, medication, refills, pharmacy, instructions
@@ -68,13 +64,6 @@ public class PatientDTO {
 
     public PatientDTO() {}
 
-    /*public PatientDTO(Long patientID, String fullName, LocalDate dateOfBirth, String gender) {
-        this.patientID = patientID;
-        this.fullName = fullName;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
-    }*/
-
     public PatientDTO(Patient patient) {
         patientID = patient.getPatientID();
         fullName = patient.getFullName();
@@ -93,11 +82,11 @@ public class PatientDTO {
         primaryCarePhysician = patient.getPrimaryCarePhysician();
         allergies = patient.getAllergies();
         medications = patient.getMedications();
-        /*nextOfKin = patient.getNextOfKin();
+        nextOfKin = patient.getNextOfKin();
         labTest = patient.getLabTest();
         prescription = patient.getPrescription();
         appointment = patient.getAppointment();
-        payment = patient.getPayment();*/
+        payment = patient.getPayment();
         this.returnCode = getReturnCode();
     }
 
@@ -221,19 +210,19 @@ public class PatientDTO {
         this.primaryCarePhysician = primaryCarePhysician;
     }
 
-    public List<String> getAllergies() {
+    public String getAllergies() {
         return allergies;
     }
 
-    public void setAllergies(List<String> allergies) {
+    public void setAllergies(String allergies) {
         this.allergies = allergies;
     }
 
-    public List<String> getMedications() {
+    public String getMedications() {
         return medications;
     }
 
-    public void setMedications(List<String> medications) {
+    public void setMedications(String medications) {
         this.medications = medications;
     }
 
