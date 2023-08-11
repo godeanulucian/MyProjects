@@ -12,10 +12,12 @@ import org.springframework.stereotype.Component;
 public class ProviderDTO {
 
     private Long providerID; // Unique identifier for the health provider
+
     public String fullName; // Name of the health provider
     public String specialization; // The area of medical specialization (e.g., General Practitioner, Cardiologist)
     public String address; // Address of the health provider's clinic or hospital
     public String contactInformation; // Contact number to reach the health provider
+
     public String services; // List of medical services offered by the health provider
     public String licenseNumber; // License number of the health provider
     public String language; // List of languages spoken by the health provider
@@ -23,15 +25,43 @@ public class ProviderDTO {
     public boolean acceptsInsurance; // Indicates if the health provider accepts insurance
     public String acceptedInsurancePlans; // List of accepted insurance plans
     private PharmacyInventory pharmacyInventory;
+    public boolean hasPharmacyInventory;
     public boolean isAvailable;
     public Appointment appointment;
+    public boolean hasAppointment;
     private Payment payment;
+    private boolean hasPayment;
     private String returnCode;
+
+    @Override
+    public String toString() {
+        return "ProviderDTO{" +
+                "providerID=" + providerID +
+                ", fullName='" + fullName + '\'' +
+                ", specialization='" + specialization + '\'' +
+                ", address='" + address + '\'' +
+                ", contactInformation='" + contactInformation + '\'' +
+                ", services='" + services + '\'' +
+                ", licenseNumber='" + licenseNumber + '\'' +
+                ", language='" + language + '\'' +
+                ", averageRating=" + averageRating +
+                ", acceptsInsurance=" + acceptsInsurance +
+                ", acceptedInsurancePlans='" + acceptedInsurancePlans + '\'' +
+                ", pharmacyInventory=" + pharmacyInventory +
+                ", hasPharmacyInventory=" + hasPharmacyInventory +
+                ", isAvailable=" + isAvailable +
+                ", appointment=" + appointment +
+                ", hasAppointment=" + hasAppointment +
+                ", payment=" + payment +
+                ", hasPayment=" + hasPayment +
+                ", returnCode='" + returnCode + '\'' +
+                '}';
+    }
 
     public ProviderDTO() {}
 
     public ProviderDTO(Provider provider) {
-        providerID = provider.getproviderID();
+        providerID = provider.getProviderID();
         fullName = provider.getFullName();
         specialization = provider.getSpecialization();
         address = provider.getAddress();
@@ -43,39 +73,20 @@ public class ProviderDTO {
         acceptsInsurance = provider.isAcceptsInsurance();
         acceptedInsurancePlans = provider.getAcceptedInsurancePlans();
         pharmacyInventory = provider.getPharmacyInventory();
+        hasPharmacyInventory = provider.isHasPharmacyInventory();
         isAvailable = provider.isAvailable;
         appointment = provider.getAppointment();
+        hasAppointment = provider.isHasAppointment();
         payment = provider.getPayment();
+        hasPayment = provider.isHasPayment();
         this.returnCode = getReturnCode();
     }
 
-    @Override
-    public String toString() {
-        return "ProviderDTO{" +
-                "providerID=" + providerID +
-                ", fullName='" + fullName + '\'' +
-                ", specialization='" + specialization + '\'' +
-                ", address='" + address + '\'' +
-                ", contactInformation='" + contactInformation + '\'' +
-                ", services=" + services +
-                ", licenseNumber='" + licenseNumber + '\'' +
-                ", language=" + language +
-                ", averageRating=" + averageRating +
-                ", acceptsInsurance=" + acceptsInsurance +
-                ", acceptedInsurancePlans=" + acceptedInsurancePlans +
-                ", pharmacyInventory=" + pharmacyInventory +
-                ", isAvailable=" + isAvailable +
-                ", appointment=" + appointment +
-                ", payment=" + payment +
-                ", returnCode='" + returnCode + '\'' +
-                '}';
-    }
-
-    public Long getproviderID() {
+    public Long getProviderID() {
         return providerID;
     }
 
-    public void setproviderID(Long providerID) {
+    public void setProviderID(Long providerID) {
         this.providerID = providerID;
     }
 
@@ -197,5 +208,29 @@ public class ProviderDTO {
 
     public void setReturnCode(String returnCode) {
         this.returnCode = returnCode;
+    }
+
+    public boolean isHasPharmacyInventory() {
+        return hasPharmacyInventory;
+    }
+
+    public void setHasPharmacyInventory(boolean hasPharmacyInventory) {
+        this.hasPharmacyInventory = hasPharmacyInventory;
+    }
+
+    public boolean isHasAppointment() {
+        return hasAppointment;
+    }
+
+    public void setHasAppointment(boolean hasAppointment) {
+        this.hasAppointment = hasAppointment;
+    }
+
+    public boolean isHasPayment() {
+        return hasPayment;
+    }
+
+    public void setHasPayment(boolean hasPayment) {
+        this.hasPayment = hasPayment;
     }
 }

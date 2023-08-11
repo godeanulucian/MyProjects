@@ -1,18 +1,18 @@
-package lucian.ehealth.entities;
+package lucian.ehealth.dto;
 
-import jakarta.persistence.*;
-import lucian.ehealth.dto.PaymentDTO;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lucian.ehealth.entities.Patient;
+import lucian.ehealth.entities.Payment;
+import lucian.ehealth.entities.Provider;
+import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
-@Entity
-@Table(name = "PAYMENTS")
-public class Payment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+@Component
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PaymentDTO {
     private Long paymentID;
-    @OneToOne(mappedBy = "payment")
     private Provider provider;
-    @OneToOne(mappedBy = "payment")
     private Patient patient;
     private String providerFullName;
     private String patientFullName;
@@ -20,24 +20,26 @@ public class Payment {
     private Double amount;
     public String status;
     private String description;
+    private String returnCode;
 
-    public Payment(){}
+    public PaymentDTO(){}
 
-    public Payment(PaymentDTO paymentDTO){
-        paymentID = paymentDTO.getPaymentID();
-        provider = paymentDTO.getProvider();
-        patient = paymentDTO.getPatient();
-        providerFullName = paymentDTO.getProviderFullName();
-        patientFullName = paymentDTO.getPatientFullName();
-        timestamp = paymentDTO.getTimestamp();
-        amount = paymentDTO.getAmount();
-        status = paymentDTO.getStatus();
-        description = paymentDTO.getDescription();
+    public PaymentDTO(Payment payment){
+        paymentID = payment.getPaymentID();
+        provider = payment.getProvider();
+        patient = payment.getPatient();
+        providerFullName = payment.getProviderFullName();
+        patientFullName = payment.getPatientFullName();
+        timestamp = payment.getTimestamp();
+        amount = payment.getAmount();
+        status = payment.getStatus();
+        description = payment.getDescription();
+        this.returnCode = getReturnCode();
     }
 
     @Override
     public String toString() {
-        return "Payment{" +
+        return "PaymentDTO{" +
                 "paymentID=" + paymentID +
                 ", provider=" + provider +
                 ", patient=" + patient +
@@ -47,6 +49,7 @@ public class Payment {
                 ", amount=" + amount +
                 ", status='" + status + '\'' +
                 ", description='" + description + '\'' +
+                ", returnCode='" + returnCode + '\'' +
                 '}';
     }
 
@@ -120,5 +123,13 @@ public class Payment {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getReturnCode() {
+        return returnCode;
+    }
+
+    public void setReturnCode(String returnCode) {
+        this.returnCode = returnCode;
     }
 }

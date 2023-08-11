@@ -21,7 +21,8 @@ public class Patient {
     public String address;
     @OneToOne // relationship type between classes, useful for another table to be created
     // @Embedded // indicate that your custom class should be embedded in the entity and stored as part of its table.
-    public InsuranceInformation insuranceInformation;
+    public Insurance insurance;
+    public boolean hasInsurance;
     public String emergencyContact;
     public String bloodType;
     public Double height;
@@ -32,14 +33,19 @@ public class Patient {
     public String medications; // List of current medications taken by the patient
     @OneToOne
     public NextOfKin nextOfKin; // id, name, birth, gender, blood type, relation status, contact info, language
+    public String nextOfKinFullName;
     @OneToOne
     public LabTest labTest; // id, name, patient name, type, date, result, technician, location, comments
+    public String testName;
     @OneToOne
     public Prescription prescription; // id, name, date, patient name, doctor name, medication, refills, pharmacy, instructions
+    public String prescriptionName;
     @OneToOne
     public Appointment appointment; // id, date, time, patient name, doctor name, type, status, reason, lcoation, notes
+    public boolean hasAppointment;
     @OneToOne
     private Payment payment; // (transactions) id, timestamp, patient name, amount, status, description
+    private boolean hasPayment;
 
     @Override
     public String toString() {
@@ -52,20 +58,26 @@ public class Patient {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", socialMedia='" + socialMedia + '\'' +
                 ", address='" + address + '\'' +
-                ", insuranceInformation=" + insuranceInformation +
+                ", insurance=" + insurance +
+                ", hasInsurance=" + hasInsurance +
                 ", emergencyContact='" + emergencyContact + '\'' +
                 ", bloodType='" + bloodType + '\'' +
                 ", height=" + height +
                 ", weight=" + weight +
                 ", language='" + language + '\'' +
                 ", primaryCarePhysician='" + primaryCarePhysician + '\'' +
-                ", allergies=" + allergies +
-                ", medications=" + medications +
+                ", allergies='" + allergies + '\'' +
+                ", medications='" + medications + '\'' +
                 ", nextOfKin=" + nextOfKin +
+                ", nextOfKinFullName='" + nextOfKinFullName + '\'' +
                 ", labTest=" + labTest +
+                ", testName='" + testName + '\'' +
                 ", prescription=" + prescription +
+                ", prescriptionName='" + prescriptionName + '\'' +
                 ", appointment=" + appointment +
+                ", hasAppointment=" + hasAppointment +
                 ", payment=" + payment +
+                ", hasPayment=" + hasPayment +
                 '}';
     }
 
@@ -80,7 +92,8 @@ public class Patient {
         phoneNumber = patientDTO.getPhoneNumber();
         socialMedia = patientDTO.getSocialMedia();
         address = patientDTO.getAddress();
-        insuranceInformation = patientDTO.getInsuranceInformation();
+        insurance = patientDTO.getInsuranceInformation();
+        hasInsurance = patientDTO.isHasInsurance();
         emergencyContact = patientDTO.getEmergencyContact();
         bloodType = patientDTO.getBloodType();
         height = patientDTO.getHeight();
@@ -90,10 +103,15 @@ public class Patient {
         allergies = patientDTO.getAllergies();
         medications = patientDTO.getMedications();
         nextOfKin = patientDTO.getNextOfKin();
+        nextOfKinFullName = patientDTO.getNextOfKinFullName();
         labTest = patientDTO.getLabTest();
+        testName = patientDTO.getTestName();
         prescription = patientDTO.getPrescription();
+        prescriptionName = patientDTO.getPrescriptionName();
         appointment = patientDTO.getAppointment();
+        hasAppointment = patientDTO.isHasAppointment();
         payment = patientDTO.getPayment();
+        hasPayment = patientDTO.isHasPayment();
     }
 
     public Long getPatientID() {
@@ -160,12 +178,12 @@ public class Patient {
         this.address = address;
     }
 
-    public InsuranceInformation getInsuranceInformation() {
-        return insuranceInformation;
+    public Insurance getInsuranceInformation() {
+        return insurance;
     }
 
-    public void setInsuranceInformation(InsuranceInformation insuranceInformation) {
-        this.insuranceInformation = insuranceInformation;
+    public void setInsuranceInformation(Insurance insurance) {
+        this.insurance = insurance;
     }
 
     public String getEmergencyContact() {
@@ -270,6 +288,62 @@ public class Patient {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public Insurance getInsurance() {
+        return insurance;
+    }
+
+    public void setInsurance(Insurance insurance) {
+        this.insurance = insurance;
+    }
+
+    public boolean isHasInsurance() {
+        return hasInsurance;
+    }
+
+    public void setHasInsurance(boolean hasInsurance) {
+        this.hasInsurance = hasInsurance;
+    }
+
+    public String getNextOfKinFullName() {
+        return nextOfKinFullName;
+    }
+
+    public void setNextOfKinFullName(String nextOfKinFullName) {
+        this.nextOfKinFullName = nextOfKinFullName;
+    }
+
+    public String getTestName() {
+        return testName;
+    }
+
+    public void setTestName(String testName) {
+        this.testName = testName;
+    }
+
+    public String getPrescriptionName() {
+        return prescriptionName;
+    }
+
+    public void setPrescriptionName(String prescriptionName) {
+        this.prescriptionName = prescriptionName;
+    }
+
+    public boolean isHasAppointment() {
+        return hasAppointment;
+    }
+
+    public void setHasAppointment(boolean hasAppointment) {
+        this.hasAppointment = hasAppointment;
+    }
+
+    public boolean isHasPayment() {
+        return hasPayment;
+    }
+
+    public void setHasPayment(boolean hasPayment) {
+        this.hasPayment = hasPayment;
     }
 }
 

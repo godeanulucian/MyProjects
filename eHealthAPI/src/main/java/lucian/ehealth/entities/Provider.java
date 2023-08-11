@@ -3,7 +3,6 @@ package lucian.ehealth.entities;
 import jakarta.persistence.*;
 import lucian.ehealth.dto.ProviderDTO;
 
-import java.util.List;
 @Entity
 @Table(name = "PROVIDERS")
 public class Provider {
@@ -11,10 +10,12 @@ public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long providerID; // Unique identifier for the health provider
+
     public String fullName; // Name of the health provider
     public String specialization; // The area of medical specialization (e.g., General Practitioner, Cardiologist)
     public String address; // Address of the health provider's clinic or hospital
     public String contactInformation; // Contact number to reach the health provider
+
     public String services; // List of medical services offered by the health provider
     public String licenseNumber; // License number of the health provider
     public String language; // List of languages spoken by the health provider
@@ -23,15 +24,42 @@ public class Provider {
     public String acceptedInsurancePlans; // List of accepted insurance plans
     @OneToOne
     private PharmacyInventory pharmacyInventory;
+    public boolean hasPharmacyInventory;
     public boolean isAvailable;
     @OneToOne
     public Appointment appointment;
+    public boolean hasAppointment;
     @OneToOne
     private Payment payment;
+    private boolean hasPayment;
+
+    @Override
+    public String toString() {
+        return "Provider{" +
+                "providerID=" + providerID +
+                ", fullName='" + fullName + '\'' +
+                ", specialization='" + specialization + '\'' +
+                ", address='" + address + '\'' +
+                ", contactInformation='" + contactInformation + '\'' +
+                ", services='" + services + '\'' +
+                ", licenseNumber='" + licenseNumber + '\'' +
+                ", language='" + language + '\'' +
+                ", averageRating=" + averageRating +
+                ", acceptsInsurance=" + acceptsInsurance +
+                ", acceptedInsurancePlans='" + acceptedInsurancePlans + '\'' +
+                ", pharmacyInventory=" + pharmacyInventory +
+                ", hasPharmacyInventory=" + hasPharmacyInventory +
+                ", isAvailable=" + isAvailable +
+                ", appointment=" + appointment +
+                ", hasAppointment=" + hasAppointment +
+                ", payment=" + payment +
+                ", hasPayment=" + hasPayment +
+                '}';
+    }
 
     public Provider() {}
     public Provider(ProviderDTO providerDTO) {
-        providerID = providerDTO.getproviderID();
+        providerID = providerDTO.getProviderID();
         fullName = providerDTO.getFullName();
         specialization = providerDTO.getSpecialization();
         address = providerDTO.getAddress();
@@ -43,37 +71,19 @@ public class Provider {
         acceptsInsurance = providerDTO.isAcceptsInsurance();
         acceptedInsurancePlans = providerDTO.getAcceptedInsurancePlans();
         pharmacyInventory = providerDTO.getPharmacyInventory();
+        hasPharmacyInventory = providerDTO.isHasPharmacyInventory();
         isAvailable = providerDTO.isAvailable;
         appointment = providerDTO.getAppointment();
+        hasAppointment = providerDTO.isHasAppointment();
         payment = providerDTO.getPayment();
+        hasPayment = providerDTO.isHasPayment();
     }
 
-    @Override
-    public String toString() {
-        return "Provider{" +
-                "providerID=" + providerID +
-                ", fullName='" + fullName + '\'' +
-                ", specialization='" + specialization + '\'' +
-                ", address='" + address + '\'' +
-                ", contactInformation='" + contactInformation + '\'' +
-                ", services=" + services +
-                ", licenseNumber='" + licenseNumber + '\'' +
-                ", language=" + language +
-                ", averageRating=" + averageRating +
-                ", acceptsInsurance=" + acceptsInsurance +
-                ", acceptedInsurancePlans=" + acceptedInsurancePlans +
-                ", pharmacyInventory=" + pharmacyInventory +
-                ", isAvailable=" + isAvailable +
-                ", appointment=" + appointment +
-                ", payment=" + payment +
-                '}';
-    }
-
-    public Long getproviderID() {
+    public Long getProviderID() {
         return providerID;
     }
 
-    public void setproviderID(Long providerID) {
+    public void setProviderID(Long providerID) {
         this.providerID = providerID;
     }
 
@@ -187,5 +197,29 @@ public class Provider {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public boolean isHasPharmacyInventory() {
+        return hasPharmacyInventory;
+    }
+
+    public void setHasPharmacyInventory(boolean hasPharmacyInventory) {
+        this.hasPharmacyInventory = hasPharmacyInventory;
+    }
+
+    public boolean isHasAppointment() {
+        return hasAppointment;
+    }
+
+    public void setHasAppointment(boolean hasAppointment) {
+        this.hasAppointment = hasAppointment;
+    }
+
+    public boolean isHasPayment() {
+        return hasPayment;
+    }
+
+    public void setHasPayment(boolean hasPayment) {
+        this.hasPayment = hasPayment;
     }
 }

@@ -1,16 +1,16 @@
-package lucian.ehealth.entities;
+package lucian.ehealth.dto;
 
-import jakarta.persistence.*;
-import lucian.ehealth.dto.PrescriptionDTO;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.OneToOne;
+import lucian.ehealth.entities.Patient;
+import lucian.ehealth.entities.Prescription;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
-// id, name, date, patient name, doctor name, medication, refills, pharmacy, instructions
-@Entity
-@Table(name = "PRESCRIPTIONS")
-public class Prescription {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Component
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PrescriptionDTO {
     private Long prescriptionID;
     public String prescriptionName;
     public LocalDate prescriptionDate;
@@ -24,25 +24,27 @@ public class Prescription {
     public Double refills;
     public String pharmacy;
     public String instructions;
+    private String returnCode;
 
-    public Prescription() {}
+    public PrescriptionDTO(){}
 
-    public Prescription(PrescriptionDTO prescriptionDTO) {
-        prescriptionID = prescriptionDTO.getPrescriptionID();
-        prescriptionName = prescriptionDTO.getPrescriptionName();
-        prescriptionDate = prescriptionDTO.getPrescriptionDate();
-        patient = prescriptionDTO.getPatient();
-        patientFullName = prescriptionDTO.getPatientFullName();
-        providerFullName = prescriptionDTO.getProviderFullName();
-        medication = prescriptionDTO.getMedication();
-        refills = prescriptionDTO.getRefills();
-        pharmacy = prescriptionDTO.getPharmacy();
-        instructions = prescriptionDTO.getInstructions();
+    public PrescriptionDTO(Prescription prescription){
+        prescriptionID = prescription.getPrescriptionID();
+        prescriptionName = prescription.getPrescriptionName();
+        prescriptionDate = prescription.getPrescriptionDate();
+        patient = prescription.getPatient();
+        patientFullName = prescription.getPatientFullName();
+        providerFullName = prescription.getProviderFullName();
+        medication = prescription.getMedication();
+        refills = prescription.getRefills();
+        pharmacy = prescription.getPharmacy();
+        instructions = prescription.getInstructions();
+        this.returnCode = getReturnCode();
     }
 
     @Override
     public String toString() {
-        return "Prescription{" +
+        return "PrescriptionDTO{" +
                 "prescriptionID=" + prescriptionID +
                 ", prescriptionName='" + prescriptionName + '\'' +
                 ", prescriptionDate=" + prescriptionDate +
@@ -53,6 +55,7 @@ public class Prescription {
                 ", refills=" + refills +
                 ", pharmacy='" + pharmacy + '\'' +
                 ", instructions='" + instructions + '\'' +
+                ", returnCode='" + returnCode + '\'' +
                 '}';
     }
 
@@ -134,5 +137,13 @@ public class Prescription {
 
     public void setInstructions(String instructions) {
         this.instructions = instructions;
+    }
+
+    public String getReturnCode() {
+        return returnCode;
+    }
+
+    public void setReturnCode(String returnCode) {
+        this.returnCode = returnCode;
     }
 }

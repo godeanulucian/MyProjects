@@ -14,6 +14,7 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long appointmentID;
     public LocalDate date; // yyyy-mm-dd
+
     public LocalTime time; // hh:mm:ss
     public String patientName;
     public String providerName;

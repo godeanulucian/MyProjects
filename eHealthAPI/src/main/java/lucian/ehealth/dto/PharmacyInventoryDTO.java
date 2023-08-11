@@ -1,18 +1,15 @@
-package lucian.ehealth.entities;
+package lucian.ehealth.dto;
 
-import jakarta.persistence.*;
-import lucian.ehealth.dto.PharmacyInventoryDTO;
+import lucian.ehealth.entities.PharmacyInventory;
+import lucian.ehealth.entities.Provider;
+import org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolvers;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-
-@Entity
-@Table(name = "PHARMACY_INVENTORY")
-public class PharmacyInventory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Component
+public class PharmacyInventoryDTO {
     private Long itemID;
     public String itemName;
-    @OneToOne(mappedBy = "pharmacyInventory")
     private Provider provider;
     public String providerFullName;
     public String category; // e.g., prescription drugs, over-the-counter medications, medical supplies).
@@ -24,28 +21,30 @@ public class PharmacyInventory {
     public int stockLevel; // The minimum quantity threshold that triggers the need for restocking.
     public String storageConditions;
     public String notes;
+    private String returnCode;
 
-    public PharmacyInventory(){}
+    public PharmacyInventoryDTO(){}
 
-    public PharmacyInventory(PharmacyInventoryDTO pharmacyInventoryDTO){
-        itemID = pharmacyInventoryDTO.getItemID();
-        itemName = pharmacyInventoryDTO.getItemName();
-        provider = pharmacyInventoryDTO.getProvider();
-        providerFullName = pharmacyInventoryDTO.getProviderFullName();
-        category = pharmacyInventoryDTO.getCategory();
-        quantity = pharmacyInventoryDTO.getQuantity();
-        unitPrice = pharmacyInventoryDTO.getUnitPrice();
-        manufacturer = pharmacyInventoryDTO.getManufacturer();
-        expirationDate = pharmacyInventoryDTO.getExpirationDate();
-        batchNumber = pharmacyInventoryDTO.getBatchNumber();
-        stockLevel = pharmacyInventoryDTO.getStockLevel();
-        storageConditions = pharmacyInventoryDTO.getStorageConditions();
-        notes = pharmacyInventoryDTO.getNotes();
+    public PharmacyInventoryDTO(PharmacyInventory pharmacyInventory){
+        itemID = pharmacyInventory.getItemID();
+        itemName = pharmacyInventory.getItemName();
+        provider = pharmacyInventory.getProvider();
+        providerFullName = pharmacyInventory.getProviderFullName();
+        category = pharmacyInventory.getCategory();
+        quantity = pharmacyInventory.getQuantity();
+        unitPrice = pharmacyInventory.getUnitPrice();
+        manufacturer = pharmacyInventory.getManufacturer();
+        expirationDate = pharmacyInventory.getExpirationDate();
+        batchNumber = pharmacyInventory.getBatchNumber();
+        stockLevel = pharmacyInventory.getStockLevel();
+        storageConditions = pharmacyInventory.getStorageConditions();
+        notes = pharmacyInventory.getNotes();
+        this.returnCode = getReturnCode();
     }
 
     @Override
     public String toString() {
-        return "PharmacyInventory{" +
+        return "PharmacyInventoryDTO{" +
                 "itemID=" + itemID +
                 ", itemName='" + itemName + '\'' +
                 ", provider=" + provider +
@@ -59,6 +58,7 @@ public class PharmacyInventory {
                 ", stockLevel=" + stockLevel +
                 ", storageConditions='" + storageConditions + '\'' +
                 ", notes='" + notes + '\'' +
+                ", returnCode='" + returnCode + '\'' +
                 '}';
     }
 
@@ -164,5 +164,13 @@ public class PharmacyInventory {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getReturnCode() {
+        return returnCode;
+    }
+
+    public void setReturnCode(String returnCode) {
+        this.returnCode = returnCode;
     }
 }

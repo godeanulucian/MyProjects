@@ -1,17 +1,17 @@
-package lucian.ehealth.entities;
+package lucian.ehealth.dto;
 
-import jakarta.persistence.*;
-import lucian.ehealth.dto.LabTestDTO;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lucian.ehealth.entities.LabTest;
+import lucian.ehealth.entities.Patient;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-@Entity
-@Table(name = "LAB_TESTS")
-public class LabTest {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Component
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class LabTestDTO {
     private Long labTestID;
     public String testName;
-    @OneToOne(mappedBy = "labTest")
+
     public Patient patient;
     public String patientFullName;
     public String type;
@@ -20,25 +20,27 @@ public class LabTest {
     public String technician;
     public String location;
     public String comments;
+    private String returnCode;
 
-    public LabTest() {}
+    public LabTestDTO() {}
 
-    public LabTest(LabTestDTO labTestDTO) {
-        labTestID = labTestDTO.getLabTestID();
-        testName = labTestDTO.getTestName();
-        patient = labTestDTO.getPatient();
-        patientFullName = labTestDTO.getPatientFullName();
-        type = labTestDTO.getType();
-        testDate = labTestDTO.getTestDate();
-        result = labTestDTO.getResult();
-        technician = labTestDTO.getTechnician();
-        location = labTestDTO.getLocation();
-        comments = labTestDTO.getComments();
+    public LabTestDTO(LabTest labTest) {
+        labTestID = labTest.getLabTestID();
+        testName = labTest.getTestName();
+        patient = labTest.getPatient();
+        patientFullName = labTest.getPatientFullName();
+        type = labTest.getType();
+        testDate = labTest.getTestDate();
+        result = labTest.getResult();
+        technician = labTest.getTechnician();
+        location = labTest.getLocation();
+        comments = labTest.getComments();
+        this.returnCode = getReturnCode();
     }
 
     @Override
     public String toString() {
-        return "LabTest{" +
+        return "LabTestDTO{" +
                 "labTestID=" + labTestID +
                 ", testName='" + testName + '\'' +
                 ", patient=" + patient +
@@ -49,6 +51,7 @@ public class LabTest {
                 ", technician='" + technician + '\'' +
                 ", location='" + location + '\'' +
                 ", comments='" + comments + '\'' +
+                ", returnCode='" + returnCode + '\'' +
                 '}';
     }
 
@@ -130,5 +133,13 @@ public class LabTest {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public String getReturnCode() {
+        return returnCode;
+    }
+
+    public void setReturnCode(String returnCode) {
+        this.returnCode = returnCode;
     }
 }

@@ -1,17 +1,16 @@
-package lucian.ehealth.entities;
+package lucian.ehealth.dto;
 
-import jakarta.persistence.*;
-import lucian.ehealth.dto.NextOfKinDTO;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lucian.ehealth.entities.NextOfKin;
+import lucian.ehealth.entities.Patient;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "KINS")
-public class NextOfKin {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Component
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class NextOfKinDTO {
     private Long kinID;
-    @OneToOne(mappedBy = "nextOfKin")
     public Patient patient;
     public String patientFullName;
 
@@ -22,24 +21,27 @@ public class NextOfKin {
     public String relationStatus;
     public String contactInfo;
     public String language;
+    private String returnCode;
 
-    public NextOfKin() {}
-    public NextOfKin(NextOfKinDTO nextOfKinDTO) {
-        kinID = nextOfKinDTO.getKinID();
-        patient = nextOfKinDTO.getPatient();
-        patientFullName = nextOfKinDTO.getPatientFullName();
-        fullName = nextOfKinDTO.getFullName();
-        dateOfBirth = nextOfKinDTO.getDateOfBirth();
-        gender = nextOfKinDTO.getGender();
-        bloodType = nextOfKinDTO.getBloodType();
-        relationStatus = nextOfKinDTO.getRelationStatus();
-        contactInfo = nextOfKinDTO.getContactInfo();
-        language = nextOfKinDTO.getLanguage();
+    public NextOfKinDTO(){}
+
+    public NextOfKinDTO(NextOfKin nextOfKin){
+        kinID = nextOfKin.getKinID();
+        patient = nextOfKin.getPatient();
+        patientFullName = nextOfKin.getPatientFullName();
+        fullName = nextOfKin.getFullName();
+        dateOfBirth = nextOfKin.getDateOfBirth();
+        gender = nextOfKin.getGender();
+        bloodType = nextOfKin.getBloodType();
+        relationStatus = nextOfKin.getRelationStatus();
+        contactInfo = nextOfKin.getContactInfo();
+        language = nextOfKin.getLanguage();
+        this.returnCode = getReturnCode();
     }
 
     @Override
     public String toString() {
-        return "NextOfKin{" +
+        return "NextOfKinDTO{" +
                 "kinID=" + kinID +
                 ", patient=" + patient +
                 ", patientFullName='" + patientFullName + '\'' +
@@ -50,6 +52,7 @@ public class NextOfKin {
                 ", relationStatus='" + relationStatus + '\'' +
                 ", contactInfo='" + contactInfo + '\'' +
                 ", language='" + language + '\'' +
+                ", returnCode='" + returnCode + '\'' +
                 '}';
     }
 
@@ -131,5 +134,13 @@ public class NextOfKin {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getReturnCode() {
+        return returnCode;
+    }
+
+    public void setReturnCode(String returnCode) {
+        this.returnCode = returnCode;
     }
 }
