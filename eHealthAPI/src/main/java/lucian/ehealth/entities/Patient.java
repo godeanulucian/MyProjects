@@ -11,40 +11,27 @@ public class Patient {
     // @GeneratedValue(strategy = GenerationType.AUTO)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long patientID;
+    private String fullName;
+    private LocalDate dateOfBirth;
+    private String gender;
+    private String email;
     @Column(unique=true)
-    public String fullName;
-    public LocalDate dateOfBirth;
-    public String gender;
-    public String email;
-    public String phoneNumber;
-    public String socialMedia;
-    public String address;
-    @OneToOne // relationship type between classes, useful for another table to be created
-    // @Embedded // indicate that your custom class should be embedded in the entity and stored as part of its table.
-    public Insurance insurance;
-    public boolean hasInsurance;
-    public String emergencyContact;
-    public String bloodType;
-    public Double height;
-    public Double weight;
-    public String language;
-    public String primaryCarePhysician;
-    public String allergies; // List of allergies the patient may have
-    public String medications; // List of current medications taken by the patient
-    @OneToOne
-    public NextOfKin nextOfKin; // id, name, birth, gender, blood type, relation status, contact info, language
-    public String nextOfKinFullName;
-    @OneToOne
-    public LabTest labTest; // id, name, patient name, type, date, result, technician, location, comments
-    public String testName;
-    @OneToOne
-    public Prescription prescription; // id, name, date, patient name, doctor name, medication, refills, pharmacy, instructions
-    public String prescriptionName;
-    @OneToOne
-    public Appointment appointment; // id, date, time, patient name, doctor name, type, status, reason, lcoation, notes
-    public boolean hasAppointment;
-    @OneToOne
-    private Payment payment; // (transactions) id, timestamp, patient name, amount, status, description
+    private String phoneNumber;
+    private String socialMedia;
+    private String address;
+    private boolean hasInsurance;
+    private String emergencyContact;
+    private String bloodType;
+    private Double height;
+    private Double weight;
+    private String language;
+    private String primaryCarePhysician;
+    private String allergies; // List of allergies the patient may have
+    private String medications; // List of current medications taken by the patient
+    private String nextOfKinFullName;
+    private String testName;
+    private String prescriptionName;
+    private boolean hasAppointment;
     private boolean hasPayment;
 
     @Override
@@ -58,7 +45,6 @@ public class Patient {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", socialMedia='" + socialMedia + '\'' +
                 ", address='" + address + '\'' +
-                ", insurance=" + insurance +
                 ", hasInsurance=" + hasInsurance +
                 ", emergencyContact='" + emergencyContact + '\'' +
                 ", bloodType='" + bloodType + '\'' +
@@ -68,15 +54,10 @@ public class Patient {
                 ", primaryCarePhysician='" + primaryCarePhysician + '\'' +
                 ", allergies='" + allergies + '\'' +
                 ", medications='" + medications + '\'' +
-                ", nextOfKin=" + nextOfKin +
                 ", nextOfKinFullName='" + nextOfKinFullName + '\'' +
-                ", labTest=" + labTest +
                 ", testName='" + testName + '\'' +
-                ", prescription=" + prescription +
                 ", prescriptionName='" + prescriptionName + '\'' +
-                ", appointment=" + appointment +
                 ", hasAppointment=" + hasAppointment +
-                ", payment=" + payment +
                 ", hasPayment=" + hasPayment +
                 '}';
     }
@@ -92,7 +73,6 @@ public class Patient {
         phoneNumber = patientDTO.getPhoneNumber();
         socialMedia = patientDTO.getSocialMedia();
         address = patientDTO.getAddress();
-        insurance = patientDTO.getInsuranceInformation();
         hasInsurance = patientDTO.isHasInsurance();
         emergencyContact = patientDTO.getEmergencyContact();
         bloodType = patientDTO.getBloodType();
@@ -102,15 +82,10 @@ public class Patient {
         primaryCarePhysician = patientDTO.getPrimaryCarePhysician();
         allergies = patientDTO.getAllergies();
         medications = patientDTO.getMedications();
-        nextOfKin = patientDTO.getNextOfKin();
         nextOfKinFullName = patientDTO.getNextOfKinFullName();
-        labTest = patientDTO.getLabTest();
         testName = patientDTO.getTestName();
-        prescription = patientDTO.getPrescription();
         prescriptionName = patientDTO.getPrescriptionName();
-        appointment = patientDTO.getAppointment();
         hasAppointment = patientDTO.isHasAppointment();
-        payment = patientDTO.getPayment();
         hasPayment = patientDTO.isHasPayment();
     }
 
@@ -178,14 +153,6 @@ public class Patient {
         this.address = address;
     }
 
-    public Insurance getInsuranceInformation() {
-        return insurance;
-    }
-
-    public void setInsuranceInformation(Insurance insurance) {
-        this.insurance = insurance;
-    }
-
     public String getEmergencyContact() {
         return emergencyContact;
     }
@@ -248,54 +215,6 @@ public class Patient {
 
     public void setMedications(String medications) {
         this.medications = medications;
-    }
-
-    public NextOfKin getNextOfKin() {
-        return nextOfKin;
-    }
-
-    public void setNextOfKin(NextOfKin nextOfKin) {
-        this.nextOfKin = nextOfKin;
-    }
-
-    public LabTest getLabTest() {
-        return labTest;
-    }
-
-    public void setLabTest(LabTest labTest) {
-        this.labTest = labTest;
-    }
-
-    public Prescription getPrescription() {
-        return prescription;
-    }
-
-    public void setPrescription(Prescription prescription) {
-        this.prescription = prescription;
-    }
-
-    public Appointment getAppointment() {
-        return appointment;
-    }
-
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
-    public Insurance getInsurance() {
-        return insurance;
-    }
-
-    public void setInsurance(Insurance insurance) {
-        this.insurance = insurance;
     }
 
     public boolean isHasInsurance() {

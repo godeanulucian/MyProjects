@@ -11,22 +11,18 @@ public class NextOfKin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long kinID;
-    @OneToOne(mappedBy = "nextOfKin")
-    public Patient patient;
-    public String patientFullName;
-
-    public String fullName;
-    public LocalDate dateOfBirth;
-    public String gender;
-    public String bloodType;
-    public String relationStatus;
-    public String contactInfo;
-    public String language;
+    private String patientFullName;
+    private String fullName;
+    private LocalDate dateOfBirth;
+    private String gender;
+    private String bloodType;
+    private String relationStatus;
+    private String contactInfo;
+    private String language;
 
     public NextOfKin() {}
     public NextOfKin(NextOfKinDTO nextOfKinDTO) {
         kinID = nextOfKinDTO.getKinID();
-        patient = nextOfKinDTO.getPatient();
         patientFullName = nextOfKinDTO.getPatientFullName();
         fullName = nextOfKinDTO.getFullName();
         dateOfBirth = nextOfKinDTO.getDateOfBirth();
@@ -41,7 +37,6 @@ public class NextOfKin {
     public String toString() {
         return "NextOfKin{" +
                 "kinID=" + kinID +
-                ", patient=" + patient +
                 ", patientFullName='" + patientFullName + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
@@ -59,14 +54,6 @@ public class NextOfKin {
 
     public void setKinID(Long kinID) {
         this.kinID = kinID;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 
     public String getPatientFullName() {

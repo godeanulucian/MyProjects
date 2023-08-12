@@ -9,16 +9,15 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
     private Long userID;
-    public String username;
+    private String username;
     private String password;
     private String email;
-    public String contactInformation;
-
-    public String fullName;
-    public LocalDate dateOfBirth;
-    public String gender;
-    public String address;
-    public boolean isDoctor;
+    private String contactInformation;
+    private String fullName;
+    private LocalDate dateOfBirth;
+    private String gender;
+    private String address;
+    private boolean isDoctor;
     private String returnCode;
 
     public UserDTO() {}

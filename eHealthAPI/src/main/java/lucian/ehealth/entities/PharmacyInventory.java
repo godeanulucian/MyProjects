@@ -11,26 +11,23 @@ public class PharmacyInventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long itemID;
-    public String itemName;
-    @OneToOne(mappedBy = "pharmacyInventory")
-    private Provider provider;
-    public String providerFullName;
-    public String category; // e.g., prescription drugs, over-the-counter medications, medical supplies).
-    public int quantity;
-    public double unitPrice;
-    public String manufacturer;
-    public LocalDate expirationDate;
-    public String batchNumber; // A unique identifier for a batch of items from the same manufacturer.
-    public int stockLevel; // The minimum quantity threshold that triggers the need for restocking.
-    public String storageConditions;
-    public String notes;
+    private String itemName;
+    private String providerFullName;
+    private String category; // e.g., prescription drugs, over-the-counter medications, medical supplies).
+    private int quantity;
+    private double unitPrice;
+    private String manufacturer;
+    private LocalDate expirationDate;
+    private String batchNumber; // A unique identifier for a batch of items from the same manufacturer.
+    private int stockLevel; // The minimum quantity threshold that triggers the need for restocking.
+    private String storageConditions;
+    private String notes;
 
     public PharmacyInventory(){}
 
     public PharmacyInventory(PharmacyInventoryDTO pharmacyInventoryDTO){
         itemID = pharmacyInventoryDTO.getItemID();
         itemName = pharmacyInventoryDTO.getItemName();
-        provider = pharmacyInventoryDTO.getProvider();
         providerFullName = pharmacyInventoryDTO.getProviderFullName();
         category = pharmacyInventoryDTO.getCategory();
         quantity = pharmacyInventoryDTO.getQuantity();
@@ -48,7 +45,6 @@ public class PharmacyInventory {
         return "PharmacyInventory{" +
                 "itemID=" + itemID +
                 ", itemName='" + itemName + '\'' +
-                ", provider=" + provider +
                 ", providerFullName='" + providerFullName + '\'' +
                 ", category='" + category + '\'' +
                 ", quantity=" + quantity +
@@ -76,14 +72,6 @@ public class PharmacyInventory {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
-    }
-
-    public Provider getProvider() {
-        return provider;
-    }
-
-    public void setProvider(Provider provider) {
-        this.provider = provider;
     }
 
     public String getProviderFullName() {

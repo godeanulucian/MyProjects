@@ -12,18 +12,14 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PrescriptionDTO {
     private Long prescriptionID;
-    public String prescriptionName;
-    public LocalDate prescriptionDate;
-
-    @OneToOne(mappedBy = "prescription")
-    public Patient patient;
-
-    public String patientFullName;
-    public String providerFullName;
-    public String medication;
-    public Double refills;
-    public String pharmacy;
-    public String instructions;
+    private String prescriptionName;
+    private LocalDate prescriptionDate;
+    private String patientFullName;
+    private String providerFullName;
+    private String medication;
+    private Double refills;
+    private String pharmacy;
+    private String instructions;
     private String returnCode;
 
     public PrescriptionDTO(){}
@@ -32,7 +28,6 @@ public class PrescriptionDTO {
         prescriptionID = prescription.getPrescriptionID();
         prescriptionName = prescription.getPrescriptionName();
         prescriptionDate = prescription.getPrescriptionDate();
-        patient = prescription.getPatient();
         patientFullName = prescription.getPatientFullName();
         providerFullName = prescription.getProviderFullName();
         medication = prescription.getMedication();
@@ -48,7 +43,6 @@ public class PrescriptionDTO {
                 "prescriptionID=" + prescriptionID +
                 ", prescriptionName='" + prescriptionName + '\'' +
                 ", prescriptionDate=" + prescriptionDate +
-                ", patient=" + patient +
                 ", patientFullName='" + patientFullName + '\'' +
                 ", providerFullName='" + providerFullName + '\'' +
                 ", medication='" + medication + '\'' +
@@ -81,14 +75,6 @@ public class PrescriptionDTO {
 
     public void setPrescriptionDate(LocalDate prescriptionDate) {
         this.prescriptionDate = prescriptionDate;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 
     public String getPatientFullName() {

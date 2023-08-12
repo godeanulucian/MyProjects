@@ -10,23 +10,17 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentID;
-    @OneToOne(mappedBy = "payment")
-    private Provider provider;
-    @OneToOne(mappedBy = "payment")
-    private Patient patient;
     private String providerFullName;
     private String patientFullName;
     private Timestamp timestamp;
     private Double amount;
-    public String status;
+    private String status;
     private String description;
 
     public Payment(){}
 
     public Payment(PaymentDTO paymentDTO){
         paymentID = paymentDTO.getPaymentID();
-        provider = paymentDTO.getProvider();
-        patient = paymentDTO.getPatient();
         providerFullName = paymentDTO.getProviderFullName();
         patientFullName = paymentDTO.getPatientFullName();
         timestamp = paymentDTO.getTimestamp();
@@ -39,8 +33,6 @@ public class Payment {
     public String toString() {
         return "Payment{" +
                 "paymentID=" + paymentID +
-                ", provider=" + provider +
-                ", patient=" + patient +
                 ", providerFullName='" + providerFullName + '\'' +
                 ", patientFullName='" + patientFullName + '\'' +
                 ", timestamp=" + timestamp +
@@ -56,22 +48,6 @@ public class Payment {
 
     public void setPaymentID(Long paymentID) {
         this.paymentID = paymentID;
-    }
-
-    public Provider getProvider() {
-        return provider;
-    }
-
-    public void setProvider(Provider provider) {
-        this.provider = provider;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 
     public String getProviderFullName() {

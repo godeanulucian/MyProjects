@@ -11,23 +11,21 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class NextOfKinDTO {
     private Long kinID;
-    public Patient patient;
-    public String patientFullName;
+    private String patientFullName;
 
-    public String fullName;
-    public LocalDate dateOfBirth;
-    public String gender;
-    public String bloodType;
-    public String relationStatus;
-    public String contactInfo;
-    public String language;
+    private String fullName;
+    private LocalDate dateOfBirth;
+    private String gender;
+    private String bloodType;
+    private String relationStatus;
+    private String contactInfo;
+    private String language;
     private String returnCode;
 
     public NextOfKinDTO(){}
 
     public NextOfKinDTO(NextOfKin nextOfKin){
         kinID = nextOfKin.getKinID();
-        patient = nextOfKin.getPatient();
         patientFullName = nextOfKin.getPatientFullName();
         fullName = nextOfKin.getFullName();
         dateOfBirth = nextOfKin.getDateOfBirth();
@@ -43,7 +41,6 @@ public class NextOfKinDTO {
     public String toString() {
         return "NextOfKinDTO{" +
                 "kinID=" + kinID +
-                ", patient=" + patient +
                 ", patientFullName='" + patientFullName + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
@@ -62,14 +59,6 @@ public class NextOfKinDTO {
 
     public void setKinID(Long kinID) {
         this.kinID = kinID;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 
     public String getPatientFullName() {

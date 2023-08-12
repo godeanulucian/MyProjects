@@ -10,17 +10,16 @@ import java.time.LocalTime;
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AppointmentDTO {
-
     private Long appointmentID;
-    public LocalDate date;
-    public LocalTime time;
-    public String patientName;
-    public String providerName;
-    public String type;
-    public String status;
-    public String reason;
-    public String location;
-    public String notes;
+    private LocalDate date;
+    private LocalTime time;
+    private String patientName;
+    private String providerName;
+    private String type;
+    private String status;
+    private String reason;
+    private String location;
+    private String notes;
     private String returnCode;
 
     public AppointmentDTO() {}

@@ -9,21 +9,18 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "APPOINTMENTS")
 public class Appointment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long appointmentID;
-    public LocalDate date; // yyyy-mm-dd
-
-    public LocalTime time; // hh:mm:ss
-    public String patientName;
-    public String providerName;
-    public String type;
-    public String status;
-    public String reason;
-    public String location;
-    public String notes;
-
+    private LocalDate date; // yyyy-mm-dd
+    private LocalTime time; // hh:mm:ss
+    private String patientName;
+    private String providerName;
+    private String type;
+    private String status;
+    private String reason;
+    private String location;
+    private String notes;
 
     public Appointment() {}
 

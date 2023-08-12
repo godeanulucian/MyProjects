@@ -12,18 +12,14 @@ public class Prescription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long prescriptionID;
-    public String prescriptionName;
-    public LocalDate prescriptionDate;
-
-    @OneToOne(mappedBy = "prescription")
-    public Patient patient;
-
-    public String patientFullName;
-    public String providerFullName;
-    public String medication;
-    public Double refills;
-    public String pharmacy;
-    public String instructions;
+    private String prescriptionName;
+    private LocalDate prescriptionDate;
+    private String patientFullName;
+    private String providerFullName;
+    private String medication;
+    private Double refills;
+    private String pharmacy;
+    private String instructions;
 
     public Prescription() {}
 
@@ -31,7 +27,6 @@ public class Prescription {
         prescriptionID = prescriptionDTO.getPrescriptionID();
         prescriptionName = prescriptionDTO.getPrescriptionName();
         prescriptionDate = prescriptionDTO.getPrescriptionDate();
-        patient = prescriptionDTO.getPatient();
         patientFullName = prescriptionDTO.getPatientFullName();
         providerFullName = prescriptionDTO.getProviderFullName();
         medication = prescriptionDTO.getMedication();
@@ -46,7 +41,6 @@ public class Prescription {
                 "prescriptionID=" + prescriptionID +
                 ", prescriptionName='" + prescriptionName + '\'' +
                 ", prescriptionDate=" + prescriptionDate +
-                ", patient=" + patient +
                 ", patientFullName='" + patientFullName + '\'' +
                 ", providerFullName='" + providerFullName + '\'' +
                 ", medication='" + medication + '\'' +
@@ -80,13 +74,6 @@ public class Prescription {
         this.prescriptionDate = prescriptionDate;
     }
 
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
 
     public String getPatientFullName() {
         return patientFullName;

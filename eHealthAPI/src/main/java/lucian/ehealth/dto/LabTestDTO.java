@@ -10,16 +10,14 @@ import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LabTestDTO {
     private Long labTestID;
-    public String testName;
-
-    public Patient patient;
-    public String patientFullName;
-    public String type;
-    public LocalDate testDate;
-    public String result;
-    public String technician;
-    public String location;
-    public String comments;
+    private String testName;
+    private String patientFullName;
+    private String type;
+    private LocalDate testDate;
+    private String result;
+    private String technician;
+    private String location;
+    private String comments;
     private String returnCode;
 
     public LabTestDTO() {}
@@ -27,7 +25,6 @@ public class LabTestDTO {
     public LabTestDTO(LabTest labTest) {
         labTestID = labTest.getLabTestID();
         testName = labTest.getTestName();
-        patient = labTest.getPatient();
         patientFullName = labTest.getPatientFullName();
         type = labTest.getType();
         testDate = labTest.getTestDate();
@@ -43,7 +40,6 @@ public class LabTestDTO {
         return "LabTestDTO{" +
                 "labTestID=" + labTestID +
                 ", testName='" + testName + '\'' +
-                ", patient=" + patient +
                 ", patientFullName='" + patientFullName + '\'' +
                 ", type='" + type + '\'' +
                 ", testDate=" + testDate +
@@ -69,14 +65,6 @@ public class LabTestDTO {
 
     public void setTestName(String testName) {
         this.testName = testName;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 
     public String getPatientFullName() {

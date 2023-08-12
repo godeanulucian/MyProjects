@@ -2,7 +2,6 @@ package lucian.ehealth.repositories;
 
 import jakarta.persistence.LockModeType;
 import lucian.ehealth.entities.Insurance;
-import lucian.ehealth.entities.Patient;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -12,7 +11,6 @@ import java.util.UUID;
 public interface InsuranceRepository extends CrudRepository<Insurance, UUID> {
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Insurance findByPatient(Patient patient);
-    // InsuranceInformation findByCompanyName(String companyName);
+    Insurance findByCompanyName(String companyName);
 
 }

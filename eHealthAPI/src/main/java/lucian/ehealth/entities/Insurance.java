@@ -10,19 +10,16 @@ public class Insurance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long insuranceID;
-    @OneToOne(mappedBy = "insurance")
-    public Patient patient;
-    public String patientFullName;
-    public String companyName; // Name of the insurance company
-    public LocalDate startDate; // Start date of the insurance coverage
-    public LocalDate endDate; // End date of the insurance coverage
-    public double coverageAmount; // Maximum coverage amount provided by the insurance
-    public String contactInformation; // Contact information for the insurance company
+    private String patientFullName;
+    private String companyName; // Name of the insurance company
+    private LocalDate startDate; // Start date of the insurance coverage
+    private LocalDate endDate; // End date of the insurance coverage
+    private double coverageAmount; // Maximum coverage amount provided by the insurance
+    private String contactInformation; // Contact information for the insurance company
 
     public Insurance() {}
     public Insurance(InsuranceDTO insuranceDTO) {
         insuranceID = insuranceDTO.getInsuranceID();
-        patient = insuranceDTO.getPatient();
         patientFullName = insuranceDTO.getPatientFullName();
         companyName = insuranceDTO.getCompanyName();
         startDate = insuranceDTO.getStartDate();
@@ -35,7 +32,6 @@ public class Insurance {
     public String toString() {
         return "Insurance{" +
                 "insuranceID=" + insuranceID +
-                ", patient=" + patient +
                 ", patientFullName='" + patientFullName + '\'' +
                 ", companyName='" + companyName + '\'' +
                 ", startDate=" + startDate +
@@ -50,14 +46,6 @@ public class Insurance {
     }
     public void setInsuranceID(Long insuranceID) {
         this.insuranceID = insuranceID;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 
     public String getPatientFullName() {

@@ -6,31 +6,23 @@ import lucian.ehealth.dto.ProviderDTO;
 @Entity
 @Table(name = "PROVIDERS")
 public class Provider {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long providerID; // Unique identifier for the health provider
-
-    public String fullName; // Name of the health provider
-    public String specialization; // The area of medical specialization (e.g., General Practitioner, Cardiologist)
-    public String address; // Address of the health provider's clinic or hospital
-    public String contactInformation; // Contact number to reach the health provider
-
-    public String services; // List of medical services offered by the health provider
-    public String licenseNumber; // License number of the health provider
-    public String language; // List of languages spoken by the health provider
-    public double averageRating; // Average rating based on patient feedback
-    public boolean acceptsInsurance; // Indicates if the health provider accepts insurance
-    public String acceptedInsurancePlans; // List of accepted insurance plans
-    @OneToOne
-    private PharmacyInventory pharmacyInventory;
-    public boolean hasPharmacyInventory;
-    public boolean isAvailable;
-    @OneToOne
-    public Appointment appointment;
-    public boolean hasAppointment;
-    @OneToOne
-    private Payment payment;
+    private String fullName; // Name of the health provider
+    private String specialization; // The area of medical specialization (e.g., General Practitioner, Cardiologist)
+    private String address; // Address of the health provider's clinic or hospital
+    private String contactInformation; // Contact number to reach the health provider
+    private String services; // List of medical services offered by the health provider
+    @Column(unique = true)
+    private String licenseNumber; // License number of the health provider
+    private String language; // List of languages spoken by the health provider
+    private double averageRating; // Average rating based on patient feedback
+    private boolean acceptsInsurance; // Indicates if the health provider accepts insurance
+    private String acceptedInsurancePlans; // List of accepted insurance plans
+    private boolean hasPharmacyInventory;
+    private boolean isAvailable;
+    private boolean hasAppointment;
     private boolean hasPayment;
 
     @Override
@@ -47,12 +39,9 @@ public class Provider {
                 ", averageRating=" + averageRating +
                 ", acceptsInsurance=" + acceptsInsurance +
                 ", acceptedInsurancePlans='" + acceptedInsurancePlans + '\'' +
-                ", pharmacyInventory=" + pharmacyInventory +
                 ", hasPharmacyInventory=" + hasPharmacyInventory +
                 ", isAvailable=" + isAvailable +
-                ", appointment=" + appointment +
                 ", hasAppointment=" + hasAppointment +
-                ", payment=" + payment +
                 ", hasPayment=" + hasPayment +
                 '}';
     }
@@ -70,12 +59,9 @@ public class Provider {
         averageRating = providerDTO.getAverageRating();
         acceptsInsurance = providerDTO.isAcceptsInsurance();
         acceptedInsurancePlans = providerDTO.getAcceptedInsurancePlans();
-        pharmacyInventory = providerDTO.getPharmacyInventory();
         hasPharmacyInventory = providerDTO.isHasPharmacyInventory();
-        isAvailable = providerDTO.isAvailable;
-        appointment = providerDTO.getAppointment();
+        isAvailable = providerDTO.isAvailable();
         hasAppointment = providerDTO.isHasAppointment();
-        payment = providerDTO.getPayment();
         hasPayment = providerDTO.isHasPayment();
     }
 
@@ -167,36 +153,12 @@ public class Provider {
         this.acceptedInsurancePlans = acceptedInsurancePlans;
     }
 
-    public PharmacyInventory getPharmacyInventory() {
-        return pharmacyInventory;
-    }
-
-    public void setPharmacyInventory(PharmacyInventory pharmacyInventory) {
-        this.pharmacyInventory = pharmacyInventory;
-    }
-
     public boolean isAvailable() {
         return isAvailable;
     }
 
     public void setAvailable(boolean available) {
         isAvailable = available;
-    }
-
-    public Appointment getAppointment() {
-        return appointment;
-    }
-
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
     }
 
     public boolean isHasPharmacyInventory() {

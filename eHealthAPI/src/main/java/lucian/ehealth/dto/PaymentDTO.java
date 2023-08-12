@@ -12,13 +12,11 @@ import java.sql.Timestamp;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PaymentDTO {
     private Long paymentID;
-    private Provider provider;
-    private Patient patient;
     private String providerFullName;
     private String patientFullName;
     private Timestamp timestamp;
     private Double amount;
-    public String status;
+    private String status;
     private String description;
     private String returnCode;
 
@@ -26,8 +24,6 @@ public class PaymentDTO {
 
     public PaymentDTO(Payment payment){
         paymentID = payment.getPaymentID();
-        provider = payment.getProvider();
-        patient = payment.getPatient();
         providerFullName = payment.getProviderFullName();
         patientFullName = payment.getPatientFullName();
         timestamp = payment.getTimestamp();
@@ -41,8 +37,6 @@ public class PaymentDTO {
     public String toString() {
         return "PaymentDTO{" +
                 "paymentID=" + paymentID +
-                ", provider=" + provider +
-                ", patient=" + patient +
                 ", providerFullName='" + providerFullName + '\'' +
                 ", patientFullName='" + patientFullName + '\'' +
                 ", timestamp=" + timestamp +
@@ -59,22 +53,6 @@ public class PaymentDTO {
 
     public void setPaymentID(Long paymentID) {
         this.paymentID = paymentID;
-    }
-
-    public Provider getProvider() {
-        return provider;
-    }
-
-    public void setProvider(Provider provider) {
-        this.provider = provider;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 
     public String getProviderFullName() {

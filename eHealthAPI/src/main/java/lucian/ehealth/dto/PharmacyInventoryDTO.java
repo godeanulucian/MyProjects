@@ -9,18 +9,17 @@ import java.time.LocalDate;
 @Component
 public class PharmacyInventoryDTO {
     private Long itemID;
-    public String itemName;
-    private Provider provider;
-    public String providerFullName;
-    public String category; // e.g., prescription drugs, over-the-counter medications, medical supplies).
-    public int quantity;
-    public double unitPrice;
-    public String manufacturer;
-    public LocalDate expirationDate;
-    public String batchNumber; // A unique identifier for a batch of items from the same manufacturer.
-    public int stockLevel; // The minimum quantity threshold that triggers the need for restocking.
-    public String storageConditions;
-    public String notes;
+    private String itemName;
+    private String providerFullName;
+    private String category; // e.g., prescription drugs, over-the-counter medications, medical supplies).
+    private int quantity;
+    private double unitPrice;
+    private String manufacturer;
+    private LocalDate expirationDate;
+    private String batchNumber; // A unique identifier for a batch of items from the same manufacturer.
+    private int stockLevel; // The minimum quantity threshold that triggers the need for restocking.
+    private String storageConditions;
+    private String notes;
     private String returnCode;
 
     public PharmacyInventoryDTO(){}
@@ -28,7 +27,6 @@ public class PharmacyInventoryDTO {
     public PharmacyInventoryDTO(PharmacyInventory pharmacyInventory){
         itemID = pharmacyInventory.getItemID();
         itemName = pharmacyInventory.getItemName();
-        provider = pharmacyInventory.getProvider();
         providerFullName = pharmacyInventory.getProviderFullName();
         category = pharmacyInventory.getCategory();
         quantity = pharmacyInventory.getQuantity();
@@ -47,7 +45,6 @@ public class PharmacyInventoryDTO {
         return "PharmacyInventoryDTO{" +
                 "itemID=" + itemID +
                 ", itemName='" + itemName + '\'' +
-                ", provider=" + provider +
                 ", providerFullName='" + providerFullName + '\'' +
                 ", category='" + category + '\'' +
                 ", quantity=" + quantity +
@@ -76,14 +73,6 @@ public class PharmacyInventoryDTO {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
-    }
-
-    public Provider getProvider() {
-        return provider;
-    }
-
-    public void setProvider(Provider provider) {
-        this.provider = provider;
     }
 
     public String getProviderFullName() {
