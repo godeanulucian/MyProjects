@@ -1,21 +1,36 @@
 package lucian.ehealth.controllers;
 
+import lucian.ehealth.dto.AppointmentDTO;
 import lucian.ehealth.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping(path = "/appointments")
 public class AppointmentController {
 
     @Autowired
     AppointmentService appointmentService;
 
-    @RequestMapping(path = "/appointments")
+    // READ ALL
+    @GetMapping
     public ResponseEntity<?> getAllAppointments() {
-        return new ResponseEntity<>(appointmentService.getAllAppointments(), HttpStatus.OK);
+        return appointmentService.getAllAppointments();
     }
+
+    // CREATE
+    @PostMapping
+    public ResponseEntity<?> addAppointment(@RequestBody AppointmentDTO appointmentDTO) {
+        return appointmentService.addAppointment(appointmentDTO);
+    }
+
+    // READ
+    @GetMapping(path = "/{appointmentID}")
+    public ResponseEntity<?> getAppointment(@PathVariable Long appointmentID){
+        return appointmentService.getAppointment(appointmentID);
+    }
+    // UPDATE
+    // DELETE
 
 }

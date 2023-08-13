@@ -37,10 +37,11 @@ public class UserService {
             patientService.fetchDataFromUser(userDTO);
         else
             providerService.fetchDataFromUser(userDTO);
-        userDTO.setReturnCode("\nuser created successfully\n");
-        System.out.println(userDTO.getReturnCode());
         // UserDTO response = new UserDTO(userRepository.save(new User(userDTO)));
         userRepository.save(user);
+
+        userDTO.setReturnCode("\nuser created successfully\n");
+        System.out.println(userDTO.getReturnCode());
         UserDTO response = new UserDTO(user);
         return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
     }

@@ -23,11 +23,13 @@ public class UserController {
         return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
     }
 
+    // READ
     @RequestMapping(path = "/users")
     public ResponseEntity<?> getAllUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
+    // CREATE
     @PostMapping(path = "/users")
     public ResponseEntity<?> addUser(@RequestBody UserDTO userDTO) {
         return new ResponseEntity<>(userService.addUser(userDTO), new HttpHeaders(), HttpStatus.OK);
