@@ -9,8 +9,11 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface AppointmentRepository extends CrudRepository<Appointment, UUID> {
+public interface AppointmentRepository extends CrudRepository<Appointment, Long> {
 
+    // define personalized crud methods by extending the crud repo
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Appointment findByAppointmentID(Long appointmentID);
+    /*@Lock(LockModeType.PESSIMISTIC_WRITE)
+    Appointment deleteByAppointmentID(Long appointmentID);*/
 }

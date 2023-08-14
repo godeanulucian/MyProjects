@@ -30,7 +30,17 @@ public class AppointmentController {
     public ResponseEntity<?> getAppointment(@PathVariable Long appointmentID){
         return appointmentService.getAppointment(appointmentID);
     }
+
     // UPDATE
+    @PutMapping(path = "/{appointmentID}")
+    public ResponseEntity<?> updateAppointment(@RequestBody AppointmentDTO appointmentDTO, @PathVariable Long appointmentID) {
+        return appointmentService.updateAppointment(appointmentDTO, appointmentID);
+    }
+
     // DELETE
+    @DeleteMapping(path = "/{appointmentID}")
+    public ResponseEntity<?> deleteAppointment(@PathVariable Long appointmentID) {
+        return appointmentService.deleteAppointment(appointmentID);
+    }
 
 }

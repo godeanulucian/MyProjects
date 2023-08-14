@@ -19,7 +19,7 @@ public class UserController {
 
     @RequestMapping(path = "/")
     public ResponseEntity<?> welcomeMessage() {
-        String response = "Welcome to the main page of the REST API!";
+        String response = "Welcome to the main page of the eHealth REST API!";
         return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
     }
 

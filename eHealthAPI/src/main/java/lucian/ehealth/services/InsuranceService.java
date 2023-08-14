@@ -16,7 +16,7 @@ public class InsuranceService {
     InsuranceRepository insuranceRepository;
 
     public ResponseEntity<?> getAllInsurances() {
-        System.out.println("\n--- Insurances List ---\n");
+
         return new ResponseEntity<>(insuranceRepository.findAll(), HttpStatus.OK);
     }
 
