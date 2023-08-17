@@ -43,4 +43,10 @@ public class AppointmentController {
         return appointmentService.deleteAppointment(appointmentID);
     }
 
+    // BOOK AN APPOINTMENT
+    /*@PostMapping
+    public ResponseEntity<?> bookAppointment(@RequestBody AppointmentDTO appointmentDTO) {
+        return appointmentService.bookAppointment(appointmentDTO);
+    }*/
+
 }

@@ -1,5 +1,6 @@
 package lucian.ehealth.services;
 
+import lucian.ehealth.dto.AppointmentDTO;
 import lucian.ehealth.dto.UserDTO;
 import lucian.ehealth.entities.User;
 import lucian.ehealth.repositories.UserRepository;

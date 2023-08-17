@@ -18,4 +18,9 @@ public class AppointmentValidator {
                 && appointmentRepository.findByAppointmentID(appointmentDTO.getAppointmentID())==null;
     }
 
+    public boolean validateBookAppointment(AppointmentDTO appointmentDTO) {
+        //
+        return true;
+    }
+
 }

@@ -27,18 +27,24 @@ public class AppointmentService {
     @Autowired
     AppointmentValidator appointmentValidator;
 
+    // BAD REQUEST HANDLER
+    public ResponseEntity<?> handleBadRequest(String returnCode) {
+        // if action is not valid create HTTP response using an empty DTO object where we only set the returnCode
+        AppointmentDTO response = new AppointmentDTO();
+        response.setReturnCode(returnCode);
+
+        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
     // READ ALL
     public ResponseEntity<?> getAllAppointments() {
         // fetch all entities into a list using forEach
         List<Appointment> appointmentList = new ArrayList<>();
         appointmentRepository.findAll().forEach(appointmentList::add);
-        if(!appointmentList.isEmpty())
+        if (!appointmentList.isEmpty())
             return new ResponseEntity<>(appointmentRepository.findAll(), new HttpHeaders(), HttpStatus.OK);
         else {
-            AppointmentDTO response = new AppointmentDTO();
-            response.setReturnCode("No appointments scheduled");
-
-            return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+            return handleBadRequest("No appointments scheduled");
         }
     }
 
@@ -53,33 +59,26 @@ public class AppointmentService {
             AppointmentDTO response = new AppointmentDTO(appointmentRepository.save(appointment));
 
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
-        }
-        else {
+        } else {
             // if action is not valid create HTTP response using an empty DTO object where we only set the returnCode
-            AppointmentDTO response =new AppointmentDTO();
-            response.setReturnCode("Appointment was not created");
-
-            return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+            return handleBadRequest("Appointment was not created");
         }
     }
 
     // READ
     public ResponseEntity<?> getAppointment(Long appointmentID) {
         Appointment appointment = appointmentRepository.findByAppointmentID(appointmentID);
-        if (appointment!=null)
+        if (appointment != null)
             return new ResponseEntity<>(new AppointmentDTO(appointment), new HttpHeaders(), HttpStatus.OK);
         else {
-            AppointmentDTO response = new AppointmentDTO();
-            response.setReturnCode("Appointment not found");
-
-            return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+            return handleBadRequest("Appointment not found");
         }
     }
 
     // UPDATE
-    public ResponseEntity<?> updateAppointment(AppointmentDTO appointmentDTO, Long appointmentID){
+    public ResponseEntity<?> updateAppointment(AppointmentDTO appointmentDTO, Long appointmentID) {
         Appointment appointment = appointmentRepository.findByAppointmentID(appointmentID);
-        if (appointment!=null && appointmentValidator.validateAppointment(appointmentDTO)) {
+        if (appointment != null && appointmentValidator.validateAppointment(appointmentDTO)) {
             appointment.setDate(appointmentDTO.getDate());
             appointment.setTime(appointmentDTO.getTime());
             appointment.setPatientName(appointmentDTO.getPatientName());
@@ -92,32 +91,36 @@ public class AppointmentService {
 
             AppointmentDTO response = new AppointmentDTO(appointmentRepository.save(appointment));
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
-        }
-        else {
-            AppointmentDTO response = new AppointmentDTO();
-            response.setReturnCode("Appointment not found or update error");
-
-            return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+        } else {
+            return handleBadRequest("Appointment not found or update error");
         }
     }
 
     // DELETE
     public ResponseEntity<?> deleteAppointment(Long appointmentID) {
         Appointment appointment = appointmentRepository.findByAppointmentID(appointmentID);
-        if (appointment!=null) {
+        if (appointment != null) {
             appointmentRepository.deleteById(appointmentID);
             // appointmentRepository.deleteByAppointmentID(appointmentID);
             AppointmentDTO response = new AppointmentDTO();
             response.setReturnCode("Appointment deleted");
 
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
-        }
-        else {
-            AppointmentDTO response = new AppointmentDTO();
-            response.setReturnCode("Appointment not found");
-
-            return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+        } else {
+            return handleBadRequest("Appointment not found");
         }
     }
 
+    // BOOK AN APPOINTMENT
+    public ResponseEntity<?> bookAppointment(AppointmentDTO appointmentDTO) {
+        if (appointmentValidator.validateAppointment(appointmentDTO) && // availabilitycheck) {
+            Appointment appointment = new Appointment(appointmentDTO);
+            AppointmentDTO response = new AppointmentDTO(appointmentRepository.save(appointment));
+
+            return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
+        }
+        else {
+            return handleBadRequest("Appointment was not booked");
+        }
+    }
 }
