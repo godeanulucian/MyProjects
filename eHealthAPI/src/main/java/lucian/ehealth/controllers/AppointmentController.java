@@ -20,10 +20,10 @@ public class AppointmentController {
     }
 
     // CREATE
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<?> addAppointment(@RequestBody AppointmentDTO appointmentDTO) {
         return appointmentService.addAppointment(appointmentDTO);
-    }
+    }*/
 
     // READ
     @GetMapping(path = "/{appointmentID}")
@@ -44,9 +44,9 @@ public class AppointmentController {
     }
 
     // BOOK AN APPOINTMENT
-    /*@PostMapping
+    @PostMapping
     public ResponseEntity<?> bookAppointment(@RequestBody AppointmentDTO appointmentDTO) {
         return appointmentService.bookAppointment(appointmentDTO);
-    }*/
+    }
 
 }

@@ -3,7 +3,11 @@ package lucian.ehealth.services;
 import jakarta.transaction.Transactional;
 import lucian.ehealth.dto.AppointmentDTO;
 import lucian.ehealth.entities.Appointment;
+import lucian.ehealth.entities.Patient;
+import lucian.ehealth.entities.Provider;
 import lucian.ehealth.repositories.AppointmentRepository;
+import lucian.ehealth.repositories.PatientRepository;
+import lucian.ehealth.repositories.ProviderRepository;
 import lucian.ehealth.validators.AppointmentValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +30,10 @@ public class AppointmentService {
     AppointmentRepository appointmentRepository;
     @Autowired
     AppointmentValidator appointmentValidator;
+    @Autowired
+    PatientRepository patientRepository;
+    @Autowired
+    ProviderRepository providerRepository;
 
     // BAD REQUEST HANDLER
     public ResponseEntity<?> handleBadRequest(String returnCode) {
@@ -113,14 +121,27 @@ public class AppointmentService {
 
     // BOOK AN APPOINTMENT
     public ResponseEntity<?> bookAppointment(AppointmentDTO appointmentDTO) {
-        if (appointmentValidator.validateAppointment(appointmentDTO) && // availabilitycheck) {
+        Patient patient = patientRepository.findByFullName(appointmentDTO.getPatientName());
+        Provider provider = providerRepository.findByFullName(appointmentDTO.getProviderName());
+
+        if (appointmentValidator.validateAppointment(appointmentDTO) && appointmentValidator.validateBookAppointment(appointmentDTO)) {
             Appointment appointment = new Appointment(appointmentDTO);
             AppointmentDTO response = new AppointmentDTO(appointmentRepository.save(appointment));
 
+            if (response.getStatus()==null && response.getReturnCode()==null){
+                response.setStatus("Scheduled");
+            }
+
+            updatePatientAndProvider(patient, provider);
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
             return handleBadRequest("Appointment was not booked");
         }
+    }
+
+    private void updatePatientAndProvider(Patient patient, Provider provider) {
+        patient.setHasAppointment(true);
+        provider.setHasAppointment(true);
     }
 }

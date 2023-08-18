@@ -19,8 +19,9 @@ public class AppointmentValidator {
     }
 
     public boolean validateBookAppointment(AppointmentDTO appointmentDTO) {
-        //
-        return true;
+        return validateAppointment(appointmentDTO)
+                && appointmentRepository
+                .findByDateAndTimeAndProviderName(appointmentDTO.getDate(), appointmentDTO.getTime(), appointmentDTO.getProviderName())==null;
     }
 
 }
