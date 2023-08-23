@@ -48,8 +48,9 @@ public class AppointmentService {
     public ResponseEntity<?> getAllAppointments() {
         // fetch all entities into a list using forEach
         List<Appointment> appointmentList = new ArrayList<>();
-        appointmentRepository.findAll().forEach(appointmentList::add);
-        if (!appointmentList.isEmpty())
+        // appointmentRepository.findAll().forEach(appointmentList::add);
+        // if (!appointmentList.isEmpty())
+        if(appointmentRepository.findAll()!=null)
             return new ResponseEntity<>(appointmentRepository.findAll(), new HttpHeaders(), HttpStatus.OK);
         else {
             return handleBadRequest("No appointments scheduled");
@@ -65,6 +66,11 @@ public class AppointmentService {
             // II. save the new entity into a repository
             // III. create a HTTP response using a DTO object
             AppointmentDTO response = new AppointmentDTO(appointmentRepository.save(appointment));
+
+            // after appointment ic created we need to update hasAppointment to "true"
+            Patient patient = patientRepository.findByFullName(appointmentDTO.getPatientName());
+            Provider provider = providerRepository.findByFullName(appointmentDTO.getProviderName());
+            updatePatientAndProvider(patient, provider, true);
 
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         } else {
@@ -113,6 +119,10 @@ public class AppointmentService {
             AppointmentDTO response = new AppointmentDTO();
             response.setReturnCode("Appointment deleted");
 
+            Patient patient = patientRepository.findByFullName(appointment.getPatientName());
+            Provider provider = providerRepository.findByFullName(appointment.getProviderName());
+            updatePatientAndProvider(patient, provider, false);
+
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         } else {
             return handleBadRequest("Appointment not found");
@@ -132,7 +142,7 @@ public class AppointmentService {
                 response.setStatus("Scheduled");
             }
 
-            updatePatientAndProvider(patient, provider);
+            updatePatientAndProvider(patient, provider, true);
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
@@ -140,8 +150,8 @@ public class AppointmentService {
         }
     }
 
-    private void updatePatientAndProvider(Patient patient, Provider provider) {
-        patient.setHasAppointment(true);
-        provider.setHasAppointment(true);
+    private void updatePatientAndProvider(Patient patient, Provider provider, boolean checker) {
+        patient.setHasAppointment(checker);
+        provider.setHasAppointment(checker);
     }
 }

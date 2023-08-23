@@ -1,8 +1,0 @@
-
-w10:
-    8081
-
-vm1:
-    dev, dev
-    db: app, password
-    ip: 192.168.56.104
