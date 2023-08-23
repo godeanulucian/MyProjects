@@ -61,11 +61,13 @@ public class AppointmentService {
     public ResponseEntity<?> addAppointment(AppointmentDTO appointmentDTO) {
         // validator test
         if (appointmentValidator.validateAppointment(appointmentDTO)) {
-            // I. create entity object so we can perform db operations on it
+            // I. create entity object, so we can perform db operations on it
             Appointment appointment = new Appointment(appointmentDTO);
+            appointment.setStatus("Scheduled");
             // II. save the new entity into a repository
             // III. create a HTTP response using a DTO object
             AppointmentDTO response = new AppointmentDTO(appointmentRepository.save(appointment));
+            // response.setStatus("Scheduled");
 
             // after appointment ic created we need to update hasAppointment to "true"
             Patient patient = patientRepository.findByFullName(appointmentDTO.getPatientName());
@@ -115,7 +117,6 @@ public class AppointmentService {
         Appointment appointment = appointmentRepository.findByAppointmentID(appointmentID);
         if (appointment != null) {
             appointmentRepository.deleteById(appointmentID);
-            // appointmentRepository.deleteByAppointmentID(appointmentID);
             AppointmentDTO response = new AppointmentDTO();
             response.setReturnCode("Appointment deleted");
 
@@ -136,13 +137,10 @@ public class AppointmentService {
 
         if (appointmentValidator.validateAppointment(appointmentDTO) && appointmentValidator.validateBookAppointment(appointmentDTO)) {
             Appointment appointment = new Appointment(appointmentDTO);
+            appointment.setStatus("Scheduled");
             AppointmentDTO response = new AppointmentDTO(appointmentRepository.save(appointment));
-
-            if (response.getStatus()==null && response.getReturnCode()==null){
-                response.setStatus("Scheduled");
-            }
-
             updatePatientAndProvider(patient, provider, true);
+
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
