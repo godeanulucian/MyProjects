@@ -14,7 +14,7 @@ public class Insurance {
     private String companyName; // Name of the insurance company
     private LocalDate startDate; // Start date of the insurance coverage
     private LocalDate endDate; // End date of the insurance coverage
-    private double coverageAmount; // Maximum coverage amount provided by the insurance
+    private Double coveragePercent; // Maximum coverage amount provided by the insurance
     private String contactInformation; // Contact information for the insurance company
 
     public Insurance() {}
@@ -24,7 +24,7 @@ public class Insurance {
         companyName = insuranceDTO.getCompanyName();
         startDate = insuranceDTO.getStartDate();
         endDate = insuranceDTO.getEndDate();
-        coverageAmount = insuranceDTO.getCoverageAmount();
+        coveragePercent = insuranceDTO.getCoveragePercent();
         contactInformation = insuranceDTO.getContactInformation();
     }
 
@@ -36,7 +36,7 @@ public class Insurance {
                 ", companyName='" + companyName + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", coverageAmount=" + coverageAmount +
+                ", coverageAmount=" + coveragePercent +
                 ", contactInformation='" + contactInformation + '\'' +
                 '}';
     }
@@ -80,12 +80,12 @@ public class Insurance {
         this.endDate = endDate;
     }
 
-    public double getCoverageAmount() {
-        return coverageAmount;
+    public Double getCoveragePercent() {
+        return coveragePercent;
     }
 
-    public void setCoverageAmount(double coverageAmount) {
-        this.coverageAmount = coverageAmount;
+    public void setCoveragePercent(Double coveragePercent) {
+        this.coveragePercent = coveragePercent;
     }
 
     public String getContactInformation() {

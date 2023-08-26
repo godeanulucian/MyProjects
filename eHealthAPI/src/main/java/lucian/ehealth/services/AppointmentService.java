@@ -15,9 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 // transaction is a sequence of multiple operations performed on a database
 // The @Transactional annotation is metadata that specifies that an interface, class, or method must have transactional semantics (for example, "start a brand new read-only transaction when this method is invoked, suspending any existing transaction").
 @Transactional
@@ -46,10 +43,6 @@ public class AppointmentService {
 
     // READ ALL
     public ResponseEntity<?> getAllAppointments() {
-        // fetch all entities into a list using forEach
-        List<Appointment> appointmentList = new ArrayList<>();
-        // appointmentRepository.findAll().forEach(appointmentList::add);
-        // if (!appointmentList.isEmpty())
         if(appointmentRepository.findAll()!=null)
             return new ResponseEntity<>(appointmentRepository.findAll(), new HttpHeaders(), HttpStatus.OK);
         else {
@@ -132,13 +125,18 @@ public class AppointmentService {
 
     // BOOK AN APPOINTMENT
     public ResponseEntity<?> bookAppointment(AppointmentDTO appointmentDTO) {
+        // declare our entities that we will update after booking an appointment
         Patient patient = patientRepository.findByFullName(appointmentDTO.getPatientName());
         Provider provider = providerRepository.findByFullName(appointmentDTO.getProviderName());
 
+        // validate our appointment (see AppointmentValidator class)
         if (appointmentValidator.validateAppointment(appointmentDTO) && appointmentValidator.validateBookAppointment(appointmentDTO)) {
+            // if appointment is valid, we save it to our repository with status "Scheduled"
             Appointment appointment = new Appointment(appointmentDTO);
             appointment.setStatus("Scheduled");
+            // create HTTP response
             AppointmentDTO response = new AppointmentDTO(appointmentRepository.save(appointment));
+            // notify Patient and Provider
             updatePatientAndProvider(patient, provider, true);
 
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);

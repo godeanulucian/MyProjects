@@ -10,18 +10,20 @@ public class AppointmentValidator {
     @Autowired
     AppointmentRepository appointmentRepository;
     public boolean validateAppointment(AppointmentDTO appointmentDTO) {
+        // check the DTO and it's fields to be valid and not null
         return appointmentDTO!=null
-                && appointmentDTO.getDate()!=null
-                && appointmentDTO.getTime()!=null
-                && appointmentDTO.getPatientName()!=null
-                && appointmentDTO.getProviderName()!=null
+                && appointmentDTO.getDate()!=null && appointmentDTO.getDate().isAfter(java.time.LocalDate.now())
+                && appointmentDTO.getTime()!=null // && appointmentDTO.getTime().isAfter(java.time.LocalTime.now())
+                && appointmentDTO.getPatientName()!=null && appointmentDTO.getPatientName().matches("[a-zA-Z .-]+")
+                && appointmentDTO.getProviderName()!=null && appointmentDTO.getProviderName().matches("[a-zA-Z .-]+")
                 && appointmentRepository.findByAppointmentID(appointmentDTO.getAppointmentID())==null;
     }
 
     public boolean validateBookAppointment(AppointmentDTO appointmentDTO) {
         return validateAppointment(appointmentDTO)
+                // appointment will only be valid if it's date, time and provider does not interfere with another appointment
                 && appointmentRepository
-                .findByDateAndTimeAndProviderName(appointmentDTO.getDate(), appointmentDTO.getTime(), appointmentDTO.getProviderName())==null;
+                .findByDateAndTimeAndPatientNameAndProviderName(appointmentDTO.getDate(), appointmentDTO.getTime(), appointmentDTO.getPatientName(), appointmentDTO.getProviderName())==null;
     }
 
 }

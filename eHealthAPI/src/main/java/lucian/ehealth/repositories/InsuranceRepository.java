@@ -11,6 +11,6 @@ import java.util.UUID;
 public interface InsuranceRepository extends CrudRepository<Insurance, UUID> {
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Insurance findByCompanyName(String companyName);
+    Insurance findByPatientFullName(String patientFullName);
 
 }

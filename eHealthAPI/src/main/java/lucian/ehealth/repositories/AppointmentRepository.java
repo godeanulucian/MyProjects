@@ -18,5 +18,5 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Long>
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Appointment findByAppointmentID(Long appointmentID);
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Appointment findByDateAndTimeAndProviderName(LocalDate date, LocalTime time, String providerName);
+    Appointment findByDateAndTimeAndPatientNameAndProviderName(LocalDate date, LocalTime time, String patientName, String providerName);
 }

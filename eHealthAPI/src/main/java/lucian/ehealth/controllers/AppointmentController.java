@@ -3,6 +3,9 @@ package lucian.ehealth.controllers;
 import lucian.ehealth.dto.AppointmentDTO;
 import lucian.ehealth.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +19,11 @@ public class AppointmentController {
     // READ ALL
     @GetMapping
     public ResponseEntity<?> getAllAppointments() {
-        return appointmentService.getAllAppointments();
+        AppointmentDTO response = new AppointmentDTO();
+        response.setReturnCode("You are not allowed to do this");
+        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+
+        // return appointmentService.getAllAppointments();
     }
 
     // CREATE
@@ -43,7 +50,7 @@ public class AppointmentController {
         return appointmentService.deleteAppointment(appointmentID);
     }
 
-    // BOOK AN APPOINTMENT
+    // CREATE - BOOK AN APPOINTMENT
     @PostMapping
     public ResponseEntity<?> bookAppointment(@RequestBody AppointmentDTO appointmentDTO) {
         return appointmentService.bookAppointment(appointmentDTO);

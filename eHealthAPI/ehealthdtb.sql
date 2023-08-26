@@ -104,14 +104,14 @@ CREATE TABLE INSURANCES (
                             companyName VARCHAR(255),
                             startDate DATE,
                             endDate DATE,
-                            coverageAmount DOUBLE PRECISION,
+                            coveragePercent DOUBLE PRECISION,
                             contactInformation TEXT
 );
 
-INSERT INTO INSURANCES (patientFullName, companyName, startDate, endDate, coverageAmount, contactInformation)
+INSERT INTO INSURANCES (patientFullName, companyName, startDate, endDate, coveragePercent, contactInformation)
 VALUES
-    ('John Doe', 'ABC Insurance', '2023-01-01', '2024-01-01', 10000.0, 'contact@abcinsurance.com'),
-    ('Jane Smith', 'XYZ Insurance', '2023-02-15', '2023-12-31', 8000.0, 'contact@xyzinsurance.com');
+    ('John Doe', 'ABC Insurance', '2023-01-01', '2024-01-01', 0.6, 'contact@abcinsurance.com'),
+    ('Jane Smith', 'XYZ Insurance', '2023-02-15', '2023-12-31', 0.8, 'contact@xyzinsurance.com');
 
 
 CREATE TABLE LAB_TESTS (

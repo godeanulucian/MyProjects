@@ -2,7 +2,6 @@ package lucian.ehealth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lucian.ehealth.entities.Insurance;
-import lucian.ehealth.entities.Patient;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -15,7 +14,7 @@ public class InsuranceDTO {
     private String companyName; // Name of the insurance company
     private LocalDate startDate; // Start date of the insurance coverage
     private LocalDate endDate; // End date of the insurance coverage
-    private double coverageAmount; // Maximum coverage amount provided by the insurance
+    private Double coveragePercent; // Maximum coverage amount provided by the insurance - company pays 60, 70, 80, 90%
     private String contactInformation; // Contact information for the insurance company
     private String returnCode;
 
@@ -27,7 +26,7 @@ public class InsuranceDTO {
         companyName = insurance.getCompanyName();
         startDate = insurance.getStartDate();
         endDate = insurance.getEndDate();
-        coverageAmount = insurance.getCoverageAmount();
+        coveragePercent = insurance.getCoveragePercent();
         contactInformation = insurance.getContactInformation();
         this.returnCode = getReturnCode();
     }
@@ -40,7 +39,7 @@ public class InsuranceDTO {
                 ", companyName='" + companyName + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", coverageAmount=" + coverageAmount +
+                ", coverageAmount=" + coveragePercent +
                 ", contactInformation='" + contactInformation + '\'' +
                 ", returnCode='" + returnCode + '\'' +
                 '}';
@@ -85,12 +84,12 @@ public class InsuranceDTO {
         this.endDate = endDate;
     }
 
-    public double getCoverageAmount() {
-        return coverageAmount;
+    public Double getCoveragePercent() {
+        return coveragePercent;
     }
 
-    public void setCoverageAmount(double coverageAmount) {
-        this.coverageAmount = coverageAmount;
+    public void setCoveragePercent(Double coveragePercent) {
+        this.coveragePercent = coveragePercent;
     }
 
     public String getContactInformation() {
