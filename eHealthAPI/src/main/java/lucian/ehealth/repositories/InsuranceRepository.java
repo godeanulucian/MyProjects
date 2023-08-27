@@ -12,5 +12,7 @@ public interface InsuranceRepository extends CrudRepository<Insurance, UUID> {
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Insurance findByPatientFullName(String patientFullName);
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    Insurance findByInsuranceID(Long insuranceID);
 
 }

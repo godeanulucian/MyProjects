@@ -20,8 +20,7 @@ public class InsuranceValidator {
                 && insuranceDTO.getCoveragePercent()!=null
                 && insuranceDTO.getContactInformation()!=null
                 // unique insurance by patient name
-                && insuranceRepository.findByPatientFullName(insuranceDTO.getPatientFullName())==null;
-
+                && insuranceRepository.findByInsuranceID(insuranceDTO.getInsuranceID())==null;
     }
 
 }

@@ -16,6 +16,7 @@ public class InsuranceController {
     @Autowired
     InsuranceService insuranceService;
 
+    // UNAUTHORIZED REQUEST HANDLER
     public ResponseEntity<?> handleUnauthorizedRequest() {
         InsuranceDTO response = new InsuranceDTO();
         response.setReturnCode("You are not allowed to do this");
@@ -26,9 +27,7 @@ public class InsuranceController {
     // READ ALL
     @GetMapping
     public ResponseEntity<?> getAllInsurances() {
-        InsuranceDTO response = new InsuranceDTO();
-        response.setReturnCode("You are not allowed to do this");
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+        return handleUnauthorizedRequest();
 
         // return insuranceService.getAllInsurances();
     }
@@ -49,6 +48,8 @@ public class InsuranceController {
     @PutMapping(path = "/{patientFullName}")
     public ResponseEntity<?> updateInsurance(@RequestBody InsuranceDTO insuranceDTO, @PathVariable String patientFullName) {
         return handleUnauthorizedRequest();
+
+        // return insuranceService.updateInsurance(insuranceDTO, patientFullName);
     }
 
     // DELETE

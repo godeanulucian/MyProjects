@@ -12,6 +12,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Transactional
 @Service
 public class InsuranceService {
@@ -35,8 +39,10 @@ public class InsuranceService {
 
     // READ ALL
     public ResponseEntity<?> getAllInsurances() {
-        if (insuranceRepository.findAll()!=null)
-            return new ResponseEntity<>(insuranceRepository.findAll(), new HttpHeaders(), HttpStatus.OK);
+        List<Insurance> insurances = new ArrayList<>();
+        insuranceRepository.findAll().forEach(insurances::add);
+        if (!insurances.isEmpty())
+            return new ResponseEntity<>(insurances, new HttpHeaders(), HttpStatus.OK);
         else
             return handleBadRequest("No insurances found");
     }
@@ -69,6 +75,23 @@ public class InsuranceService {
     }
 
     // UPDATE
+    public ResponseEntity<?> updateInsurance(InsuranceDTO insuranceDTO, String patientFullName) {
+        Insurance insurance = insuranceRepository.findByPatientFullName(patientFullName);
+        if (insurance!=null && insuranceValidator.validateInsurance(insuranceDTO)) {
+            insurance.setPatientFullName(insuranceDTO.getPatientFullName());
+            insurance.setCompanyName(insuranceDTO.getCompanyName());
+            insurance.setStartDate(insuranceDTO.getStartDate());
+            insurance.setEndDate(insuranceDTO.getEndDate());
+            insurance.setCoveragePercent(insuranceDTO.getCoveragePercent());
+            insurance.setContactInformation(insuranceDTO.getContactInformation());
+
+            InsuranceDTO response = new InsuranceDTO(insuranceRepository.save(insurance));
+            return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
+        }
+        else {
+            return handleBadRequest("Insurance not found or update error");
+        }
+    }
 
     // DELETE
     public ResponseEntity<?> deleteInsurance(String patientFullName) {

@@ -15,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // transaction is a sequence of multiple operations performed on a database
 // The @Transactional annotation is metadata that specifies that an interface, class, or method must have transactional semantics (for example, "start a brand new read-only transaction when this method is invoked, suspending any existing transaction").
 @Transactional
@@ -43,8 +46,11 @@ public class AppointmentService {
 
     // READ ALL
     public ResponseEntity<?> getAllAppointments() {
-        if(appointmentRepository.findAll()!=null)
-            return new ResponseEntity<>(appointmentRepository.findAll(), new HttpHeaders(), HttpStatus.OK);
+        // add all existing entities to a list then return it as a
+        List<Appointment> appointments = new ArrayList<>();
+        appointmentRepository.findAll().forEach(appointments::add);
+        if(!appointments.isEmpty())
+            return new ResponseEntity<>(appointments, new HttpHeaders(), HttpStatus.OK);
         else {
             return handleBadRequest("No appointments scheduled");
         }

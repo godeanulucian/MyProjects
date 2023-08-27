@@ -11,6 +11,8 @@ import java.util.UUID;
 @Repository
 public interface LabTestRepository extends CrudRepository<LabTest, UUID> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    LabTest findByTestName(String testName);
+    LabTest findByLabTestID(Long labTestID);
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    LabTest findByPatientFullName(String patientFullName);
 
 }
