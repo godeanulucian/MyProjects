@@ -11,6 +11,6 @@ import java.util.UUID;
 @Repository
 public interface UserRepository extends CrudRepository<User, UUID> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    User findByFullName(String fullName);
+    User findByUsername(String username);
 
 }

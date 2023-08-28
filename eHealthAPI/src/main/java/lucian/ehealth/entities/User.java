@@ -20,6 +20,8 @@ public class User {
     private String gender;
     private String address;
     private boolean isDoctor; // var = doctor (for setting truth value)
+    private String cardNumber;
+    private Double amount;
 
     public User() {}
     public User(UserDTO userDTO) {
@@ -33,12 +35,14 @@ public class User {
         gender = userDTO.getGender();
         address = userDTO.getAddress();
         isDoctor = userDTO.isDoctor();
+        cardNumber = userDTO.getCardNumber();
+        amount = userDTO.getAmount();
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + userID +
+                "userID=" + userID +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
@@ -48,6 +52,8 @@ public class User {
                 ", gender='" + gender + '\'' +
                 ", address='" + address + '\'' +
                 ", isDoctor=" + isDoctor +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", amount=" + amount +
                 '}';
     }
 
@@ -129,5 +135,21 @@ public class User {
 
     public void setDoctor(boolean doctor) {
         isDoctor = doctor;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 }

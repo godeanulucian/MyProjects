@@ -18,6 +18,8 @@ public class UserDTO {
     private String gender;
     private String address;
     private boolean isDoctor;
+    private String cardNumber;
+    private Double amount;
     private String returnCode;
 
     public UserDTO() {}
@@ -33,6 +35,8 @@ public class UserDTO {
         gender = user.getGender();
         address = user.getAddress();
         isDoctor = user.isDoctor();
+        cardNumber = user.getCardNumber();
+        amount = user.getAmount();
         this.returnCode = getReturnCode();
     }
 
@@ -49,6 +53,8 @@ public class UserDTO {
                 ", gender='" + gender + '\'' +
                 ", address='" + address + '\'' +
                 ", isDoctor=" + isDoctor +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", amount=" + amount +
                 ", returnCode='" + returnCode + '\'' +
                 '}';
     }
@@ -139,5 +145,21 @@ public class UserDTO {
 
     public void setReturnCode(String returnCode) {
         this.returnCode = returnCode;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 }

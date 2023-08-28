@@ -2,7 +2,6 @@ package lucian.ehealth.controllers;
 
 import lucian.ehealth.dto.InsuranceDTO;
 import lucian.ehealth.services.InsuranceService;
-import org.hibernate.annotations.Struct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

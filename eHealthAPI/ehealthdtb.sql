@@ -9,16 +9,18 @@ CREATE TABLE USERS (
                        dateOfBirth DATE,
                        gender VARCHAR(10),
                        address VARCHAR(255),
-                       isDoctor BOOLEAN
+                       isDoctor BOOLEAN,
+                       cardNumber VARCHAR(255) UNIQUE,
+                       amount DOUBLE PRECISION
 );
 
-INSERT INTO USERS (username, password, email, contactInformation, fullName, dateOfBirth, gender, address, isDoctor)
+INSERT INTO USERS (username, password, email, contactInformation, fullName, dateOfBirth, gender, address, isDoctor, cardNumber, amount)
 VALUES
-    ('john_doe', 'password123', 'john@example.com', '123-456-7890', 'John Doe', '1990-05-15', 'Male', '123 Main St', false),
-    ('jane_smith', 'securepass', 'jane@example.com', '987-654-3210', 'Jane Smith', '1985-12-10', 'Female', '456 Elm St', true),
-    ('alice_johnson', 'pass123', 'alice@example.com', '555-123-4567', 'Alice Johnson', '2000-08-25', 'Female', '789 Oak St', false),
-    ('michael_williams', 'mypass', 'michael@example.com', '222-333-4444', 'Michael Williams', '1978-03-03', 'Male', '987 Pine St', false),
-    ('emily_davis', 'emilypass', 'emily@example.com', '666-777-8888', 'Emily Davis', '1995-11-20', 'Female', '654 Birch St', true);
+    ('john_doe', 'password123', 'john@example.com', '123-456-7890', 'John Doe', '1990-05-15', 'Male', '123 Main St', false, '0000000000000000', 1000.00),
+    ('jane_smith', 'securepass', 'jane@example.com', '987-654-3210', 'Jane Smith', '1985-12-10', 'Female', '456 Elm St', true, '1111111111111111', 2000.00),
+    ('alice_johnson', 'pass123', 'alice@example.com', '555-123-4567', 'Alice Johnson', '2000-08-25', 'Female', '789 Oak St', false, '2222222222222222', 3000.00),
+    ('michael_williams', 'mypass', 'michael@example.com', '222-333-4444', 'Michael Williams', '1978-03-03', 'Male', '987 Pine St', false, '3333333333333333', 4000.00),
+    ('emily_davis', 'emilypass', 'emily@example.com', '666-777-8888', 'Emily Davis', '1995-11-20', 'Female', '654 Birch St', true, '4444444444444444', 5000.00);
 
 
 CREATE TABLE PATIENTS (
@@ -94,8 +96,8 @@ CREATE TABLE APPOINTMENTS (
 
 INSERT INTO APPOINTMENTS (date, time, patientName, providerName, type, status, reason, location, notes)
 VALUES
-    ('2023-08-15', '10:00:00', 'John Doe', 'Dr. Smith', 'Checkup', 'Scheduled', 'Routine checkup', 'Clinic A', 'No special notes'),
-    ('2023-08-17', '15:30:00', 'Jane Smith', 'Dr. Johnson', 'Follow-up', 'Completed', 'Review of test results', 'Hospital B', 'Prescribed medication');
+    ('2023-08-15', '10:00:00', 'John Doe', 'Dr. Smith', 'Checkup', null, 'Routine checkup', 'Clinic A', 'No special notes'),
+    ('2023-08-17', '15:30:00', 'Jane Smith', 'Dr. Johnson', 'Follow-up', null, 'Review of test results', 'Hospital B', 'Prescribed medication');
 
 
 CREATE TABLE INSURANCES (
@@ -130,24 +132,6 @@ INSERT INTO LAB_TESTS (testName, patientFullName, type, testDate, result, techni
 VALUES
     ('Blood Test', 'John Doe', 'Medical', '2023-08-15', 'Normal', 'Alice Johnson', 'Lab A', 'Routine check'),
     ('X-ray', 'Jane Smith', 'Radiology', '2023-08-17', 'Fracture detected', 'Michael Williams', 'Hospital B', 'Injury evaluation');
-
-
-CREATE TABLE KINS (
-                      kinID SERIAL PRIMARY KEY,
-                      patientFullName VARCHAR(255),
-                      fullName VARCHAR(255),
-                      dateOfBirth DATE,
-                      gender VARCHAR(10),
-                      bloodType VARCHAR(5),
-                      relationStatus VARCHAR(255),
-                      contactInfo TEXT,
-                      language VARCHAR(50)
-);
-
-INSERT INTO KINS (patientFullName, fullName, dateOfBirth, gender, bloodType, relationStatus, contactInfo, language)
-VALUES
-    ('John Doe', 'Jane Doe', '1975-03-10', 'Female', 'A+', 'Spouse', 'jane@example.com', 'English'),
-    ('Jane Smith', 'David Smith', '1982-09-22', 'Male', 'O-', 'Sibling', 'david@example.com', 'Spanish');
 
 
 CREATE TABLE PAYMENTS (

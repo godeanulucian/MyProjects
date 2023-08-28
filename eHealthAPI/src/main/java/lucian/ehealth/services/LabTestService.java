@@ -110,7 +110,7 @@ public class LabTestService {
             response.setReturnCode("Laboratory test deleted");
 
             Patient patient = patientRepository.findByFullName(patientFullName);
-            updatePatient(patient, "No laboratory tests found");
+            updatePatient(patient, "None");
 
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
 

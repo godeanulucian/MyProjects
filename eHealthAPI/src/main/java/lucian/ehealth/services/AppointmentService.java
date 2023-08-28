@@ -62,7 +62,7 @@ public class AppointmentService {
         if (appointmentValidator.validateAppointment(appointmentDTO)) {
             // I. create entity object, so we can perform db operations on it
             Appointment appointment = new Appointment(appointmentDTO);
-            appointment.setStatus("Scheduled");
+            appointment.setStatus("Scheduled"); // or completed
             // II. save the new entity into a repository
             // III. create a HTTP response using a DTO object
             AppointmentDTO response = new AppointmentDTO(appointmentRepository.save(appointment));
@@ -83,8 +83,13 @@ public class AppointmentService {
     // READ
     public ResponseEntity<?> getAppointment(Long appointmentID) {
         Appointment appointment = appointmentRepository.findByAppointmentID(appointmentID);
-        if (appointment != null)
+        if (appointment != null) {
+            // refresh status when triggered by a get request
+            if (appointment.getDate().isBefore(java.time.LocalDate.now())) {
+                appointment.setStatus("Completed");
+            }
             return new ResponseEntity<>(new AppointmentDTO(appointment), new HttpHeaders(), HttpStatus.OK);
+        }
         else {
             return handleBadRequest("Appointment not found");
         }

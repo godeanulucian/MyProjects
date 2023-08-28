@@ -1,6 +1,5 @@
 package lucian.ehealth.services;
 
-import lucian.ehealth.dto.AppointmentDTO;
 import lucian.ehealth.dto.UserDTO;
 import lucian.ehealth.entities.User;
 import lucian.ehealth.repositories.UserRepository;
@@ -30,8 +29,7 @@ public class UserService {
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
-    // CREATE
-    // auto create patient
+    // CREATE USER & auto create patient/provider
     public ResponseEntity<?> addUser(@RequestBody UserDTO userDTO) {
         User user = new User(userDTO);
         if(!userDTO.isDoctor())
