@@ -5,6 +5,8 @@ import lucian.ehealth.repositories.InsuranceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class InsuranceValidator {
 
@@ -16,7 +18,7 @@ public class InsuranceValidator {
                 && insuranceDTO.getPatientFullName()!=null && insuranceDTO.getPatientFullName().matches("[a-zA-Z .-]+")
                 && insuranceDTO.getCompanyName()!=null && insuranceDTO.getCompanyName().matches("[a-zA-Z .-]+")
                 && insuranceDTO.getStartDate()!=null
-                && insuranceDTO.getEndDate()!=null
+                && insuranceDTO.getEndDate()!=null // && insuranceDTO.getEndDate().isBefore(LocalDate.now())
                 && insuranceDTO.getCoveragePercent()!=null
                 && insuranceDTO.getContactInformation()!=null
                 // unique insurance by patient name

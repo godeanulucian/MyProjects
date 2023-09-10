@@ -1,5 +1,6 @@
 package lucian.ehealth.services;
 
+import lucian.ehealth.dto.InsuranceDTO;
 import lucian.ehealth.dto.UserDTO;
 import lucian.ehealth.entities.User;
 import lucian.ehealth.repositories.UserRepository;
@@ -9,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -22,11 +26,24 @@ public class UserService {
     @Autowired
     ProviderService providerService;
 
-    // READ
+    // BAD REQUEST HANDLER
+    public ResponseEntity<?> handleBadRequest(String returnCode) {
+        UserDTO response = new UserDTO();
+        response.setReturnCode(returnCode);
+
+        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+    // READ ALL
     public ResponseEntity<?> getAllUsers() {
-        System.out.println("\n--- Users List ---\n");
-        System.out.println(userRepository.findAll());
-        return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
+        List<User> users = new ArrayList<>();
+        userRepository.findAll().forEach(users::add);
+        if (!users.isEmpty()) {
+            return new ResponseEntity<>(users, new HttpHeaders(), HttpStatus.OK);
+        }
+        else {
+            return handleBadRequest("No users found");
+        }
     }
 
     // CREATE USER & auto create patient/provider
@@ -43,6 +60,8 @@ public class UserService {
         System.out.println(userDTO.getReturnCode());
         UserDTO response = new UserDTO(user);
         return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
+
+        // rework method
     }
 
 }
