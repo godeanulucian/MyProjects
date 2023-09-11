@@ -116,15 +116,15 @@ PROVIDER
 
 USER
 {
-    "username": "exampledoctor",
-    "password": "password123",
-    "email": "password123",
-    "contactInformation": "123-456-7890",
-    "fullName": "irina",
-    "dateOfBirth": "1990-05-15",
-    "gender": "Male",
-    "address": "123 Main St",
-    "doctor": true
+    "username": "crupoveatchin_irina",
+    "password": "0aA@0aA@z",
+    "email": "iripiri@gmail.com",
+    "contactInformation": "07n-am cartela",
+    "fullName": "Dr. Crupoveatchin Irina",
+    "dateOfBirth": "2003-12-12",
+    "gender": "Female",
+    "address": "Martir Dan Carpin",
+    "doctor": true,
     "cardNumber": "1111222233334444",
     "amount": 6666.00
 }

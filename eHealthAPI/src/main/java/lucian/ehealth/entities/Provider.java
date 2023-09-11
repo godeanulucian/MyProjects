@@ -17,13 +17,13 @@ public class Provider {
     @Column(unique = true)
     private String licenseNumber; // License number of the health provider
     private String language; // List of languages spoken by the health provider
-    private double averageRating; // Average rating based on patient feedback
-    private boolean acceptsInsurance; // Indicates if the health provider accepts insurance
+    private Double averageRating; // Average rating based on patient feedback
+    private Boolean acceptsInsurance; // Indicates if the health provider accepts insurance
     private String acceptedInsurancePlans; // List of accepted insurance plans
-    private boolean hasPharmacyInventory;
-    private boolean isAvailable;
-    private boolean hasAppointment;
-    private boolean hasPayment;
+    private Boolean hasPharmacyInventory;
+    private Boolean isAvailable;
+    private Boolean hasAppointment;
+    private Boolean hasPayment;
 
     @Override
     public String toString() {
@@ -129,19 +129,19 @@ public class Provider {
         this.language = language;
     }
 
-    public double getAverageRating() {
+    public Double getAverageRating() {
         return averageRating;
     }
 
-    public void setAverageRating(double averageRating) {
+    public void setAverageRating(Double averageRating) {
         this.averageRating = averageRating;
     }
 
-    public boolean isAcceptsInsurance() {
+    public Boolean isAcceptsInsurance() {
         return acceptsInsurance;
     }
 
-    public void setAcceptsInsurance(boolean acceptsInsurance) {
+    public void setAcceptsInsurance(Boolean acceptsInsurance) {
         this.acceptsInsurance = acceptsInsurance;
     }
 
@@ -153,35 +153,35 @@ public class Provider {
         this.acceptedInsurancePlans = acceptedInsurancePlans;
     }
 
-    public boolean isAvailable() {
+    public Boolean isAvailable() {
         return isAvailable;
     }
 
-    public void setAvailable(boolean available) {
+    public void setAvailable(Boolean available) {
         isAvailable = available;
     }
 
-    public boolean isHasPharmacyInventory() {
+    public Boolean isHasPharmacyInventory() {
         return hasPharmacyInventory;
     }
 
-    public void setHasPharmacyInventory(boolean hasPharmacyInventory) {
+    public void setHasPharmacyInventory(Boolean hasPharmacyInventory) {
         this.hasPharmacyInventory = hasPharmacyInventory;
     }
 
-    public boolean isHasAppointment() {
+    public Boolean isHasAppointment() {
         return hasAppointment;
     }
 
-    public void setHasAppointment(boolean hasAppointment) {
+    public void setHasAppointment(Boolean hasAppointment) {
         this.hasAppointment = hasAppointment;
     }
 
-    public boolean isHasPayment() {
+    public Boolean isHasPayment() {
         return hasPayment;
     }
 
-    public void setHasPayment(boolean hasPayment) {
+    public void setHasPayment(Boolean hasPayment) {
         this.hasPayment = hasPayment;
     }
 }

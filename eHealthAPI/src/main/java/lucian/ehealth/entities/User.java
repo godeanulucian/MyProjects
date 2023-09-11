@@ -19,7 +19,7 @@ public class User {
     private LocalDate dateOfBirth;
     private String gender;
     private String address;
-    private boolean isDoctor; // var = doctor (for setting truth value)
+    private Boolean isDoctor; // var = doctor (for setting truth value)
     private String cardNumber;
     private Double amount;
 
@@ -28,7 +28,7 @@ public class User {
         userID = userDTO.getUserID();
         username = userDTO.getUsername();
         password = userDTO.getPassword();
-        email = userDTO.getPassword();
+        email = userDTO.getEmail();
         contactInformation = userDTO.getContactInformation();
         fullName = userDTO.getFullName();
         dateOfBirth = userDTO.getDateOfBirth();
@@ -129,11 +129,11 @@ public class User {
         this.address = address;
     }
 
-    public boolean isDoctor() {
+    public Boolean isDoctor() {
         return isDoctor;
     }
 
-    public void setDoctor(boolean doctor) {
+    public void setDoctor(Boolean doctor) {
         isDoctor = doctor;
     }
 

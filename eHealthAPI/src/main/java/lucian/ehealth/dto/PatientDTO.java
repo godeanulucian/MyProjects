@@ -17,7 +17,7 @@ public class PatientDTO {
     private String phoneNumber;
     private String socialMedia;
     private String address;
-    private boolean hasInsurance;
+    private Boolean hasInsurance;
     private String emergencyContact;
     private String bloodType;
     private Double height;
@@ -29,8 +29,8 @@ public class PatientDTO {
     private String nextOfKinFullName;
     private String testName;
     private String prescriptionName;
-    private boolean hasAppointment;
-    private boolean hasPayment;
+    private Boolean hasAppointment;
+    private Boolean hasPayment;
     private String returnCode;
 
     @Override
@@ -226,11 +226,11 @@ public class PatientDTO {
         this.returnCode = returnCode;
     }
 
-    public boolean isHasInsurance() {
+    public Boolean isHasInsurance() {
         return hasInsurance;
     }
 
-    public void setHasInsurance(boolean hasInsurance) {
+    public void setHasInsurance(Boolean hasInsurance) {
         this.hasInsurance = hasInsurance;
     }
 
@@ -258,19 +258,19 @@ public class PatientDTO {
         this.prescriptionName = prescriptionName;
     }
 
-    public boolean isHasAppointment() {
+    public Boolean isHasAppointment() {
         return hasAppointment;
     }
 
-    public void setHasAppointment(boolean hasAppointment) {
+    public void setHasAppointment(Boolean hasAppointment) {
         this.hasAppointment = hasAppointment;
     }
 
-    public boolean isHasPayment() {
+    public Boolean isHasPayment() {
         return hasPayment;
     }
 
-    public void setHasPayment(boolean hasPayment) {
+    public void setHasPayment(Boolean hasPayment) {
         this.hasPayment = hasPayment;
     }
 }

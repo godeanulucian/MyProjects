@@ -14,8 +14,8 @@ public class AppointmentValidator {
         return appointmentDTO!=null
                 && appointmentDTO.getDate()!=null && appointmentDTO.getDate().isAfter(java.time.LocalDate.now())
                 && appointmentDTO.getTime()!=null // && appointmentDTO.getTime().isAfter(java.time.LocalTime.now())
-                && appointmentDTO.getPatientName()!=null && appointmentDTO.getPatientName().matches("[a-zA-Z .-]+")
-                && appointmentDTO.getProviderName()!=null && appointmentDTO.getProviderName().matches("[a-zA-Z .-]+")
+                && appointmentDTO.getPatientName()!=null && appointmentDTO.getPatientName().matches("[a-zA-Z .-]{3,128}+")
+                && appointmentDTO.getProviderName()!=null && appointmentDTO.getProviderName().matches("[a-zA-Z .-]{3,128}+")
                 && appointmentRepository.findByAppointmentID(appointmentDTO.getAppointmentID())==null;
     }
 

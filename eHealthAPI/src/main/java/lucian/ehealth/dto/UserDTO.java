@@ -17,7 +17,7 @@ public class UserDTO {
     private LocalDate dateOfBirth;
     private String gender;
     private String address;
-    private boolean isDoctor;
+    private Boolean isDoctor;
     private String cardNumber;
     private Double amount;
     private String returnCode;
@@ -28,7 +28,7 @@ public class UserDTO {
         userID = user.getUserID();
         username = user.getUsername();
         password = user.getPassword();
-        email = user.getPassword();
+        email = user.getEmail();
         contactInformation = user.getContactInformation();
         fullName = user.getFullName();
         dateOfBirth = user.getDateOfBirth();
@@ -131,11 +131,11 @@ public class UserDTO {
         this.address = address;
     }
 
-    public boolean isDoctor() {
+    public Boolean isDoctor() {
         return isDoctor;
     }
 
-    public void setDoctor(boolean doctor) {
+    public void setDoctor(Boolean doctor) {
         isDoctor = doctor;
     }
 

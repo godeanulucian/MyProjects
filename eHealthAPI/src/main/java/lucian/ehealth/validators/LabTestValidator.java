@@ -14,13 +14,13 @@ public class LabTestValidator {
     public boolean validateLabTest(LabTestDTO labTestDTO) {
         return labTestDTO!=null
                 && labTestDTO.getTestName()!=null
-                && labTestDTO.getPatientFullName()!=null && labTestDTO.getPatientFullName().matches("[a-zA-Z .-]+")
-                && labTestDTO.getType()!=null
+                && labTestDTO.getPatientFullName()!=null && labTestDTO.getPatientFullName().matches("[a-zA-Z .-]{3,128}+")
+                && labTestDTO.getType()!=null && labTestDTO.getType().length() <= 128
                 && labTestDTO.getTestDate()!=null
-                && labTestDTO.getResult()!=null
-                && labTestDTO.getTechnician()!=null && labTestDTO.getTechnician().matches("[a-zA-Z .-]+")
-                && labTestDTO.getLocation()!=null
-                && labTestDTO.getComments()!=null
+                && labTestDTO.getResult()!=null && labTestDTO.getResult().length() <= 300
+                && labTestDTO.getTechnician()!=null && labTestDTO.getTechnician().matches("[a-zA-Z .-]{3,128}+")
+                && labTestDTO.getLocation()!=null && labTestDTO.getLocation().length() <= 100
+                && labTestDTO.getComments()!=null && labTestDTO.getComments().length() <= 128
                 // unique lab test by UUID
                 && labTestRepository.findByLabTestID(labTestDTO.getLabTestID())==null;
     }

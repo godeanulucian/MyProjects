@@ -14,12 +14,12 @@ public class PharmacyInventory {
     private String itemName;
     private String providerFullName;
     private String category; // e.g., prescription drugs, over-the-counter medications, medical supplies).
-    private int quantity;
-    private double unitPrice;
+    private Integer quantity;
+    private Double unitPrice;
     private String manufacturer;
     private LocalDate expirationDate;
     private String batchNumber; // A unique identifier for a batch of items from the same manufacturer.
-    private int stockLevel; // The minimum quantity threshold that triggers the need for restocking.
+    private Integer stockLevel; // The minimum quantity threshold that triggers the need for restocking.
     private String storageConditions;
     private String notes;
 
@@ -90,19 +90,19 @@ public class PharmacyInventory {
         this.category = category;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    public double getUnitPrice() {
+    public Double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(double unitPrice) {
+    public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
     }
 
@@ -130,11 +130,11 @@ public class PharmacyInventory {
         this.batchNumber = batchNumber;
     }
 
-    public int getStockLevel() {
+    public Integer getStockLevel() {
         return stockLevel;
     }
 
-    public void setStockLevel(int stockLevel) {
+    public void setStockLevel(Integer stockLevel) {
         this.stockLevel = stockLevel;
     }
 

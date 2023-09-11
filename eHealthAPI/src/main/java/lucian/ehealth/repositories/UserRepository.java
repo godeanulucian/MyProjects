@@ -12,5 +12,7 @@ import java.util.UUID;
 public interface UserRepository extends CrudRepository<User, UUID> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     User findByUsername(String username);
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    User findByCardNumber(String cardNumber);
 
 }

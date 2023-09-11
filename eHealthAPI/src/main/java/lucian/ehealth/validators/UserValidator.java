@@ -18,7 +18,7 @@ public class UserValidator {
         String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
 
         return userDTO!=null
-                && userDTO.getUsername()!=null && userDTO.getUsername().matches("[a-z0-9._]{3,20}+")
+                && userDTO.getUsername()!=null && userDTO.getUsername().matches("[a-z0-9._]{3,25}+")
                 && userDTO.getPassword()!=null && userDTO.getPassword().matches(passwordRegex)
                 && userDTO.getEmail()!=null && userDTO.getEmail().matches(emailRegex)
                 && userDTO.getContactInformation()!=null && userDTO.getContactInformation().length() <= 300
@@ -26,11 +26,13 @@ public class UserValidator {
                 && userDTO.getDateOfBirth()!=null && userDTO.getDateOfBirth().isBefore(LocalDate.now())
                 && userDTO.getGender()!=null && userDTO.getGender().matches("[a-zA-Z .-]{3,10}+")
                 && userDTO.getAddress()!=null && userDTO.getAddress().matches("[a-zA-Z0-9 ,.-]{5,100}+")
-                // && userDTO.isDoctor()!=null
-                && userDTO.getCardNumber()!=null && userDTO.getCardNumber().matches("[0-9]{16,}+")
+                && userDTO.isDoctor()!=null
+                // && (userDTO.isDoctor() || !userDTO.isDoctor())
+                && userDTO.getCardNumber()!=null && userDTO.getCardNumber().matches("[0-9]{16}+")
                 && userDTO.getAmount()!=null && userDTO.getAmount() >= 0
-                // unique username
-                && userRepository.findByUsername(userDTO.getUsername())==null;
+                // unique username & card number
+                && userRepository.findByUsername(userDTO.getUsername())==null
+                && userRepository.findByCardNumber(userDTO.getCardNumber())==null;
 
     }
 
