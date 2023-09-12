@@ -27,12 +27,38 @@ public class UserValidator {
                 && userDTO.getGender()!=null && userDTO.getGender().matches("[a-zA-Z .-]{3,10}+")
                 && userDTO.getAddress()!=null && userDTO.getAddress().matches("[a-zA-Z0-9 ,.-]{5,100}+")
                 && userDTO.isDoctor()!=null
-                // && (userDTO.isDoctor() || !userDTO.isDoctor())
+                // && (userDTO.isDoctor() || !userDTO.isDoctor()) // in case isDoctor is not bool checked before null check
                 && userDTO.getCardNumber()!=null && userDTO.getCardNumber().matches("[0-9]{16}+")
                 && userDTO.getAmount()!=null && userDTO.getAmount() >= 0
-                // unique username & card number
-                && userRepository.findByUsername(userDTO.getUsername())==null
-                && userRepository.findByCardNumber(userDTO.getCardNumber())==null;
+
+                // unique entity with unique username & unique card number - can't properly update the entity this way (works only if we update both username and card number)
+                // basically a user is associated with a unique card number
+                // && userRepository.findByUsername(userDTO.getUsername())==null
+                // && userRepository.findByCardNumber(userDTO.getCardNumber())==null;
+
+                // unique entity with username and card number
+                // basically multiple users can use the same card number (not really safe)
+                && userRepository.findByUsernameAndCardNumber(userDTO.getUsername(), userDTO.getCardNumber())==null;
+
+    }
+
+    public boolean validateUpdateUser(UserDTO userDTO){
+        String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,128}$";
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+
+        return userDTO!=null
+                && userDTO.getUsername()!=null && userDTO.getUsername().matches("[a-z0-9._]{3,25}+")
+                && userDTO.getPassword()!=null && userDTO.getPassword().matches(passwordRegex)
+                && userDTO.getEmail()!=null && userDTO.getEmail().matches(emailRegex)
+                && userDTO.getContactInformation()!=null && userDTO.getContactInformation().length() <= 300
+                && userDTO.getFullName()!=null && userDTO.getFullName().matches("[a-zA-Z .-]{3,128}+")
+                && userDTO.getDateOfBirth()!=null && userDTO.getDateOfBirth().isBefore(LocalDate.now())
+                && userDTO.getGender()!=null && userDTO.getGender().matches("[a-zA-Z .-]{3,10}+")
+                && userDTO.getAddress()!=null && userDTO.getAddress().matches("[a-zA-Z0-9 ,.-]{5,100}+")
+                && userDTO.isDoctor()!=null
+                // && (userDTO.isDoctor() || !userDTO.isDoctor()) // in case isDoctor is not bool checked before null check
+                && userDTO.getCardNumber()!=null && userDTO.getCardNumber().matches("[0-9]{16}+")
+                && userDTO.getAmount()!=null && userDTO.getAmount() >= 0;
 
     }
 

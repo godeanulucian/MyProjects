@@ -1,4 +1,6 @@
 
+!!! TO CREATE OR UPDATE WE NEED ALL FIELDS OF THE DTO (except for auto-fields like id) because we set them to not be null in their validator
+
 APPOINTMENT
 {
     "date": "2023-08-15",

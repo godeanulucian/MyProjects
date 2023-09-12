@@ -14,5 +14,7 @@ public interface UserRepository extends CrudRepository<User, UUID> {
     User findByUsername(String username);
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     User findByCardNumber(String cardNumber);
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    User findByUsernameAndCardNumber(String username, String cardNumber);
 
 }
