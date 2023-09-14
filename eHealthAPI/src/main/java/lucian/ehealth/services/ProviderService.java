@@ -1,5 +1,6 @@
 package lucian.ehealth.services;
 
+import jakarta.transaction.Transactional;
 import lucian.ehealth.dto.ProviderDTO;
 import lucian.ehealth.dto.UserDTO;
 import lucian.ehealth.entities.Provider;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
 
 @Service
+@Transactional
 public class ProviderService {
 
     @Autowired
@@ -32,11 +34,8 @@ public class ProviderService {
         provider.setFullName(userDTO.getFullName());
         provider.setContactInformation(userDTO.getContactInformation());
         provider.setAddress(userDTO.getAddress());
-        providerRepository.save(provider);
-        ProviderDTO response = new ProviderDTO(provider);
 
-        providerDTO.setReturnCode("\nprovider created successfully\n");
-        //System.out.println(providerDTO.getReturnCode());
+        ProviderDTO response = new ProviderDTO(providerRepository.save(provider));
         return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
     }
 

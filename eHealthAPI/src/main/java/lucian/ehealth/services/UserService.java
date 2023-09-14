@@ -98,21 +98,21 @@ public class UserService {
             user.setPassword(userDTO.getPassword());
             user.setEmail(userDTO.getEmail());
             user.setContactInformation(userDTO.getContactInformation());
-            user.setFullName(userDTO.getFullName());
-            // user.setDateOfBirth(userDTO.getDateOfBirth()); user can't update dob, gender or isDoc
-            // user.setGender(userDTO.getGender());
+            /*user.setFullName(userDTO.getFullName()); user can't update fullName, dob, gender or isDoc
+            user.setDateOfBirth(userDTO.getDateOfBirth());
+            user.setGender(userDTO.getGender());
+            user.setDoctor(userDTO.isDoctor());*/
             user.setAddress(userDTO.getAddress());
-            // user.setDoctor(userDTO.isDoctor());
             user.setCardNumber(userDTO.getCardNumber());
             user.setAmount(userDTO.getAmount());
 
             // update patient/doctor too
             if (!userDTO.isDoctor()) {
-                Patient patient = patientRepository.findByFullName(userDTO.getFullName()); // if fullName is not modified
+                Patient patient = patientRepository.findByFullName(userDTO.getFullName()); // only if fullName is not modified
                 updatePatient(patient, userDTO);
             }
             else {
-                Provider provider = providerRepository.findByFullName(userDTO.getFullName()); // if fullName is not modified
+                Provider provider = providerRepository.findByFullName(userDTO.getFullName()); // only if fullName is not modified
                 updateProvider(provider, userDTO);
             }
 

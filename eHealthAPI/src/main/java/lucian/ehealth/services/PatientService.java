@@ -1,5 +1,6 @@
 package lucian.ehealth.services;
 
+import jakarta.transaction.Transactional;
 import lucian.ehealth.dto.PatientDTO;
 import lucian.ehealth.dto.UserDTO;
 import lucian.ehealth.entities.Patient;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class PatientService {
     @Autowired
     PatientDTO patientDTO;
@@ -38,8 +40,8 @@ public class PatientService {
         patient.setDateOfBirth(userDTO.getDateOfBirth());
         patient.setGender(userDTO.getGender());
         patient.setAddress(userDTO.getAddress());
-        patientRepository.save(patient);
-        PatientDTO response = new PatientDTO(patient);
+
+        PatientDTO response = new PatientDTO(patientRepository.save(patient));
         return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
     }
 
