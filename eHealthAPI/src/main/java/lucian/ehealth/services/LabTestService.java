@@ -80,7 +80,7 @@ public class LabTestService {
     // UPDATE
     public ResponseEntity<?> updateLabTest(LabTestDTO labTestDTO, String patientFullName) {
         LabTest labTest = labTestRepository.findByPatientFullName(patientFullName);
-        if (labTest != null && labTestValidator.validateLabTest(labTestDTO)) {
+        if (labTest != null && labTestValidator.validateUpdateLabTest(labTestDTO)) {
             labTest.setTestName(labTestDTO.getTestName());
             labTest.setPatientFullName(labTestDTO.getPatientFullName());
             labTest.setType(labTestDTO.getType());

@@ -12,17 +12,30 @@ public class InsuranceValidator {
 
     @Autowired
     InsuranceRepository insuranceRepository;
-
-    public boolean validateInsurance(InsuranceDTO insuranceDTO){
+    public boolean isNotNull(InsuranceDTO insuranceDTO) {
         return insuranceDTO!=null
-                && insuranceDTO.getPatientFullName()!=null && insuranceDTO.getPatientFullName().matches("[a-zA-Z .-]{3,128}+")
-                && insuranceDTO.getCompanyName()!=null && insuranceDTO.getCompanyName().matches("[a-zA-Z .-]{3,128}+")
+                && insuranceDTO.getPatientFullName()!=null
+                && insuranceDTO.getCompanyName()!=null
                 && insuranceDTO.getStartDate()!=null
-                && insuranceDTO.getEndDate()!=null && insuranceDTO.getEndDate().isBefore(LocalDate.now())
-                && insuranceDTO.getCoveragePercent()!=null && insuranceDTO.getCoveragePercent() >= 0
-                && insuranceDTO.getContactInformation()!=null && insuranceDTO.getContactInformation().length() <= 300
+                && insuranceDTO.getEndDate()!=null
+                && insuranceDTO.getCoveragePercent()!=null
+                && insuranceDTO.getContactInformation()!=null;
+    }
+    public boolean matcher(InsuranceDTO insuranceDTO) {
+        return insuranceDTO!=null
+                && insuranceDTO.getPatientFullName().matches("[a-zA-Z .-]{3,128}+")
+                && insuranceDTO.getCompanyName().matches("[a-zA-Z .-]{3,128}+")
+                && insuranceDTO.getEndDate().isBefore(LocalDate.now())
+                && insuranceDTO.getCoveragePercent() >= 0
+                && insuranceDTO.getContactInformation().length() <= 300;
+    }
+    public boolean validateInsurance(InsuranceDTO insuranceDTO){
+        return isNotNull(insuranceDTO) && matcher(insuranceDTO)
                 // unique insurance by patient name
                 && insuranceRepository.findByInsuranceID(insuranceDTO.getInsuranceID())==null;
+    }
+    public boolean validateUpdateInsurance (InsuranceDTO insuranceDTO){
+        return matcher(insuranceDTO);
     }
 
 }

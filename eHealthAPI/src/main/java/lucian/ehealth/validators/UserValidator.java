@@ -1,7 +1,6 @@
 package lucian.ehealth.validators;
 
 import lucian.ehealth.dto.UserDTO;
-import lucian.ehealth.entities.User;
 import lucian.ehealth.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,11 +12,9 @@ public class UserValidator {
 
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    UserDTO userDTO;
     String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,128}$";
     String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
-    public boolean matcher (UserDTO userDTO) {
+    public boolean matcher(UserDTO userDTO) {
         return userDTO != null
                 && userDTO.getUsername().matches("[a-z0-9._]{3,25}+")
                 && userDTO.getPassword().matches(passwordRegex)
@@ -58,7 +55,7 @@ public class UserValidator {
     }
 
     public boolean validateUpdateUser (UserDTO userDTO){
-        return matcher(userDTO);
+        return matcher(userDTO); // we will need to handle sql exception that is thrown in case of an existing username/card number
     }
 
 

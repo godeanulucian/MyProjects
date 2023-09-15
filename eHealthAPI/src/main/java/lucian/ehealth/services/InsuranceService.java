@@ -52,6 +52,7 @@ public class InsuranceService {
         if (insuranceValidator.validateInsurance(insuranceDTO)){
             Insurance insurance = new Insurance(insuranceDTO);
             InsuranceDTO response = new InsuranceDTO(insuranceRepository.save(insurance));
+
             Patient patient = patientRepository.findByFullName(insuranceDTO.getPatientFullName());
             updatePatient(patient, true);
 
@@ -77,7 +78,7 @@ public class InsuranceService {
     // UPDATE
     public ResponseEntity<?> updateInsurance(InsuranceDTO insuranceDTO, String patientFullName) {
         Insurance insurance = insuranceRepository.findByPatientFullName(patientFullName);
-        if (insurance!=null && insuranceValidator.validateInsurance(insuranceDTO)) {
+        if (insurance!=null && insuranceValidator.validateUpdateInsurance(insuranceDTO)) {
             insurance.setPatientFullName(insuranceDTO.getPatientFullName());
             insurance.setCompanyName(insuranceDTO.getCompanyName());
             insurance.setStartDate(insuranceDTO.getStartDate());

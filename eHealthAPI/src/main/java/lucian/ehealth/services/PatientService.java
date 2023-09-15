@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Transactional
 public class PatientService {
@@ -25,11 +28,24 @@ public class PatientService {
     @Autowired
     UserRepository userRepository;
 
-    // READ
+    // BAD REQUEST HANDLER
+    public ResponseEntity<?> handleBadRequest(String returnCode) {
+        PatientDTO response = new PatientDTO();
+        response.setReturnCode(returnCode);
+
+        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+    // READ ALL
     public ResponseEntity<?> getAllPatients() {
-        System.out.println("\n--- Patients List ---\n");
-        System.out.println(patientRepository.findAll());
-        return new ResponseEntity<>(patientRepository.findAll(), new HttpHeaders(), HttpStatus.OK);
+        List<Patient> patients = new ArrayList<>();
+        patientRepository.findAll().forEach(patients::add);
+        if(!patients.isEmpty()) {
+            return new ResponseEntity<>(patients, new HttpHeaders(), HttpStatus.OK);
+        }
+        else {
+            return handleBadRequest("No patients found");
+        }
     }
 
     // AUTO CREATE

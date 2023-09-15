@@ -64,7 +64,7 @@ public class AppointmentService {
             Appointment appointment = new Appointment(appointmentDTO);
             appointment.setStatus("Scheduled"); // or completed
             // II. save the new entity into a repository
-            // III. create a HTTP response using a DTO object
+            // III. create an HTTP response using a DTO object
             AppointmentDTO response = new AppointmentDTO(appointmentRepository.save(appointment));
             // response.setStatus("Scheduled");
 
@@ -84,11 +84,15 @@ public class AppointmentService {
     public ResponseEntity<?> getAppointment(Long appointmentID) {
         Appointment appointment = appointmentRepository.findByAppointmentID(appointmentID);
         if (appointment != null) {
-            // refresh status when triggered by a get request
+            // refresh status automatically when triggered by a get request
             if (appointment.getDate().isBefore(java.time.LocalDate.now())) {
                 appointment.setStatus("Completed");
             }
-            return new ResponseEntity<>(new AppointmentDTO(appointment), new HttpHeaders(), HttpStatus.OK);
+            else {
+                appointment.setStatus("Scheduled");
+            }
+            AppointmentDTO response = new AppointmentDTO(appointmentRepository.save(appointment));
+            return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
             return handleBadRequest("Appointment not found");
@@ -98,13 +102,13 @@ public class AppointmentService {
     // UPDATE
     public ResponseEntity<?> updateAppointment(AppointmentDTO appointmentDTO, Long appointmentID) {
         Appointment appointment = appointmentRepository.findByAppointmentID(appointmentID);
-        if (appointment != null && appointmentValidator.validateAppointment(appointmentDTO)) {
+        if (appointment != null && appointmentValidator.validateUpdateAppointment(appointmentDTO)) {
             appointment.setDate(appointmentDTO.getDate());
             appointment.setTime(appointmentDTO.getTime());
             appointment.setPatientName(appointmentDTO.getPatientName());
             appointment.setProviderName(appointmentDTO.getProviderName());
             appointment.setType(appointmentDTO.getType());
-            appointment.setStatus(appointmentDTO.getStatus());
+            // appointment.setStatus(appointmentDTO.getStatus());
             appointment.setReason(appointmentDTO.getReason());
             appointment.setLocation(appointmentDTO.getLocation());
             appointment.setNotes(appointmentDTO.getNotes());
@@ -141,7 +145,7 @@ public class AppointmentService {
         Provider provider = providerRepository.findByFullName(appointmentDTO.getProviderName());
 
         // validate our appointment (see AppointmentValidator class)
-        if (appointmentValidator.validateAppointment(appointmentDTO) && appointmentValidator.validateBookAppointment(appointmentDTO)) {
+        if (appointmentValidator.validateAppointment(appointmentDTO) && appointmentValidator.validateAppointment(appointmentDTO)) {
             // if appointment is valid, we save it to our repository with status "Scheduled"
             Appointment appointment = new Appointment(appointmentDTO);
             appointment.setStatus("Scheduled");
