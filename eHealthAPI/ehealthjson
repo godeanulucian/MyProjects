@@ -14,6 +14,18 @@ APPOINTMENT
     "notes": "No special notes"
 }
 
+{
+    "date": "2023-09-25",
+    "time": "09:00:00",
+    "patientName": "Mr. Test Patient",
+    "providerName": "Dr. Crupoveatchin Irina",
+    "type": "Checkup",
+    "status": "None",
+    "reason": "Routine checkup",
+    "location": "Clinic A",
+    "notes": "No special notes"
+}
+
 INSURANCE
 {
     "patientFullName": "Jane Smith",
@@ -22,6 +34,15 @@ INSURANCE
     "endDate": "2023-12-31",
     "coveragePercent": 0.8,
     "contactInformation": "contact@xyzinsurance.com"
+}
+
+{
+    "patientFullName": "Mr. Test Patient",
+    "companyName": "TopExpat Insurance",
+    "startDate": "2023-01-01",
+    "endDate": "2024-01-01",
+    "coveragePercent": 0.7,
+    "contactInformation": "contact@topexpatinsurance.com"
 }
 
 LAB TEST
@@ -59,6 +80,30 @@ PATIENT
     "prescriptionName": "Painkiller",
     "hasAppointment": false,
     "hasPayment": false
+}
+
+{
+    "fullName": "Mr. Test Patient",
+    "dateOfBirth": "2001-01-01",
+    "gender": "Male",
+    "email": "testpatient@gmail.com",
+    "phoneNumber": "1234567890",
+    "socialMedia": null,
+    "address": "Shibuya, Tokyo, Japan",
+    "hasInsurance": false,
+    "emergencyContact": null,
+    "bloodType": "AB+",
+    "height": null,
+    "weight": null,
+    "language": null,
+    "primaryCarePhysician": null,
+    "allergies": null,
+    "medications": null,
+    "nextOfKinFullName": null,
+    "testName": null,
+    "prescriptionName": null,
+    "hasAppointment": null,
+    "hasPayment": null
 }
 
 PAYMENT
@@ -121,7 +166,7 @@ USER
     "username": "crupoveatchin_irina",
     "password": "0aA@0aA@z",
     "email": "iripiri@gmail.com",
-    "contactInformation": "07n-am cartela",
+    "contactInformation": "0762512338",
     "fullName": "Dr. Crupoveatchin Irina",
     "dateOfBirth": "2003-12-12",
     "gender": "Female",
@@ -129,4 +174,18 @@ USER
     "doctor": true,
     "cardNumber": "1111222233334444",
     "amount": 6666.00
+}
+
+{
+    "username": "test_patient",
+    "password": "0aA@0aA@z",
+    "email": "testpatient@gmail.com",
+    "contactInformation": "0762512338",
+    "fullName": "Mr. Test Patient",
+    "dateOfBirth": "2001-01-01",
+    "gender": "Male",
+    "address": "Shibuya, Tokyo, Japan",
+    "cardNumber": "1111222233334226",
+    "amount": 4226.66,
+    "doctor": false
 }

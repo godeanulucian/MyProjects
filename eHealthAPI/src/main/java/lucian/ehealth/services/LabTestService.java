@@ -58,6 +58,7 @@ public class LabTestService {
             Patient patient = patientRepository.findByFullName(labTestDTO.getPatientFullName());
             updatePatient(patient, labTestDTO.getTestName());
 
+            System.out.println("\nLaboratory test with ID: " + response.getLabTestID() + " was created");
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {

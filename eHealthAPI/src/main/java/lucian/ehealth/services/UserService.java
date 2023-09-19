@@ -65,9 +65,11 @@ public class UserService {
 
             if(!userDTO.isDoctor()) {
                 patientService.fetchDataFromUser(userDTO);
+                System.out.println("\nPatient type user with ID: " + response.getUserID() + " was created");
             }
             else {
                 providerService.fetchDataFromUser(userDTO);
+                System.out.println("\nProvider type user with ID: " + response.getUserID() + " was created");
             }
 
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
@@ -98,25 +100,26 @@ public class UserService {
             user.setPassword(userDTO.getPassword());
             user.setEmail(userDTO.getEmail());
             user.setContactInformation(userDTO.getContactInformation());
-            /*user.setFullName(userDTO.getFullName()); user can't update fullName, dob, gender or isDoc
-            user.setDateOfBirth(userDTO.getDateOfBirth());
+            /*user.setDateOfBirth(userDTO.getDateOfBirth()); user/pat/prov can't update dob, gender or isDoc
             user.setGender(userDTO.getGender());
             user.setDoctor(userDTO.isDoctor());*/
             user.setAddress(userDTO.getAddress());
             user.setCardNumber(userDTO.getCardNumber());
             user.setAmount(userDTO.getAmount());
+            userRepository.save(user);
 
             // update patient/doctor too
             if (!userDTO.isDoctor()) {
-                Patient patient = patientRepository.findByFullName(userDTO.getFullName()); // only if fullName is not modified
+                Patient patient = patientRepository.findByFullName(user.getFullName());
                 updatePatient(patient, userDTO);
             }
             else {
-                Provider provider = providerRepository.findByFullName(userDTO.getFullName()); // only if fullName is not modified
+                Provider provider = providerRepository.findByFullName(user.getFullName());
                 updateProvider(provider, userDTO);
             }
+            user.setFullName(userDTO.getFullName());
 
-            UserDTO response = new UserDTO(userRepository.save(user));
+            UserDTO response = new UserDTO(user);
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {

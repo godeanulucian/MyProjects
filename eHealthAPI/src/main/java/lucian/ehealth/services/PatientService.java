@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lucian.ehealth.dto.PatientDTO;
 import lucian.ehealth.dto.UserDTO;
 import lucian.ehealth.entities.Patient;
+import lucian.ehealth.entities.User;
 import lucian.ehealth.repositories.PatientRepository;
 import lucian.ehealth.repositories.UserRepository;
 import lucian.ehealth.validators.PatientValidator;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +61,43 @@ public class PatientService {
 
         PatientDTO response = new PatientDTO(patientRepository.save(patient));
         return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    // READ
+    public ResponseEntity<?> getPatient(String fullName) {
+        Patient patient = patientRepository.findByFullName(fullName);
+        if(patient!=null) {
+            PatientDTO response = new PatientDTO(patient);
+            return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
+        }
+        else {
+            return handleBadRequest("Patient not found");
+        }
+    }
+
+    // UPDATE
+    public ResponseEntity<?> updatePatient(PatientDTO patientDTO, String fullName) {
+        Patient patient = patientRepository.findByFullName(fullName);
+        if(patient!=null && patientValidator.validateUpdatePatient(patientDTO)) {
+            patient.setPhoneNumber(patientDTO.getPhoneNumber());
+            patient.setSocialMedia(patientDTO.getSocialMedia());
+            patient.setEmergencyContact(patientDTO.getEmergencyContact());
+            patient.setBloodType(patientDTO.getBloodType());
+            patient.setHeight(patientDTO.getHeight());
+            patient.setWeight(patientDTO.getWeight());
+            patient.setLanguage(patientDTO.getLanguage());
+            patient.setPrimaryCarePhysician(patientDTO.getPrimaryCarePhysician());
+            patient.setAllergies(patientDTO.getAllergies());
+            patient.setNextOfKinFullName(patientDTO.getNextOfKinFullName());
+            patient.setPrescriptionName(patientDTO.getPrescriptionName());
+            patient.setTestName(patientDTO.getTestName());
+
+            PatientDTO response = new PatientDTO(patientRepository.save(patient));
+            return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
+        }
+        else {
+            return handleBadRequest("Patient not found or update error");
+        }
     }
 
 }

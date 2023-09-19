@@ -44,7 +44,7 @@ public class UserValidator {
                 && userDTO.getDateOfBirth() != null && userDTO.getDateOfBirth().isBefore(LocalDate.now())
                 && userDTO.getGender() != null && userDTO.getGender().matches("[a-zA-Z .-]{3,10}+")
 
-                // unique entity with unique username & unique card number - can't properly update the entity this way (works only if we update both username and card number)
+                // unique entity with unique username & unique card number
                 // basically a user is associated with a unique card number
                 && userRepository.findByUsername(userDTO.getUsername()) == null
                 && userRepository.findByCardNumber(userDTO.getCardNumber()) == null;

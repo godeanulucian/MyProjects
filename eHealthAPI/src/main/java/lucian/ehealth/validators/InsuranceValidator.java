@@ -25,13 +25,14 @@ public class InsuranceValidator {
         return insuranceDTO!=null
                 && insuranceDTO.getPatientFullName().matches("[a-zA-Z .-]{3,128}+")
                 && insuranceDTO.getCompanyName().matches("[a-zA-Z .-]{3,128}+")
-                && insuranceDTO.getEndDate().isBefore(LocalDate.now())
+                && insuranceDTO.getStartDate().isBefore(insuranceDTO.getEndDate())
+                && insuranceDTO.getEndDate().isAfter(LocalDate.now())
                 && insuranceDTO.getCoveragePercent() >= 0
                 && insuranceDTO.getContactInformation().length() <= 300;
     }
     public boolean validateInsurance(InsuranceDTO insuranceDTO){
         return isNotNull(insuranceDTO) && matcher(insuranceDTO)
-                // unique insurance by patient name
+                // unique insurance by ID
                 && insuranceRepository.findByInsuranceID(insuranceDTO.getInsuranceID())==null;
     }
     public boolean validateUpdateInsurance (InsuranceDTO insuranceDTO){

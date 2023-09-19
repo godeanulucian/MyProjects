@@ -27,9 +27,9 @@ public class PatientController {
     // READ ALL
     @GetMapping
     public ResponseEntity<?> getAllPatients() {
-        // return handleUnauthorizedRequest();
+        return handleUnauthorizedRequest();
 
-        return patientService.getAllPatients();
+        // return patientService.getAllPatients();
     }
 
     // AUTO CREATE
@@ -38,6 +38,16 @@ public class PatientController {
         return patientService.fetchDataFromUser(userDTO);
     }
 
+    // READ
+    @GetMapping(path = "/{fullName}")
+    public ResponseEntity<?> getPatient(@PathVariable String fullName) {
+        return patientService.getPatient(fullName);
+    }
 
+    // UPDATE
+    @PutMapping(path = "/{fullName}")
+    public ResponseEntity<?> updatePatient(@RequestBody PatientDTO patientDTO, @PathVariable String fullName) {
+        return patientService.updatePatient(patientDTO, fullName);
+    }
 
 }

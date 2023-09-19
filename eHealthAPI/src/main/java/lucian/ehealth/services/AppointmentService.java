@@ -154,6 +154,7 @@ public class AppointmentService {
             // notify Patient and Provider
             updatePatientAndProvider(patient, provider, true);
 
+            System.out.println("\nAppointment with ID: " + response.getAppointmentID() + " was created");
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
