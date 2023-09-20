@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +28,8 @@ public class PatientService {
     PatientValidator patientValidator;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserService userService;
 
     // BAD REQUEST HANDLER
     public ResponseEntity<?> handleBadRequest(String returnCode) {
@@ -99,5 +100,8 @@ public class PatientService {
             return handleBadRequest("Patient not found or update error");
         }
     }
+
+    // DELETE
+    // is not necessary to create a new service because we can use the delete method from user service
 
 }

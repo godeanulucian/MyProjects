@@ -117,7 +117,7 @@ public class UserService {
                 Provider provider = providerRepository.findByFullName(user.getFullName());
                 updateProvider(provider, userDTO);
             }
-            user.setFullName(userDTO.getFullName());
+            user.setFullName(userDTO.getFullName()); // update user full name after updating pat/prov
 
             UserDTO response = new UserDTO(user);
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
@@ -141,7 +141,7 @@ public class UserService {
                 patientRepository.delete(patient);
             }
             else {
-                Provider provider = providerRepository.findByFullName(user.getFullName()); // if fullName is not modified
+                Provider provider = providerRepository.findByFullName(user.getFullName());
                 providerRepository.delete(provider);
             }
 

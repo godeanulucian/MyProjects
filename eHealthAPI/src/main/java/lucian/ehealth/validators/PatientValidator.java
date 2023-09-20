@@ -49,7 +49,7 @@ public class PatientValidator {
                 && patientDTO.getAddress().matches("[a-zA-Z0-9 ,.-]{5,100}+")
                 && patientDTO.getEmergencyContact().length() <= 300
                 && patientDTO.getBloodType().matches("[ABO]{1,2}+")
-                // should add Rh+/-
+                // should add Rh+/- field
                 && (patientDTO.getHeight() >= 0 && patientDTO.getHeight() <= 270) // centimeters
                 && (patientDTO.getWeight() >= 0 && patientDTO.getWeight() <= 635) // kilograms
                 && patientDTO.getLanguage().matches("[a-zA-Z ,.-]{3,128}+")
