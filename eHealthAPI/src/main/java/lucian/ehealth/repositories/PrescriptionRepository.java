@@ -11,5 +11,4 @@ import java.util.UUID;
 public interface PrescriptionRepository extends CrudRepository<Prescription, UUID> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Prescription findByPrescriptionName(String prescriptionName);
-
 }

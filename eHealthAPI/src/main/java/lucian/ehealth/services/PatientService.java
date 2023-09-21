@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import lucian.ehealth.dto.PatientDTO;
 import lucian.ehealth.dto.UserDTO;
 import lucian.ehealth.entities.Patient;
-import lucian.ehealth.entities.User;
 import lucian.ehealth.repositories.PatientRepository;
 import lucian.ehealth.repositories.UserRepository;
 import lucian.ehealth.validators.PatientValidator;
@@ -28,8 +27,6 @@ public class PatientService {
     PatientValidator patientValidator;
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    UserService userService;
 
     // BAD REQUEST HANDLER
     public ResponseEntity<?> handleBadRequest(String returnCode) {

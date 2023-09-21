@@ -10,8 +10,8 @@ import java.util.UUID;
 
 @Repository
 public interface ProviderRepository extends CrudRepository<Provider, UUID> {
-
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Provider findByFullName(String fullName);
-
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    Provider findByProviderID(Long providerID);
 }

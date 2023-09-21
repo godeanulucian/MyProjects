@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface PatientRepository extends CrudRepository<Patient, UUID> {
-
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Patient findByFullName(String fullName);
     @Lock(LockModeType.PESSIMISTIC_WRITE)

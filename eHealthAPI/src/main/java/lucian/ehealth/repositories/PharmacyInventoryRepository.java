@@ -12,5 +12,8 @@ import java.util.UUID;
 public interface PharmacyInventoryRepository extends CrudRepository<PharmacyInventory, UUID> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     PharmacyInventory findByItemName(String itemName);
-
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    PharmacyInventory findByItemID(Long itemID);
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    PharmacyInventory findByBatchNumber(String batchNumber);
 }
