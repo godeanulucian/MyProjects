@@ -1,8 +1,6 @@
 package lucian.ehealth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.OneToOne;
-import lucian.ehealth.entities.Patient;
 import lucian.ehealth.entities.Prescription;
 import org.springframework.stereotype.Component;
 

@@ -1,10 +1,12 @@
 package lucian.ehealth.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lucian.ehealth.entities.PharmacyInventory;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 @Component
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PharmacyInventoryDTO {
     private Long itemID;
     private String itemName;

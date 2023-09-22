@@ -118,29 +118,29 @@ PAYMENT
 
 PHARMACY INVENTORY
 {
-    "itemName": "Painkiller",
-    "providerFullName": "ABC Pharmacy",
+    "itemName": "Oxycodone",
+    "providerFullName": "Dr. Crupoveatchin Irina",
     "category": "Over-the-counter medications",
-    "quantity": 100,
-    "unitPrice": 5.99,
-    "manufacturer": "MedCo",
+    "quantity": 169,
+    "unitPrice": 6.99,
+    "manufacturer": "IriCo",
     "expirationDate": "2023-12-31",
-    "batchNumber": "B123",
+    "batchNumber": "IR225200",
     "stockLevel": 20,
     "storageConditions": "Store in cool, dry place",
-    "notes": "For minor pain relief"
+    "notes": "For major pain relief"
 }
 
 PRESCRIPTION
 {
-    "prescriptionName": "Pain Relief",
-    "prescriptionDate": "2023-08-15",
-    "patientFullName": "John Doe",
-    "providerFullName": "Dr. Smith",
-    "medication": "Ibuprofen",
-    "refills": 2,
-    "pharmacy": "ABC Pharmacy",
-    "instructions": "Take with food"
+    "prescriptionName": "Evil prescription",
+    "prescriptionDate": "2023-09-22",
+    "patientFullName": "Mr. Test Patient",
+    "providerFullName": "Dr. Crupoveatchin Irina",
+    "medication": "Deadly virus",
+    "refills": 1,
+    "pharmacy": "Evil Pharmacy",
+    "instructions": "Life reset"
 }
 
 PROVIDER

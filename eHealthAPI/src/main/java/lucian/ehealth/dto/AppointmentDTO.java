@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Component
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL) // outputs only non-null fields in json response
 public class AppointmentDTO {
     private Long appointmentID;
     private LocalDate date;

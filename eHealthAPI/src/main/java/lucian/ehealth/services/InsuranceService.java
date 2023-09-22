@@ -49,11 +49,11 @@ public class InsuranceService {
 
     // CREATE
     public ResponseEntity<?> addInsurance(InsuranceDTO insuranceDTO){
-        Patient patient = patientRepository.findByFullName(insuranceDTO.getPatientFullName());
         if (insuranceValidator.validateInsurance(insuranceDTO)){
             Insurance insurance = new Insurance(insuranceDTO);
             InsuranceDTO response = new InsuranceDTO(insuranceRepository.save(insurance));
 
+            Patient patient = patientRepository.findByFullName(insuranceDTO.getPatientFullName());
             updatePatient(patient, true);
 
             System.out.println("\nInsurance with ID: " + response.getInsuranceID() + " was created");
@@ -98,12 +98,12 @@ public class InsuranceService {
     // DELETE
     public ResponseEntity<?> deleteInsurance(String patientFullName) {
         Insurance insurance = insuranceRepository.findByPatientFullName(patientFullName);
-        Patient patient = patientRepository.findByFullName(patientFullName);
         if (insurance != null) {
             insuranceRepository.delete(insurance);
             InsuranceDTO response = new InsuranceDTO();
             response.setReturnCode("Insurance deleted");
 
+            Patient patient = patientRepository.findByFullName(patientFullName);
             updatePatient(patient, false);
 
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
