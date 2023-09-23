@@ -152,7 +152,7 @@ public class UserService {
         }
     }
 
-    private void updatePatient(Patient patient, UserDTO userDTO) {
+    public void updatePatient(Patient patient, UserDTO userDTO) {
         patient.setFullName(userDTO.getFullName());
         patient.setEmail(userDTO.getEmail());
         patient.setDateOfBirth(userDTO.getDateOfBirth());
@@ -160,7 +160,7 @@ public class UserService {
         patient.setAddress(userDTO.getAddress());
     }
 
-    private void updateProvider(Provider provider, UserDTO userDTO) {
+    public void updateProvider(Provider provider, UserDTO userDTO) {
         provider.setFullName(userDTO.getFullName());
         provider.setContactInformation(userDTO.getContactInformation());
         provider.setAddress(userDTO.getAddress());

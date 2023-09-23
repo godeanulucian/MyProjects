@@ -12,15 +12,7 @@ public class InsuranceValidator {
 
     @Autowired
     InsuranceRepository insuranceRepository;
-    public boolean isNotNull(InsuranceDTO insuranceDTO) {
-        return insuranceDTO!=null
-                && insuranceDTO.getPatientFullName()!=null
-                && insuranceDTO.getCompanyName()!=null
-                && insuranceDTO.getStartDate()!=null
-                && insuranceDTO.getEndDate()!=null
-                && insuranceDTO.getCoveragePercent()!=null
-                && insuranceDTO.getContactInformation()!=null;
-    }
+
     public boolean matcher(InsuranceDTO insuranceDTO) {
         return insuranceDTO!=null
                 && insuranceDTO.getPatientFullName().matches("[a-zA-Z .-]{3,128}+")
@@ -31,7 +23,7 @@ public class InsuranceValidator {
                 && insuranceDTO.getContactInformation().length() <= 300;
     }
     public boolean validateInsurance(InsuranceDTO insuranceDTO){
-        return isNotNull(insuranceDTO) && matcher(insuranceDTO)
+        return matcher(insuranceDTO)
                 // unique insurance by ID
                 && insuranceRepository.findByInsuranceID(insuranceDTO.getInsuranceID())==null;
     }

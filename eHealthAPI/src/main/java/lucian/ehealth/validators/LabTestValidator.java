@@ -11,17 +11,7 @@ public class LabTestValidator {
 
     @Autowired
     LabTestRepository labTestRepository;
-    public boolean isNotNull(LabTestDTO labTestDTO) {
-        return labTestDTO!=null
-                && labTestDTO.getTestName()!=null
-                && labTestDTO.getPatientFullName()!=null
-                && labTestDTO.getType()!=null
-                && labTestDTO.getTestDate()!=null
-                && labTestDTO.getResult()!=null
-                && labTestDTO.getTechnician()!=null
-                && labTestDTO.getLocation()!=null
-                && labTestDTO.getComments()!=null;
-    }
+
     public boolean matcher(LabTestDTO labTestDTO) {
         return labTestDTO!=null
                 && labTestDTO.getTestName().length() <= 128
@@ -33,7 +23,7 @@ public class LabTestValidator {
                 && labTestDTO.getComments().length() <= 128;
     }
     public boolean validateLabTest(LabTestDTO labTestDTO) {
-        return isNotNull(labTestDTO) && matcher(labTestDTO)
+        return matcher(labTestDTO)
                 // unique lab test by UUID
                 && labTestRepository.findByLabTestID(labTestDTO.getLabTestID())==null;
     }

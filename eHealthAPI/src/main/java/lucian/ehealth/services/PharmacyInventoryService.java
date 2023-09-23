@@ -122,7 +122,7 @@ public class PharmacyInventoryService {
         }
     }
 
-    private void updateProvider(Provider provider, boolean checker) {
+    public void updateProvider(Provider provider, boolean checker) {
         provider.setHasPharmacyInventory(checker);
     }
 

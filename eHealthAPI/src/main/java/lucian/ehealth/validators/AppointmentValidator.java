@@ -11,22 +11,16 @@ public class AppointmentValidator {
     @Autowired
     AppointmentRepository appointmentRepository;
 
-    public boolean isNotNull(AppointmentDTO appointmentDTO) {
-        return appointmentDTO!=null
-                && appointmentDTO.getDate()!=null
-                && appointmentDTO.getTime()!=null
-                && appointmentDTO.getPatientName()!=null
-                && appointmentDTO.getProviderName()!=null;
-    }
     public boolean matcher(AppointmentDTO appointmentDTO) {
         return appointmentDTO!=null
                 && appointmentDTO.getDate().isAfter(java.time.LocalDate.now())
                 // && appointmentDTO.getTime().isAfter(java.time.LocalTime.now())
+                // && appointmentDTO.getStatus()==null // ??
                 && appointmentDTO.getPatientName().matches("[a-zA-Z .-]{3,128}+")
                 && appointmentDTO.getProviderName().matches("[a-zA-Z .-]{3,128}+");
     }
     public boolean validateAppointment(AppointmentDTO appointmentDTO) {
-        return isNotNull(appointmentDTO) && matcher(appointmentDTO)
+        return matcher(appointmentDTO)
                 // appointment will only be valid if it's date, time and provider does not interfere with another appointment
                 && appointmentRepository
                 .findByDateAndTimeAndPatientNameAndProviderName(appointmentDTO.getDate(), appointmentDTO.getTime(), appointmentDTO.getPatientName(), appointmentDTO.getProviderName())==null;

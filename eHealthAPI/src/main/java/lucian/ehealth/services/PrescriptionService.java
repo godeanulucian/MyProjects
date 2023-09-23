@@ -87,7 +87,7 @@ public class PrescriptionService {
         return handleBadRequest("Prescription not found");
     }
 
-    private void updatePatient(Patient patient, String prescriptionName) {
+    public void updatePatient(Patient patient, String prescriptionName) {
         patient.setPrescriptionName(prescriptionName);
     }
 

@@ -14,30 +14,7 @@ public class PatientValidator {
     @Autowired
     PatientRepository patientRepository;
     String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
-    public boolean isNotNull(PatientDTO patientDTO) {
-        return patientDTO!=null
-                && patientDTO.getFullName()!=null
-                && patientDTO.getDateOfBirth()!=null
-                && patientDTO.getGender()!=null
-                && patientDTO.getEmail()!=null
-                && patientDTO.getPhoneNumber()!=null
-                && patientDTO.getSocialMedia()!=null
-                && patientDTO.getAddress()!=null
-                && patientDTO.isHasInsurance()!=null
-                && patientDTO.getEmergencyContact()!=null
-                && patientDTO.getBloodType()!=null
-                && patientDTO.getHeight()!=null
-                && patientDTO.getWeight()!=null
-                && patientDTO.getLanguage()!=null
-                && patientDTO.getPrimaryCarePhysician()!=null
-                && patientDTO.getAllergies()!=null
-                && patientDTO.getMedications()!=null
-                && patientDTO.getNextOfKinFullName()!=null
-                && patientDTO.getTestName()!=null
-                && patientDTO.getPrescriptionName()!=null
-                && patientDTO.isHasAppointment()!=null
-                && patientDTO.isHasPayment()!=null;
-    }
+
     public boolean matcher(PatientDTO patientDTO) {
         return patientDTO!=null
                 && patientDTO.getFullName().matches("[a-zA-Z .-]{3,128}+")
@@ -61,7 +38,7 @@ public class PatientValidator {
                 && patientDTO.getPrescriptionName().length() <= 128;
     }
     public boolean validatePatient(PatientDTO patientDTO) {
-        return isNotNull(patientDTO) && matcher(patientDTO)
+        return matcher(patientDTO)
                 // unique patientID
                 && patientRepository.findByPatientID(patientDTO.getPatientID())==null;
     }

@@ -121,7 +121,7 @@ public class LabTestService {
         }
     }
 
-    private void updatePatient(Patient patient, String testName) {
+    public void updatePatient(Patient patient, String testName) {
         patient.setTestName(testName);
     }
 

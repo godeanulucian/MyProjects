@@ -109,11 +109,11 @@ PATIENT
 PAYMENT
 {
     "providerFullName": "Dr. Smith",
+    "providerCardNumber": "1111111111111111",
     "patientFullName": "John Doe",
-    "timestamp": "2023-08-15T10:30:00.000+00:00",
+    "patientCardNumber": "0000000000000000",
     "amount": 150,
-    "status": "Completed",
-    "description": "Checkup payment"
+    "description": "Test payment"
 }
 
 PHARMACY INVENTORY

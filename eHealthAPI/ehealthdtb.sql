@@ -137,17 +137,18 @@ VALUES
 CREATE TABLE PAYMENTS (
                           paymentID SERIAL PRIMARY KEY,
                           providerFullName VARCHAR(255),
+                          providerCardNumber VARCHAR(16),
                           patientFullName VARCHAR(255),
+                          patientCardNumber VARCHAR(16),
                           timestamp TIMESTAMP,
                           amount DOUBLE PRECISION,
                           status VARCHAR(255),
                           description TEXT
 );
 
-INSERT INTO PAYMENTS (providerFullName, patientFullName, timestamp, amount, status, description)
+INSERT INTO PAYMENTS (providerFullName, providerCardNumber, patientFullName, patientCardNumber, timestamp, amount, status, description)
 VALUES
-    ('Dr. Smith', 'John Doe', '2023-08-15 10:30:00', 150.0, 'Completed', 'Checkup payment'),
-    ('Dr. Johnson', 'Jane Smith', '2023-08-17 15:00:00', 200.0, 'Pending', 'Follow-up payment');
+    ('Dr. Smith', '1111111111111111', 'John Doe', '0000000000000000', '2023-08-15 10:30:00', 150.0, 'Completed', 'Checkup payment');
 
 
 CREATE TABLE PHARMACY_INVENTORY (

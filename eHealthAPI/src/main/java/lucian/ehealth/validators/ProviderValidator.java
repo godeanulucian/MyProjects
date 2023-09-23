@@ -12,9 +12,6 @@ public class ProviderValidator {
     ProviderRepository providerRepository;
     // https://madph.mylicense.com/eGov/custom/LN%20Formats.htm
     String licenseRegex = "^(DN|DH|DL|DF|DE|RN|LN|NH|NHT|PL|PP|CC|PH|PT|PN|PI|DS|WD|NU|BR|CF|CS|PA|PAT|RT|RL)\\d{4}(L|A|B|C|D)?$";
-    public boolean isNotNull(ProviderDTO providerDTO) {
-        return true;
-    }
 
     public boolean matcher(ProviderDTO providerDTO) {
         return providerDTO!=null
@@ -35,7 +32,7 @@ public class ProviderValidator {
     }
 
     public boolean validateProvider(ProviderDTO providerDTO) {
-        return matcher(providerDTO) // && isNotNull(providerDTO)
+        return matcher(providerDTO)
                 // unique providerID
                 && providerRepository.findByProviderID(providerDTO.getProviderID())==null;
     }

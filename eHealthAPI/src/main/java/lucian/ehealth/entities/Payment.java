@@ -11,7 +11,9 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentID;
     private String providerFullName;
+    private String providerCardNumber;
     private String patientFullName;
+    private String patientCardNumber;
     private Timestamp timestamp;
     private Double amount;
     private String status;
@@ -22,7 +24,9 @@ public class Payment {
     public Payment(PaymentDTO paymentDTO){
         paymentID = paymentDTO.getPaymentID();
         providerFullName = paymentDTO.getProviderFullName();
+        providerCardNumber = paymentDTO.getProviderCardNumber();
         patientFullName = paymentDTO.getPatientFullName();
+        patientCardNumber = paymentDTO.getPatientCardNumber();
         timestamp = paymentDTO.getTimestamp();
         amount = paymentDTO.getAmount();
         status = paymentDTO.getStatus();
@@ -34,7 +38,9 @@ public class Payment {
         return "Payment{" +
                 "paymentID=" + paymentID +
                 ", providerFullName='" + providerFullName + '\'' +
+                ", providerCardNumber='" + providerCardNumber + '\'' +
                 ", patientFullName='" + patientFullName + '\'' +
+                ", patientCardNumber='" + patientCardNumber + '\'' +
                 ", timestamp=" + timestamp +
                 ", amount=" + amount +
                 ", status='" + status + '\'' +
@@ -96,5 +102,21 @@ public class Payment {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getProviderCardNumber() {
+        return providerCardNumber;
+    }
+
+    public void setProviderCardNumber(String providerCardNumber) {
+        this.providerCardNumber = providerCardNumber;
+    }
+
+    public String getPatientCardNumber() {
+        return patientCardNumber;
+    }
+
+    public void setPatientCardNumber(String patientCardNumber) {
+        this.patientCardNumber = patientCardNumber;
     }
 }

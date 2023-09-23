@@ -113,7 +113,7 @@ public class InsuranceService {
         }
     }
 
-    private void updatePatient(Patient patient, boolean checker) {
+    public void updatePatient(Patient patient, boolean checker) {
         patient.setHasInsurance(checker);
     }
 

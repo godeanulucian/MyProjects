@@ -162,7 +162,7 @@ public class AppointmentService {
         }
     }
 
-    private void updatePatientAndProvider(Patient patient, Provider provider, boolean checker) {
+    public void updatePatientAndProvider(Patient patient, Provider provider, boolean checker) {
         patient.setHasAppointment(checker);
         provider.setHasAppointment(checker);
     }

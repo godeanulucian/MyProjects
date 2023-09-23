@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-
 @Component
 public class UserValidator {
 
@@ -14,6 +13,7 @@ public class UserValidator {
     UserRepository userRepository;
     String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,128}$";
     String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+
     public boolean matcher(UserDTO userDTO) {
         return userDTO != null
                 && userDTO.getUsername().matches("[a-z0-9._]{3,25}+")
@@ -24,22 +24,9 @@ public class UserValidator {
                 && userDTO.getCardNumber().matches("[0-9]{16}+")
                 && userDTO.getAmount() >= 0;
     }
-    public boolean isNotNull(UserDTO userDTO) {
-        return userDTO != null
-                && userDTO.getUsername() != null
-                && userDTO.getPassword() != null
-                && userDTO.getEmail() != null
-                && userDTO.getContactInformation() != null
-                && userDTO.getAddress() != null
-                && userDTO.isDoctor() != null // && (userDTO.isDoctor() || !userDTO.isDoctor()) // in case isDoctor is not bool checked before null check
-                && userDTO.getCardNumber() != null
-                && userDTO.getAmount() != null
-                && userDTO.getGender() != null
-                && userDTO.getDateOfBirth() != null
-                && userDTO.getFullName() != null;
-    }
+
     public boolean validateUser (UserDTO userDTO){
-        return isNotNull(userDTO) && matcher(userDTO)
+        return matcher(userDTO)
                 && userDTO.getFullName() != null && userDTO.getFullName().matches("[a-zA-Z .-]{3,128}+")
                 && userDTO.getDateOfBirth() != null && userDTO.getDateOfBirth().isBefore(LocalDate.now())
                 && userDTO.getGender() != null && userDTO.getGender().matches("[a-zA-Z .-]{3,10}+")

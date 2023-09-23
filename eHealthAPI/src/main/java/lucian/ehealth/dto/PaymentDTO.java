@@ -1,19 +1,18 @@
 package lucian.ehealth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lucian.ehealth.entities.Patient;
 import lucian.ehealth.entities.Payment;
-import lucian.ehealth.entities.Provider;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
-
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PaymentDTO {
     private Long paymentID;
     private String providerFullName;
+    private String providerCardNumber;
     private String patientFullName;
+    private String patientCardNumber;
     private Timestamp timestamp;
     private Double amount;
     private String status;
@@ -25,7 +24,9 @@ public class PaymentDTO {
     public PaymentDTO(Payment payment){
         paymentID = payment.getPaymentID();
         providerFullName = payment.getProviderFullName();
+        providerCardNumber = payment.getProviderCardNumber();
         patientFullName = payment.getPatientFullName();
+        patientCardNumber = payment.getPatientCardNumber();
         timestamp = payment.getTimestamp();
         amount = payment.getAmount();
         status = payment.getStatus();
@@ -38,7 +39,9 @@ public class PaymentDTO {
         return "PaymentDTO{" +
                 "paymentID=" + paymentID +
                 ", providerFullName='" + providerFullName + '\'' +
+                ", providerCardNumber='" + providerCardNumber + '\'' +
                 ", patientFullName='" + patientFullName + '\'' +
+                ", patientCardNumber='" + patientCardNumber + '\'' +
                 ", timestamp=" + timestamp +
                 ", amount=" + amount +
                 ", status='" + status + '\'' +
@@ -109,5 +112,21 @@ public class PaymentDTO {
 
     public void setReturnCode(String returnCode) {
         this.returnCode = returnCode;
+    }
+
+    public String getProviderCardNumber() {
+        return providerCardNumber;
+    }
+
+    public void setProviderCardNumber(String providerCardNumber) {
+        this.providerCardNumber = providerCardNumber;
+    }
+
+    public String getPatientCardNumber() {
+        return patientCardNumber;
+    }
+
+    public void setPatientCardNumber(String patientCardNumber) {
+        this.patientCardNumber = patientCardNumber;
     }
 }
