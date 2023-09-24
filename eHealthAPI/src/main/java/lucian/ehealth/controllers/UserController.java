@@ -1,7 +1,9 @@
 package lucian.ehealth.controllers;
 
+import lucian.ehealth.dto.PrescriptionDTO;
 import lucian.ehealth.dto.UserDTO;
 import lucian.ehealth.entities.User;
+import lucian.ehealth.handlers.RequestHandler;
 import lucian.ehealth.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -15,19 +17,13 @@ public class UserController {
 
     @Autowired
     UserService userService;
-
-    // UNAUTHORIZED REQUEST HANDLER
-    public ResponseEntity<?> handleUnauthorizedRequest() {
-        UserDTO response = new UserDTO();
-        response.setReturnCode("You are not allowed to do this");
-
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
-    }
+    @Autowired
+    RequestHandler requestHandler;
 
     // READ ALL
     @GetMapping
     public ResponseEntity<?> getAllUsers() {
-        return handleUnauthorizedRequest();
+        return requestHandler.handleUnauthorizedRequest(new UserDTO());
 
         // return userService.getAllUsers();
     }

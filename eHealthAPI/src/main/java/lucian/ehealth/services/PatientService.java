@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lucian.ehealth.dto.PatientDTO;
 import lucian.ehealth.dto.UserDTO;
 import lucian.ehealth.entities.Patient;
+import lucian.ehealth.handlers.RequestHandler;
 import lucian.ehealth.repositories.PatientRepository;
 import lucian.ehealth.repositories.UserRepository;
 import lucian.ehealth.validators.PatientValidator;
@@ -27,14 +28,8 @@ public class PatientService {
     PatientValidator patientValidator;
     @Autowired
     UserRepository userRepository;
-
-    // BAD REQUEST HANDLER
-    public ResponseEntity<?> handleBadRequest(String returnCode) {
-        PatientDTO response = new PatientDTO();
-        response.setReturnCode(returnCode);
-
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
+    @Autowired
+    RequestHandler requestHandler;
 
     // READ ALL
     public ResponseEntity<?> getAllPatients() {
@@ -44,7 +39,7 @@ public class PatientService {
             return new ResponseEntity<>(patients, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("No patients found");
+            return requestHandler.handleBadRequest("No patients found", new PatientDTO());
         }
     }
 
@@ -69,7 +64,7 @@ public class PatientService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Patient not found");
+            return requestHandler.handleBadRequest("Patient not found", new PatientDTO());
         }
     }
 
@@ -94,7 +89,7 @@ public class PatientService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Patient not found or update error");
+            return requestHandler.handleBadRequest("Patient not found", new PatientDTO());
         }
     }
 

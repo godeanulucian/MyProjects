@@ -1,7 +1,9 @@
 package lucian.ehealth.validators;
 
 import lucian.ehealth.dto.PaymentDTO;
+import lucian.ehealth.entities.User;
 import lucian.ehealth.repositories.PaymentRepository;
+import lucian.ehealth.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +14,7 @@ public class PaymentValidator {
     PaymentRepository paymentRepository;
 
     public boolean matcher(PaymentDTO paymentDTO) {
-        return paymentDTO!=null
+        return paymentDTO != null
                 && paymentDTO.getProviderFullName().matches("[a-zA-Z .-]{3,128}+")
                 && paymentDTO.getProviderCardNumber().matches("[0-9]{16}+")
                 && paymentDTO.getPatientFullName().matches("[a-zA-Z .-]{3,128}+")
@@ -23,17 +25,13 @@ public class PaymentValidator {
                 && paymentDTO.getDescription().length() <= 128;
     }
 
-    /*public boolean checkAmount(PaymentDTO paymentDTO) {
-        return true;
-    }*/
-
-    public boolean validatePayment(PaymentDTO paymentDTO) {
-        return matcher(paymentDTO) // && checkAmount(paymentDTO)
-                && paymentRepository.findByPaymentID(paymentDTO.getPaymentID())==null;
+    public boolean checkAmount(PaymentDTO paymentDTO, User user) {
+        return paymentDTO.getAmount() <= user.getAmount();
     }
 
-    public boolean validateUpdatePayment(PaymentDTO paymentDTO) {
-        return matcher(paymentDTO);
+    public boolean validatePayment(PaymentDTO paymentDTO) {
+        return matcher(paymentDTO) // && checkAmount(paymentDTO
+                && paymentRepository.findByPaymentID(paymentDTO.getPaymentID()) == null;
     }
 
 }

@@ -1,9 +1,11 @@
 package lucian.ehealth.services;
 
 import jakarta.transaction.Transactional;
+import lucian.ehealth.dto.PharmacyInventoryDTO;
 import lucian.ehealth.dto.PrescriptionDTO;
 import lucian.ehealth.entities.Patient;
 import lucian.ehealth.entities.Prescription;
+import lucian.ehealth.handlers.RequestHandler;
 import lucian.ehealth.repositories.PatientRepository;
 import lucian.ehealth.repositories.PrescriptionRepository;
 import lucian.ehealth.validators.PrescriptionValidator;
@@ -28,14 +30,8 @@ public class PrescriptionService {
     PrescriptionValidator prescriptionValidator;
     @Autowired
     PatientRepository patientRepository;
-
-    // BAD REQUEST HANDLER
-    public ResponseEntity<?> handleBadRequest(String returnCode) {
-        PrescriptionDTO response = new PrescriptionDTO();
-        response.setReturnCode(returnCode);
-
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
+    @Autowired
+    RequestHandler requestHandler;
 
     // READ ALL
     public ResponseEntity<?> getAllPrescriptions() {
@@ -45,7 +41,7 @@ public class PrescriptionService {
             return new ResponseEntity<>(prescriptions, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("No prescriptions found");
+            return requestHandler.handleBadRequest("No prescriptions found", new PrescriptionDTO());
         }
     }
 
@@ -62,7 +58,7 @@ public class PrescriptionService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Prescription was not created");
+            return requestHandler.handleBadRequest("Prescription was not created", new PrescriptionDTO());
         }
     }
 
@@ -73,18 +69,18 @@ public class PrescriptionService {
             PrescriptionDTO response = new PrescriptionDTO(prescription);
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         } else {
-            return handleBadRequest("Prescription not found");
+            return requestHandler.handleBadRequest("Prescription not found", new PrescriptionDTO());
         }
     }
 
     // UPDATE - not allowed
     public ResponseEntity<?> updatePrescription(PrescriptionDTO prescriptionDTO, Long prescriptionID) {
-        return handleBadRequest("Prescription not found or update error");
+        return requestHandler.handleBadRequest("Prescription not found or update error", new PrescriptionDTO());
     }
 
     // DELETE - not allowed
     public ResponseEntity<?> deletePrescription(Long prescriptionID) {
-        return handleBadRequest("Prescription not found");
+        return requestHandler.handleBadRequest("Prescription not found", new PrescriptionDTO());
     }
 
     public void updatePatient(Patient patient, String prescriptionName) {

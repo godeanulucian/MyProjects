@@ -5,11 +5,12 @@ import lucian.ehealth.entities.Appointment;
 import lucian.ehealth.entities.Payment;
 import lucian.ehealth.entities.PharmacyInventory;
 import lucian.ehealth.entities.Provider;
+import lucian.ehealth.handlers.RequestHandler;
 import org.springframework.stereotype.Component;
 
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProviderDTO {
+public class ProviderDTO implements RequestHandler.ReturnCodeAware {
     private Long providerID; // Unique identifier for the health provider
     private String fullName; // Name of the health provider
     private String specialization; // The area of medical specialization (e.g., General Practitioner, Cardiologist)

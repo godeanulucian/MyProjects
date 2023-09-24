@@ -1,9 +1,11 @@
 package lucian.ehealth.services;
 
 import jakarta.transaction.Transactional;
+import lucian.ehealth.dto.AppointmentDTO;
 import lucian.ehealth.dto.InsuranceDTO;
 import lucian.ehealth.entities.Insurance;
 import lucian.ehealth.entities.Patient;
+import lucian.ehealth.handlers.RequestHandler;
 import lucian.ehealth.repositories.InsuranceRepository;
 import lucian.ehealth.repositories.PatientRepository;
 import lucian.ehealth.validators.InsuranceValidator;
@@ -28,14 +30,8 @@ public class InsuranceService {
     InsuranceValidator insuranceValidator;
     @Autowired
     PatientRepository patientRepository;
-
-    // BAD REQUEST HANDLER
-    public ResponseEntity<?> handleBadRequest(String returnCode) {
-        InsuranceDTO response = new InsuranceDTO();
-        response.setReturnCode(returnCode);
-
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
+    @Autowired
+    RequestHandler requestHandler;
 
     // READ ALL
     public ResponseEntity<?> getAllInsurances() {
@@ -44,7 +40,7 @@ public class InsuranceService {
         if (!insurances.isEmpty())
             return new ResponseEntity<>(insurances, new HttpHeaders(), HttpStatus.OK);
         else
-            return handleBadRequest("No insurances found");
+            return requestHandler.handleBadRequest("No insurances found", new InsuranceDTO());
     }
 
     // CREATE
@@ -60,7 +56,7 @@ public class InsuranceService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Insurance was not created");
+            return requestHandler.handleBadRequest("Insurance was not created", new InsuranceDTO());
         }
     }
 
@@ -72,7 +68,7 @@ public class InsuranceService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Insurance not found");
+            return requestHandler.handleBadRequest("Insurance not found", new InsuranceDTO());
         }
     }
 
@@ -91,7 +87,7 @@ public class InsuranceService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Insurance not found or update error");
+            return requestHandler.handleBadRequest("Insurance not found or update error", new InsuranceDTO());
         }
     }
 
@@ -109,7 +105,7 @@ public class InsuranceService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Insurance not found");
+            return requestHandler.handleBadRequest("Insurance not found", new InsuranceDTO());
         }
     }
 

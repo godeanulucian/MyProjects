@@ -2,12 +2,13 @@ package lucian.ehealth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lucian.ehealth.entities.Payment;
+import lucian.ehealth.handlers.RequestHandler;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PaymentDTO {
+public class PaymentDTO implements RequestHandler.ReturnCodeAware {
     private Long paymentID;
     private String providerFullName;
     private String providerCardNumber;

@@ -1,9 +1,11 @@
 package lucian.ehealth.services;
 
 import jakarta.transaction.Transactional;
+import lucian.ehealth.dto.PrescriptionDTO;
 import lucian.ehealth.dto.ProviderDTO;
 import lucian.ehealth.dto.UserDTO;
 import lucian.ehealth.entities.Provider;
+import lucian.ehealth.handlers.RequestHandler;
 import lucian.ehealth.repositories.ProviderRepository;
 import lucian.ehealth.validators.ProviderValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,8 @@ public class ProviderService {
     ProviderRepository providerRepository;
     @Autowired
     ProviderValidator providerValidator;
-
-    // BAD REQUEST HANDLER
-    public ResponseEntity<?> handleBadRequest(String returnCode) {
-        ProviderDTO response = new ProviderDTO();
-        response.setReturnCode(returnCode);
-
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
+    @Autowired
+    RequestHandler requestHandler;
 
     // READ ALL
     public ResponseEntity<?> getAllProviders() {
@@ -42,7 +38,7 @@ public class ProviderService {
             return new ResponseEntity<>(providers, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("No providers found");
+            return requestHandler.handleBadRequest("No providers found", new ProviderDTO());
         }
     }
 
@@ -65,7 +61,7 @@ public class ProviderService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Provider not found");
+            return requestHandler.handleBadRequest("Provider not found", new ProviderDTO());
         }
     }
 
@@ -86,7 +82,7 @@ public class ProviderService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Provider not found or update error");
+            return requestHandler.handleBadRequest("Provider not found or update error", new ProviderDTO());
         }
     }
 

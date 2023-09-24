@@ -1,6 +1,8 @@
 package lucian.ehealth.controllers;
 
+import lucian.ehealth.dto.PatientDTO;
 import lucian.ehealth.dto.PrescriptionDTO;
+import lucian.ehealth.handlers.RequestHandler;
 import lucian.ehealth.services.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,19 +16,13 @@ public class PrescriptionController {
 
     @Autowired
     PrescriptionService prescriptionService;
-
-    // UNAUTHORIZED REQUEST HANDLER
-    public ResponseEntity<?> handleUnauthorizedRequest() {
-        PrescriptionDTO response = new PrescriptionDTO();
-        response.setReturnCode("You are not allowed to do this");
-
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
-    }
+    @Autowired
+    RequestHandler requestHandler;
 
     // READ ALL
     @GetMapping
     public ResponseEntity<?> getAllPrescriptions() {
-        return handleUnauthorizedRequest();
+        return requestHandler.handleUnauthorizedRequest(new PrescriptionDTO());
 
         // return prescriptionService.getAllPrescriptions();
     }
@@ -46,7 +42,7 @@ public class PrescriptionController {
     // UPDATE
     @PutMapping(path = "/{prescriptionID}")
     public ResponseEntity<?> updatePrescription(@RequestBody PrescriptionDTO prescriptionDTO, @PathVariable Long prescriptionID) {
-        return handleUnauthorizedRequest();
+        return requestHandler.handleUnauthorizedRequest(new PrescriptionDTO());
 
         // return prescriptionService.updatePrescription(prescriptionDTO, prescriptionID);
     }
@@ -54,7 +50,7 @@ public class PrescriptionController {
     // DELETE
     @DeleteMapping(path = "/{prescriptionID}")
     public ResponseEntity<?> deletePrescription(@PathVariable Long prescriptionID) {
-        return handleUnauthorizedRequest();
+        return requestHandler.handleUnauthorizedRequest(new PrescriptionDTO());
 
         // return prescriptionService.deletePrescription(prescriptionID);
     }

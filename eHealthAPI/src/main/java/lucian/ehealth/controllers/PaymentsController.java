@@ -2,6 +2,7 @@ package lucian.ehealth.controllers;
 
 import lucian.ehealth.dto.PaymentDTO;
 import lucian.ehealth.dto.PrescriptionDTO;
+import lucian.ehealth.handlers.RequestHandler;
 import lucian.ehealth.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -15,19 +16,13 @@ public class PaymentsController {
 
     @Autowired
     PaymentService paymentService;
-
-    // UNAUTHORIZED REQUEST HANDLER
-    public ResponseEntity<?> handleUnauthorizedRequest() {
-        PaymentDTO response = new PaymentDTO();
-        response.setReturnCode("You are not allowed to do this");
-
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
-    }
+    @Autowired
+    RequestHandler requestHandler;
 
     // READ ALL
     @GetMapping
     public ResponseEntity<?> getAllPayments() {
-        return handleUnauthorizedRequest();
+        return requestHandler.handleUnauthorizedRequest(new PaymentDTO());
 
         // return paymentService.getAllPayments();
     }
@@ -47,7 +42,7 @@ public class PaymentsController {
     // UPDATE
     @PutMapping(path = "/{paymentID}")
     public ResponseEntity<?> updatePayment(@RequestBody PaymentDTO paymentDTO, @PathVariable Long paymentID) {
-        return handleUnauthorizedRequest();
+        return requestHandler.handleUnauthorizedRequest(new PaymentDTO());
 
         // return paymentService.updatePayment(paymentDTO, paymentID);
     }
@@ -55,7 +50,7 @@ public class PaymentsController {
     // DELETE
     @DeleteMapping(path = "/{paymentID}")
     public ResponseEntity<?> deletePayment(@PathVariable Long paymentID) {
-        return handleUnauthorizedRequest();
+        return requestHandler.handleUnauthorizedRequest(new PaymentDTO());
 
         // return paymentService.deletePayment(paymentID);
     }

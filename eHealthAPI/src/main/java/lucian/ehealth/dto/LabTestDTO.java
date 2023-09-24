@@ -3,12 +3,13 @@ package lucian.ehealth.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lucian.ehealth.entities.LabTest;
 import lucian.ehealth.entities.Patient;
+import lucian.ehealth.handlers.RequestHandler;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class LabTestDTO {
+public class LabTestDTO implements RequestHandler.ReturnCodeAware {
     private Long labTestID;
     private String testName;
     private String patientFullName;

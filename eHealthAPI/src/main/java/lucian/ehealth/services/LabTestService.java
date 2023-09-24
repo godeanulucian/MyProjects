@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lucian.ehealth.dto.LabTestDTO;
 import lucian.ehealth.entities.LabTest;
 import lucian.ehealth.entities.Patient;
+import lucian.ehealth.handlers.RequestHandler;
 import lucian.ehealth.repositories.LabTestRepository;
 import lucian.ehealth.repositories.PatientRepository;
 import lucian.ehealth.validators.LabTestValidator;
@@ -28,14 +29,8 @@ public class LabTestService {
     LabTestValidator labTestValidator;
     @Autowired
     PatientRepository patientRepository;
-
-    // BAD REQUEST HANDLER
-    public ResponseEntity<?> handleBadRequest(String returnCode) {
-        LabTestDTO response = new LabTestDTO();
-        response.setReturnCode(returnCode);
-
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
+    @Autowired
+    RequestHandler requestHandler;
 
     // READ ALL
     public ResponseEntity<?> getAllLabTests() {
@@ -45,7 +40,7 @@ public class LabTestService {
             return new ResponseEntity<>(labTests, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("No laboratory tests found");
+            return requestHandler.handleBadRequest("No laboratory tests found", new LabTestDTO());
         }
     }
 
@@ -62,7 +57,7 @@ public class LabTestService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Laboratory test was not created");
+            return requestHandler.handleBadRequest("Laboratory test was not created", new LabTestDTO());
         }
     }
 
@@ -74,7 +69,7 @@ public class LabTestService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Laboratory test not found");
+            return requestHandler.handleBadRequest("Laboratory test not found", new LabTestDTO());
         }
     }
 
@@ -98,7 +93,7 @@ public class LabTestService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Laboratory test not found or update error");
+            return requestHandler.handleBadRequest("Laboratory test not found or update error", new LabTestDTO());
         }
     }
 
@@ -117,7 +112,7 @@ public class LabTestService {
 
         }
         else {
-            return handleBadRequest("Laboratory test not found");
+            return requestHandler.handleBadRequest("Laboratory test not found", new LabTestDTO());
         }
     }
 

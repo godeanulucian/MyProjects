@@ -1,10 +1,11 @@
 package lucian.ehealth.services;
 
 import jakarta.transaction.Transactional;
+import lucian.ehealth.dto.PatientDTO;
 import lucian.ehealth.dto.PharmacyInventoryDTO;
-import lucian.ehealth.entities.Patient;
 import lucian.ehealth.entities.PharmacyInventory;
 import lucian.ehealth.entities.Provider;
+import lucian.ehealth.handlers.RequestHandler;
 import lucian.ehealth.repositories.PharmacyInventoryRepository;
 import lucian.ehealth.repositories.ProviderRepository;
 import lucian.ehealth.validators.PharmacyInventoryValidator;
@@ -29,14 +30,8 @@ public class PharmacyInventoryService {
     PharmacyInventoryValidator pharmacyInventoryValidator;
     @Autowired
     ProviderRepository providerRepository;
-
-    // BAD REQUEST HANDLER
-    public ResponseEntity<?> handleBadRequest(String returnCode) {
-        PharmacyInventoryDTO response = new PharmacyInventoryDTO();
-        response.setReturnCode(returnCode);
-
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
+    @Autowired
+    RequestHandler requestHandler;
 
     // READ ALL
     public ResponseEntity<?> getAllInventory() {
@@ -46,7 +41,7 @@ public class PharmacyInventoryService {
             return new ResponseEntity<>(items, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("No items found");
+            return requestHandler.handleBadRequest("No items found", new PharmacyInventoryDTO());
         }
     }
 
@@ -63,7 +58,7 @@ public class PharmacyInventoryService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Item was not created");
+            return requestHandler.handleBadRequest("Item was not created", new PharmacyInventoryDTO());
         }
     }
 
@@ -75,7 +70,7 @@ public class PharmacyInventoryService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Item not found");
+            return requestHandler.handleBadRequest("Item not found", new PharmacyInventoryDTO());
         }
     }
 
@@ -99,7 +94,7 @@ public class PharmacyInventoryService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Item not found or update error");
+            return requestHandler.handleBadRequest("Item not found or update error", new PharmacyInventoryDTO());
         }
     }
 
@@ -118,7 +113,7 @@ public class PharmacyInventoryService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Item not found");
+            return requestHandler.handleBadRequest("Item not found", new PharmacyInventoryDTO());
         }
     }
 

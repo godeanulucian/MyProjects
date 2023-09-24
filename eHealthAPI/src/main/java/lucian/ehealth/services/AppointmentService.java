@@ -5,6 +5,7 @@ import lucian.ehealth.dto.AppointmentDTO;
 import lucian.ehealth.entities.Appointment;
 import lucian.ehealth.entities.Patient;
 import lucian.ehealth.entities.Provider;
+import lucian.ehealth.handlers.RequestHandler;
 import lucian.ehealth.repositories.AppointmentRepository;
 import lucian.ehealth.repositories.PatientRepository;
 import lucian.ehealth.repositories.ProviderRepository;
@@ -34,15 +35,8 @@ public class AppointmentService {
     PatientRepository patientRepository;
     @Autowired
     ProviderRepository providerRepository;
-
-    // BAD REQUEST HANDLER
-    public ResponseEntity<?> handleBadRequest(String returnCode) {
-        // if action is not valid create HTTP response using an empty DTO object where we only set the returnCode
-        AppointmentDTO response = new AppointmentDTO();
-        response.setReturnCode(returnCode);
-
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
+    @Autowired
+    RequestHandler requestHandler;
 
     // READ ALL
     public ResponseEntity<?> getAllAppointments() {
@@ -52,7 +46,7 @@ public class AppointmentService {
         if(!appointments.isEmpty())
             return new ResponseEntity<>(appointments, new HttpHeaders(), HttpStatus.OK);
         else {
-            return handleBadRequest("No appointments scheduled");
+            return requestHandler.handleBadRequest("No appointments scheduled", new AppointmentDTO());
         }
     }
 
@@ -76,7 +70,7 @@ public class AppointmentService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         } else {
             // if action is not valid create HTTP response using an empty DTO object where we only set the returnCode
-            return handleBadRequest("Appointment was not created");
+            return requestHandler.handleBadRequest("Appointment was not created", new AppointmentDTO());
         }
     }
 
@@ -95,7 +89,7 @@ public class AppointmentService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Appointment not found");
+            return requestHandler.handleBadRequest("Appointment not found", new AppointmentDTO());
         }
     }
 
@@ -116,7 +110,7 @@ public class AppointmentService {
             AppointmentDTO response = new AppointmentDTO(appointmentRepository.save(appointment));
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         } else {
-            return handleBadRequest("Appointment not found or update error");
+            return requestHandler.handleBadRequest("Appointment not found or update error", new AppointmentDTO());
         }
     }
 
@@ -134,7 +128,7 @@ public class AppointmentService {
 
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         } else {
-            return handleBadRequest("Appointment not found");
+            return requestHandler.handleBadRequest("Appointment not found", new AppointmentDTO());
         }
     }
 
@@ -158,7 +152,7 @@ public class AppointmentService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("Appointment was not booked");
+            return requestHandler.handleBadRequest("Appointment was not booked", new AppointmentDTO());
         }
     }
 

@@ -2,12 +2,13 @@ package lucian.ehealth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lucian.ehealth.entities.PharmacyInventory;
+import lucian.ehealth.handlers.RequestHandler;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PharmacyInventoryDTO {
+public class PharmacyInventoryDTO implements RequestHandler.ReturnCodeAware {
     private Long itemID;
     private String itemName;
     private String providerFullName;

@@ -2,12 +2,13 @@ package lucian.ehealth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lucian.ehealth.entities.User;
+import lucian.ehealth.handlers.RequestHandler;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDTO {
+public class UserDTO implements RequestHandler.ReturnCodeAware {
     private Long userID;
     private String username;
     private String password;

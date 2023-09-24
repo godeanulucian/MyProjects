@@ -1,6 +1,8 @@
 package lucian.ehealth.controllers;
 
+import lucian.ehealth.dto.InsuranceDTO;
 import lucian.ehealth.dto.LabTestDTO;
+import lucian.ehealth.handlers.RequestHandler;
 import lucian.ehealth.services.LabTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,19 +16,13 @@ public class LabTestController {
 
     @Autowired
     LabTestService labTestService;
-
-    // UNAUTHORIZED REQUEST HANDLER
-    public ResponseEntity<?> handleUnauthorizedRequest() {
-        LabTestDTO response = new LabTestDTO();
-        response.setReturnCode("You are not allowed to do this");
-
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
-    }
+    @Autowired
+    RequestHandler requestHandler;
 
     // READ ALL
     @GetMapping
     public ResponseEntity<?> getAllLabTests() {
-        return handleUnauthorizedRequest();
+        return requestHandler.handleUnauthorizedRequest(new LabTestDTO());
 
         // return labTestService.getAllLabTests();
     }
@@ -46,7 +42,7 @@ public class LabTestController {
     // UPDATE
     @PutMapping(path = "/{patientFullName}")
     public ResponseEntity<?> updateLabTest(@RequestBody LabTestDTO labTestDTO, @PathVariable String patientFullName) {
-        return handleUnauthorizedRequest();
+        return requestHandler.handleUnauthorizedRequest(new LabTestDTO());
 
         // return labTestService.updateLabTest(labTestDTO, patientFullName);
     }
@@ -54,7 +50,7 @@ public class LabTestController {
     // DELETE
     @DeleteMapping(path = "/{patientFullName}")
     public ResponseEntity<?> deleteLabTest(@PathVariable String patientFullName) {
-        return handleUnauthorizedRequest();
+        return requestHandler.handleUnauthorizedRequest(new LabTestDTO());
 
         // return labTestService.deleteLabTest(patientFullName);
     }

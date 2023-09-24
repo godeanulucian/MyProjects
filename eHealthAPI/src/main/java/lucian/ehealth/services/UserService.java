@@ -1,10 +1,12 @@
 package lucian.ehealth.services;
 
 import jakarta.transaction.Transactional;
+import lucian.ehealth.dto.ProviderDTO;
 import lucian.ehealth.dto.UserDTO;
 import lucian.ehealth.entities.Patient;
 import lucian.ehealth.entities.Provider;
 import lucian.ehealth.entities.User;
+import lucian.ehealth.handlers.RequestHandler;
 import lucian.ehealth.repositories.PatientRepository;
 import lucian.ehealth.repositories.ProviderRepository;
 import lucian.ehealth.repositories.UserRepository;
@@ -36,14 +38,8 @@ public class UserService {
     PatientRepository patientRepository;
     @Autowired
     ProviderRepository providerRepository;
-
-    // BAD REQUEST HANDLER
-    public ResponseEntity<?> handleBadRequest(String returnCode) {
-        UserDTO response = new UserDTO();
-        response.setReturnCode(returnCode);
-
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
+    @Autowired
+    RequestHandler requestHandler;
 
     // READ ALL
     public ResponseEntity<?> getAllUsers() {
@@ -53,7 +49,7 @@ public class UserService {
             return new ResponseEntity<>(users, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("No users found");
+            return requestHandler.handleBadRequest("No users found", new UserDTO());
         }
     }
 
@@ -75,7 +71,7 @@ public class UserService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("User was not created");
+            return requestHandler.handleBadRequest("User was not created", new UserDTO());
         }
 
     }
@@ -88,7 +84,7 @@ public class UserService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("User not found");
+            return requestHandler.handleBadRequest("User not found", new UserDTO());
         }
     }
 
@@ -123,7 +119,7 @@ public class UserService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("User not found or update error");
+            return requestHandler.handleBadRequest("User not found or update error", new UserDTO());
         }
     }
 
@@ -148,7 +144,7 @@ public class UserService {
             return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.OK);
         }
         else {
-            return handleBadRequest("User not found");
+            return requestHandler.handleBadRequest("User not found", new UserDTO());
         }
     }
 

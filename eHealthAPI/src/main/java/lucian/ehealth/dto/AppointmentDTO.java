@@ -2,6 +2,7 @@ package lucian.ehealth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lucian.ehealth.entities.Appointment;
+import lucian.ehealth.handlers.RequestHandler;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ import java.time.LocalTime;
 
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL) // outputs only non-null fields in json response
-public class AppointmentDTO {
+public class AppointmentDTO implements RequestHandler.ReturnCodeAware {
     private Long appointmentID;
     private LocalDate date;
     private LocalTime time;

@@ -2,13 +2,14 @@ package lucian.ehealth.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lucian.ehealth.entities.Prescription;
+import lucian.ehealth.handlers.RequestHandler;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PrescriptionDTO {
+public class PrescriptionDTO implements RequestHandler.ReturnCodeAware {
     private Long prescriptionID;
     private String prescriptionName;
     private LocalDate prescriptionDate;

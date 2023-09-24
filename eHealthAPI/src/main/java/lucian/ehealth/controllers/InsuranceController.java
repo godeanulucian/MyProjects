@@ -1,6 +1,8 @@
 package lucian.ehealth.controllers;
 
+import lucian.ehealth.dto.AppointmentDTO;
 import lucian.ehealth.dto.InsuranceDTO;
+import lucian.ehealth.handlers.RequestHandler;
 import lucian.ehealth.services.InsuranceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,19 +16,13 @@ public class InsuranceController {
 
     @Autowired
     InsuranceService insuranceService;
-
-    // UNAUTHORIZED REQUEST HANDLER
-    public ResponseEntity<?> handleUnauthorizedRequest() {
-        InsuranceDTO response = new InsuranceDTO();
-        response.setReturnCode("You are not allowed to do this");
-
-        return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
-    }
+    @Autowired
+    RequestHandler requestHandler;
 
     // READ ALL
     @GetMapping
     public ResponseEntity<?> getAllInsurances() {
-        return handleUnauthorizedRequest();
+        return requestHandler.handleUnauthorizedRequest(new InsuranceDTO());
 
         // return insuranceService.getAllInsurances();
     }
@@ -46,7 +42,7 @@ public class InsuranceController {
     // UPDATE
     @PutMapping(path = "/{patientFullName}")
     public ResponseEntity<?> updateInsurance(@RequestBody InsuranceDTO insuranceDTO, @PathVariable String patientFullName) {
-        return handleUnauthorizedRequest();
+        return requestHandler.handleUnauthorizedRequest(new InsuranceDTO());
 
         // return insuranceService.updateInsurance(insuranceDTO, patientFullName);
     }
