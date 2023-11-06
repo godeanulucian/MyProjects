@@ -1,6 +1,0 @@
-
-Online Banking WebApp
-http://localhost/online-banking-system/pages/index.html
-
-Apache: 80, 443
-MySQL: 3307
