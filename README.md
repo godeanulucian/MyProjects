@@ -1,2 +1,3 @@
 # MyProjects
-University and personal projects
+
+Upcoming personal projects
